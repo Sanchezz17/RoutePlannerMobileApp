@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, View, Text, StatusBar} from 'react-native';
 
 import {
@@ -8,9 +8,22 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {fetchUserIdentity} from '../../common/UserIdentity/UserIdentity';
+
 import styles from './App.styles';
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  const fetchUser = async () => {
+    const identity = await fetchUserIdentity();
+    setUser(identity);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, [user]);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -24,7 +37,7 @@ const App = () => {
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits. Hello!
+                this screen and then come back to see your edits. Hello, {user}!
               </Text>
             </View>
             <View style={styles.sectionContainer}>
