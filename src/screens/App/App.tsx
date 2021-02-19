@@ -8,7 +8,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {fetchUserIdentity} from '../../common/UserIdentity/UserIdentity';
+import {fetchUserIdentity} from '../../common/authorization/UserIdentity';
 
 import styles from './App.styles';
 
