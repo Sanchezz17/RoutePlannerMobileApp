@@ -1,6 +1,9 @@
-export const Config = {
+import {AuthConfiguration} from 'react-native-app-auth';
+
+export const Config: AuthConfiguration = {
   issuer: 'https://demo.identityserver.io',
-  clientId: 'device',
+  clientId: 'interactive.confidential',
+  clientSecret: 'secret',
   redirectUrl: 'io.identityserver.demo:/oauthredirect',
-  scopes: ['openid', 'profile', 'offline_access'],
+  scopes: ['openid', 'profile', 'email', 'api', 'offline_access'],
 };
