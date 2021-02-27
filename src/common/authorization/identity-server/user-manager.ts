@@ -18,7 +18,6 @@ export async function getCurrentUserAsync() {
 
 export async function authorizeAsync() {
   const authState = await authorize(Config);
-  console.log(authState);
   return authState;
 }
 
