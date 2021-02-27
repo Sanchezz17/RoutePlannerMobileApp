@@ -12,7 +12,9 @@
   "dependencies": {
     "react": "16.13.1",
     "react-native": "0.63.4",
-    "react-native-user-identity": "^1.5.1"
+    "react-native-user-identity": "^1.5.1",
+    "react-native-app-auth": "^6.1.0",
+    "@react-native-async-storage/async-storage": "^1.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

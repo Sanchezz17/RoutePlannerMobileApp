@@ -8,15 +8,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {fetchUserIdentity} from '../../common/authorization/UserIdentity';
-
 import styles from './App.styles';
+import {getCurrentUserAsync} from '../../common/authorization/identity-server/user-manager';
+import {AuthorizeResult} from 'react-native-app-auth';
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<AuthorizeResult | null>(null);
 
   const fetchUser = async () => {
-    const identity = await fetchUserIdentity();
+    const identity = await getCurrentUserAsync();
     setUser(identity);
   };
 
@@ -37,7 +37,8 @@ const App = () => {
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits. Hello, {user}!
+                this screen and then come back to see your edits. Hello,{' '}
+                {user?.accessToken}!
               </Text>
             </View>
             <View style={styles.sectionContainer}>
