@@ -20,11 +20,15 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Main" component={HomeScreen} />
+          <Stack.Screen
+            name="Main"
+            component={HomeScreen}
+            options={{title: 'Главная'}}
+          />
           <Stack.Screen
             name="Options"
             component={OptionsScreen}
-            options={{title: 'AuthState'}}
+            options={{title: 'Настройки'}}
           />
         </Stack.Navigator>
       </NavigationContainer>

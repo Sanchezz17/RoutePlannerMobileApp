@@ -1,5 +1,4 @@
 import {SafeAreaView, ScrollView, Text, View} from 'react-native';
-import {Header} from 'react-native/Libraries/NewAppScreen';
 import React, {useEffect, useState} from 'react';
 import {AuthorizeResult} from 'react-native-app-auth';
 import {getAuthStateAsync} from '../../common/authorization/identity-server/auth-state-manager';
@@ -23,10 +22,9 @@ export const OptionsScreen = ({route}: Props) => {
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Header />
         <View>
           <Text>User: {route.params.userName}</Text>
-          <Text>Options: {authState}</Text>
+          <Text>Options: {JSON.stringify(authState)}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
