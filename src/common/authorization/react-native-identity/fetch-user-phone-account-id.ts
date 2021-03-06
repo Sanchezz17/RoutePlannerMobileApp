@@ -1,7 +1,7 @@
 // @ts-ignore
 import RNUserIdentity, {ICLOUD_ACCESS_ERROR} from 'react-native-user-identity';
 
-export const fetchUserIdentity = async () => {
+export const fetchUserPhoneAccountId = async () => {
   try {
     const result = await RNUserIdentity.getUserId({
       iosUserConfirmation: {
