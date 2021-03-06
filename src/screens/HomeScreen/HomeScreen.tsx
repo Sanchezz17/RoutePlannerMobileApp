@@ -19,7 +19,7 @@ export const HomeScreen = ({navigation}: Props) => {
         <Header />
         <View style={styles.body}>
           <View style={styles.sectionContainer}>
-            <Text style={styles.sectionDescription}>Hello, {user}!</Text>
+            <Text style={styles.sectionDescription}>Hello, {user.name}!</Text>
             <Button
               title="Go to Details"
               onPress={() =>
