@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {getCurrentUserAsync} from './user-manager';
-import {defaultUser, User} from './user';
+import {getCurrentUserAsync} from '../authorization/identity-server/user-manager';
+import {defaultUser, User} from '../authorization/identity-server/user';
 
 export const UserContext = React.createContext<User>(defaultUser);
 
