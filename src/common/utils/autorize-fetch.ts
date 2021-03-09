@@ -19,10 +19,13 @@ export const authorizeFetch = async (
       ...options,
     });
     if (response.ok) {
-      return await response.json();
+      const json = await response.json();
+      console.log(json);
+      return json;
     }
   } catch (e) {
-    console.log(e);
-    throw e;
+    console.error(e);
+    console.log(`Error in authorize fetch URL: ${url}`);
+    //throw e;
   }
 };

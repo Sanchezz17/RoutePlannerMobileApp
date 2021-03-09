@@ -1,6 +1,7 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import {getCurrentUserAsync} from '../authorization/identity-server/user-manager';
 import {defaultUser, User} from '../authorization/identity-server/user';
+import {populateAuthStateAsync} from "../authorization/identity-server/auth-state-manager";
 
 export const UserContext = React.createContext<User>(defaultUser);
 
@@ -16,7 +17,9 @@ export const AuthorizeRoute: FunctionComponent = ({children}) => {
     fetchUser();
   }, []);
 
-  return (
-    user && <UserContext.Provider value={user}>{children}</UserContext.Provider>
+  return user ? (
+    <UserContext.Provider value={user}>{children}</UserContext.Provider>
+  ) : (
+    <UserContext.Provider value={defaultUser}>{children}</UserContext.Provider>
   );
 };
