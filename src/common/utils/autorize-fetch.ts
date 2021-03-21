@@ -23,6 +23,11 @@ export const authorizeFetch = async (
       console.log(json);
       return json;
     }
+    else {
+      if (response.status === 403) {
+
+      }
+    }
   } catch (e) {
     console.error(e);
     console.log(`Error in authorize fetch URL: ${url}`);

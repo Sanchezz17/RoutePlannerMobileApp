@@ -38,25 +38,20 @@ export async function refreshAuthStateAsync(
 }
 
 export async function populateAuthStateAsync(): Promise<AuthorizeResult> {
-  try {
-    let authState = await authorizeAsync();
-    console.log(authState);
-    if (Date.parse(authState.accessTokenExpirationDate) >= Date.now()) {
-      const refreshState = await refreshAuthStateAsync(authState);
-      authState = Object.assign(authState, refreshState);
-    }
-    console.log(authState);
-    await setAuthStateAsync(authState);
-    return authState;
-  } catch (e) {
-    console.log("Error in populate state");
-    console.error(e);
-  }
+  const authState = await authorizeAsync();
+  await setAuthStateAsync(authState);
+  return authState;
 }
 
 export async function getOrPopulateAuthStateAsync(): Promise<AuthorizeResult> {
-  let authState = await getAuthStateAsync();
-  return authState ? authState : await populateAuthStateAsync();
+  let authState =
+    (await getAuthStateAsync()) ?? (await populateAuthStateAsync());
+  if (Date.parse(authState.accessTokenExpirationDate) >= Date.now()) {
+    const refreshState = await refreshAuthStateAsync(authState);
+    authState = Object.assign(authState, refreshState);
+  }
+  console.log(authState);
+  return authState;
 }
 
 export async function getAccessTokenAsync() {
