@@ -221,7 +221,7 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 android {
   defaultConfig {
     manifestPlaceholders = [
-      appAuthRedirectScheme: 'io.identityserver.demo'
+      appAuthRedirectScheme: 'com.routeplannermobileapp'
     ]
   }
 }
