@@ -1,4 +1,4 @@
-const prefix = 'http://127.0.0.1:5000/api';
+const prefix = 'http://192.168.0.104:7654/api';
 
 export const ApplicationPaths = {
   CurrentUser: `${prefix}/users/current`,
