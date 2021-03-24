@@ -1,10 +1,10 @@
-import {getAccessTokenAsync} from '../authorization/identity-server/auth-state-manager';
+import {getIdTokenAsync} from '../authorization/identity-server/auth-state-manager';
 
 export const authorizeFetch = async (
   url: string,
   options: object | null = null,
 ) => {
-  const token = await getAccessTokenAsync();
+  const token = await getIdTokenAsync();
   const defaultOptions = {
     headers: {
       ...(token ? {Authorization: `Bearer ${token}`} : {}),

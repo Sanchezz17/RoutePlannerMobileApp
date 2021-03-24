@@ -54,9 +54,9 @@ export async function getOrPopulateAuthStateAsync(): Promise<AuthorizeResult> {
   return authState;
 }
 
-export async function getAccessTokenAsync() {
+export async function getIdTokenAsync() {
   const userState = await getOrPopulateAuthStateAsync();
-  return userState.accessToken;
+  return userState.idToken;
 }
 
 // Revoke token, note that Identity Server expects a client id on revoke
