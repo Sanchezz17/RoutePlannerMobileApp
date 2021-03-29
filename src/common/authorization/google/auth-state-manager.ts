@@ -1,7 +1,11 @@
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import {Config} from './config';
 
 GoogleSignin.configure(Config);
+console.log(`configured with config ${JSON.stringify(Config)}`);
 
 export const signIn = async () => {
   try {
@@ -24,6 +28,7 @@ export const signIn = async () => {
     } else {
       console.log(error);
       console.log('unknown error');
+      throw error;
       // some other error happened
     }
   }

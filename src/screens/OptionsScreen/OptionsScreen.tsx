@@ -24,7 +24,7 @@ export const OptionsScreen = ({route}: Props) => {
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
+        <View style={{height: '100%', margin: 5}}>
           <Text>User: {route.params.userName}</Text>
           <Text>Options: {JSON.stringify(authState)}</Text>
         </View>
