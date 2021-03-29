@@ -1,17 +1,19 @@
 import {SafeAreaView, ScrollView, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {AuthorizeResult} from 'react-native-app-auth';
-import {getAuthStateAsync} from '../../common/authorization/identity-server/auth-state-manager';
+import {getTokens} from '../../common/authorization/google/auth-state-manager';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../App';
 
 type Props = StackScreenProps<RootStackParamList, 'Options'>;
 
 export const OptionsScreen = ({route}: Props) => {
-  const [authState, setAuthState] = useState<AuthorizeResult | null>(null);
+  const [authState, setAuthState] = useState<{
+    idToken: string;
+    accessToken: string;
+  } | null>(null);
 
   const fetchAuthState = async () => {
-    const authStateToSet = await getAuthStateAsync();
+    const authStateToSet = await getTokens();
     setAuthState(authStateToSet);
   };
 
