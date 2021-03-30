@@ -23,7 +23,9 @@ export default StyleSheet.create({
   },
   sectionDescription: {
     marginTop: 8,
+    marginBottom: 10,
     fontSize: 18,
+    textAlign: 'center',
     fontWeight: '400',
     color: Colors.dark,
   },

@@ -14,7 +14,7 @@ export const HomeScreen = ({navigation}: Props) => {
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionDescription}>Hello, {user.name}!</Text>
+          <Text style={styles.sectionDescription}>Привет, {user.name}!</Text>
           <Button
             title="Настройки"
             onPress={() =>
