@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import {getCurrentUserAsync} from '../authorization/google/user-manager';
 import {defaultUser, User} from '../authorization/google/user';
-import {signIn} from '../authorization/google/auth-state-manager';
+import {signIn, signOut} from '../authorization/google/auth-state-manager';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -9,6 +9,7 @@ import {
 import {View} from 'react-native';
 
 export const UserContext = React.createContext<User>(defaultUser);
+export const SignOutContext = React.createContext<Function | null>(null);
 
 export const AuthorizeRoute: FunctionComponent = ({children}) => {
   const [user, setUser] = useState<User | null>(null);
@@ -38,8 +39,15 @@ export const AuthorizeRoute: FunctionComponent = ({children}) => {
     setUser(currentUser);
   };
 
+  const signOutAndClearUser = async () => {
+    await signOut();
+    setUser(null);
+  };
+
   return user ? (
-    <UserContext.Provider value={user}>{children}</UserContext.Provider>
+    <SignOutContext.Provider value={signOutAndClearUser}>
+      <UserContext.Provider value={user}>{children}</UserContext.Provider>
+    </SignOutContext.Provider>
   ) : (
     <View
       style={{

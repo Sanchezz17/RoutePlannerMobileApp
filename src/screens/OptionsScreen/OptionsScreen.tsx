@@ -1,14 +1,25 @@
-import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {
+  Button,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {getTokens} from '../../common/authorization/google/auth-state-manager';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../App';
-import {UserContext} from '../../common/components/AuthorizeRoute';
+import {
+  SignOutContext,
+  UserContext,
+} from '../../common/components/AuthorizeRoute';
 
 type Props = StackScreenProps<RootStackParamList, 'Options'>;
 
 export const OptionsScreen = ({route}: Props) => {
   const user = useContext(UserContext);
+  const signOut = useContext(SignOutContext);
 
   const [authState, setAuthState] = useState<{
     idToken: string;
@@ -47,6 +58,14 @@ export const OptionsScreen = ({route}: Props) => {
           />
           <Text style={{fontSize: 15}}>Email: {user.email}</Text>
           <Text>Токены: {JSON.stringify(authState)}</Text>
+          <Button
+            title="Выйти"
+            onPress={async () => {
+              if (signOut) {
+                await signOut();
+              }
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
