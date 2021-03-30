@@ -1,4 +1,4 @@
-import {ConfigureParams} from '@react-native-community/google-signin';
+import {ConfigureParams} from '@react-native-google-signin/google-signin';
 
 export const Config: ConfigureParams = {
   webClientId:

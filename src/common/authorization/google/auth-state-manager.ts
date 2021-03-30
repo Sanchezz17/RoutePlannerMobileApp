@@ -9,11 +9,10 @@ console.log(`configured with config ${JSON.stringify(Config)}`);
 
 export const signIn = async () => {
   try {
-    console.log('kek');
     const hasPlay = await GoogleSignin.hasPlayServices();
-    console.log(hasPlay);
+    console.log(`HasPlayServices: ${hasPlay}`);
     const userInfo = await GoogleSignin.signIn();
-    console.log(userInfo);
+    console.log(`User info: ${userInfo}`);
     return userInfo;
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {

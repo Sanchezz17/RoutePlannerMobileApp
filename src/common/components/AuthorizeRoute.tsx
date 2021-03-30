@@ -1,8 +1,11 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import {getCurrentUserAsync} from '../authorization/google/user-manager';
 import {defaultUser, User} from '../authorization/google/user';
 import {signIn} from '../authorization/google/auth-state-manager';
-import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
 import {View} from 'react-native';
 
 export const UserContext = React.createContext<User>(defaultUser);
@@ -11,12 +14,28 @@ export const AuthorizeRoute: FunctionComponent = ({children}) => {
   const [user, setUser] = useState<User | null>(null);
   const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
+  const trySignInSilently = async () => {
+    const isSignedIn = await GoogleSignin.isSignedIn();
+    if (isSignedIn) {
+      await getAndSaveUser();
+    }
+  };
+
+  useEffect(() => {
+    trySignInSilently();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const signInAndSetUser = async () => {
     setIsSigninInProgress(true);
     await signIn();
+    await getAndSaveUser();
+    setIsSigninInProgress(false);
+  };
+
+  const getAndSaveUser = async () => {
     const currentUser = await getCurrentUserAsync();
     setUser(currentUser);
-    setIsSigninInProgress(false);
   };
 
   return user ? (
