@@ -12,7 +12,7 @@ export const signIn = async () => {
     const hasPlay = await GoogleSignin.hasPlayServices();
     console.log(`HasPlayServices: ${hasPlay}`);
     const userInfo = await GoogleSignin.signIn();
-    console.log(`User info: ${userInfo}`);
+    console.log(`User info: ${JSON.stringify(userInfo)}`);
     return userInfo;
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
