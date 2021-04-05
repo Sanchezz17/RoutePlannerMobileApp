@@ -37,16 +37,9 @@ export const OptionsScreen = () => {
   );
 
   useEffect(() => {
-    register('email');
     register('mobilePhone');
     register('telegram');
-    if (user.mobilePhone) {
-      setValue('mobilePhone', user.mobilePhone);
-    }
-    if (user.telegram) {
-      setValue('telegram', user.telegram);
-    }
-  }, [register, setValue, user.mobilePhone, user.telegram]);
+  }, [register]);
 
   return (
     <SafeAreaView>
@@ -60,15 +53,12 @@ export const OptionsScreen = () => {
               style={{...styles.input, ...styles.emailInput}}
               value={user.email}
               editable={false}
-              autoCompleteType="email"
-              keyboardType="email-address"
-              textContentType="emailAddress"
-              placeholder="Email"
-              onChangeText={onChangeField('email')}
+              onChangeText={() => undefined}
             />
             <Text style={styles.fieldLabel}>Телефон</Text>
             <TextInput
               style={styles.input}
+              defaultValue={user.mobilePhone}
               autoCompleteType="tel"
               keyboardType="numeric"
               textContentType="telephoneNumber"
@@ -79,6 +69,7 @@ export const OptionsScreen = () => {
             <Text style={styles.fieldLabel}>Telegram</Text>
             <TextInput
               style={styles.input}
+              defaultValue={user.telegram}
               placeholder="Telegram"
               onChangeText={onChangeField('telegram')}
             />
