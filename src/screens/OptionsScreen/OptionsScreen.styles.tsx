@@ -36,6 +36,10 @@ export default StyleSheet.create({
     marginVertical: 10,
     paddingHorizontal: 10,
   },
+  emailInput: {
+    borderWidth: 0,
+    color: 'black',
+  },
   button: {
     width: '40%',
     borderRadius: 10,

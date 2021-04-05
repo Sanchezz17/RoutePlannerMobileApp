@@ -57,7 +57,7 @@ export const OptionsScreen = () => {
           <View style={styles.form}>
             <Text style={styles.fieldLabel}>Email</Text>
             <TextInput
-              style={styles.input}
+              style={{...styles.input, ...styles.emailInput}}
               value={user.email}
               editable={false}
               autoCompleteType="email"
