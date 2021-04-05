@@ -8,6 +8,7 @@ export const authorizeFetch = async (
   const defaultOptions = {
     headers: {
       ...(tokens ? {Authorization: `Bearer ${tokens.idToken}`} : {}),
+      'Content-Type': 'application/json',
     },
   };
 

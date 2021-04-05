@@ -17,9 +17,7 @@ export const HomeScreen = ({navigation}: Props) => {
           <Text style={styles.sectionDescription}>Привет, {user.name}!</Text>
           <Button
             title="Настройки"
-            onPress={() =>
-              navigation.navigate('Options', {userName: user.name})
-            }
+            onPress={() => navigation.navigate('Options')}
           />
         </View>
       </ScrollView>

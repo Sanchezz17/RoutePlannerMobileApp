@@ -8,16 +8,13 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useContext, useEffect} from 'react';
-import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParamList} from '../App';
 import {
   SignOutContext,
   UserContext,
 } from '../../common/components/AuthorizeRoute';
 import {useForm} from 'react-hook-form';
 import styles from './OptionsScreen.styles';
-
-type Props = StackScreenProps<RootStackParamList, 'Options'>;
+import {updateUserAsync} from '../../common/authorization/google/user-api';
 
 export const OptionsScreen = () => {
   const user = useContext(UserContext);
@@ -27,6 +24,16 @@ export const OptionsScreen = () => {
 
   const onSubmit = useCallback((formData) => {
     console.log(formData);
+    if (
+      user.telegram !== formData.telegram ||
+      user.mobilePhone !== formData.mobilePhone
+    ) {
+      updateUserAsync(user.id, {
+        mobilePhone: formData.mobilePhone,
+        telegram: formData.telegram,
+      });
+      console.log('user changed');
+    }
   }, []);
 
   const onChangeField = useCallback(
@@ -39,7 +46,13 @@ export const OptionsScreen = () => {
   useEffect(() => {
     register('mobilePhone');
     register('telegram');
-  }, [register]);
+    if (user.mobilePhone) {
+      setValue('mobilePhone', user.mobilePhone);
+    }
+    if (user.telegram) {
+      setValue('telegram', user.telegram);
+    }
+  }, [register, setValue, user.mobilePhone, user.telegram]);
 
   return (
     <SafeAreaView>

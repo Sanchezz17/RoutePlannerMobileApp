@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {getCurrentUserAsync} from '../authorization/google/user-manager';
+import {getCurrentUserAsync} from '../authorization/google/user-api';
 import {defaultUser, User} from '../authorization/google/user';
 import {signIn, signOut} from '../authorization/google/auth-state-manager';
 import {
@@ -13,6 +13,7 @@ export const UserContext = React.createContext<User>(defaultUser);
 export const SignOutContext = React.createContext<Function | null>(null);
 
 export const AuthorizeRoute: FunctionComponent = ({children}) => {
+  // toDo хранить юзера в AsyncStorage
   const [user, setUser] = useState<User | null>(null);
   const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 

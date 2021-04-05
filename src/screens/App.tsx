@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {AuthorizeRoute} from '../common/components/AuthorizeRoute';
 import {HomeScreen} from './HomeScreen/HomeScreen';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -9,7 +9,7 @@ import {OptionsScreen} from './OptionsScreen/OptionsScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Options: {userName: string};
+  Options: undefined;
 };
 
 const Stack = createStackNavigator();
