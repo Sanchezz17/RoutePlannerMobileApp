@@ -7,6 +7,7 @@ import {
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import {View} from 'react-native';
+import styles from './AuthorizeRoute.styles';
 
 export const UserContext = React.createContext<User>(defaultUser);
 export const SignOutContext = React.createContext<Function | null>(null);
@@ -49,15 +50,9 @@ export const AuthorizeRoute: FunctionComponent = ({children}) => {
       <UserContext.Provider value={user}>{children}</UserContext.Provider>
     </SignOutContext.Provider>
   ) : (
-    <View
-      style={{
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+    <View style={styles.view}>
       <GoogleSigninButton
-        style={{height: '10%'}}
+        style={styles.signInButton}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={signInAndSetUser}

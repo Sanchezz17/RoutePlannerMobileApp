@@ -4,68 +4,99 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
+  TextInput,
   View,
 } from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
-import {getTokens} from '../../common/authorization/google/auth-state-manager';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../App';
 import {
   SignOutContext,
   UserContext,
 } from '../../common/components/AuthorizeRoute';
+import {useForm} from 'react-hook-form';
+import styles from './OptionsScreen.styles';
 
 type Props = StackScreenProps<RootStackParamList, 'Options'>;
 
-export const OptionsScreen = ({route}: Props) => {
+export const OptionsScreen = () => {
   const user = useContext(UserContext);
   const signOut = useContext(SignOutContext);
 
-  const [authState, setAuthState] = useState<{
-    idToken: string;
-    accessToken: string;
-  } | null>(null);
+  const {register, handleSubmit, setValue} = useForm();
 
-  const fetchAuthState = async () => {
-    const authStateToSet = await getTokens();
-    setAuthState(authStateToSet);
-  };
+  const onSubmit = useCallback((formData) => {
+    console.log(formData);
+  }, []);
+
+  const onChangeField = useCallback(
+    (name) => (text: string) => {
+      setValue(name, text);
+    },
+    [],
+  );
 
   useEffect(() => {
-    fetchAuthState();
-  }, []);
+    register('email');
+    register('mobilePhone');
+    register('telegram');
+    if (user.mobilePhone) {
+      setValue('mobilePhone', user.mobilePhone);
+    }
+    if (user.telegram) {
+      setValue('telegram', user.telegram);
+    }
+  }, [register, setValue, user.mobilePhone, user.telegram]);
 
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View
-          style={{
-            height: '100%',
-            margin: 15,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 20}}>{route.params.userName}</Text>
-          <Image
-            style={{
-              width: 96,
-              height: 96,
-              borderRadius: 50,
-              margin: 10,
-            }}
-            source={{uri: user.picture}}
-          />
-          <Text style={{fontSize: 15}}>Email: {user.email}</Text>
-          <Text>Токены: {JSON.stringify(authState)}</Text>
-          <Button
-            title="Выйти"
-            onPress={async () => {
-              if (signOut) {
-                await signOut();
-              }
-            }}
-          />
+        <View style={styles.view}>
+          <Text style={styles.userName}>{user.name}</Text>
+          <Image style={styles.picture} source={{uri: user.picture}} />
+          <View style={styles.form}>
+            <Text style={styles.fieldLabel}>Email</Text>
+            <TextInput
+              style={styles.input}
+              value={user.email}
+              editable={false}
+              autoCompleteType="email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              placeholder="Email"
+              onChangeText={onChangeField('email')}
+            />
+            <Text style={styles.fieldLabel}>Телефон</Text>
+            <TextInput
+              style={styles.input}
+              autoCompleteType="tel"
+              keyboardType="numeric"
+              textContentType="telephoneNumber"
+              placeholder="Телефон"
+              maxLength={11}
+              onChangeText={onChangeField('mobilePhone')}
+            />
+            <Text style={styles.fieldLabel}>Telegram</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Telegram"
+              onChangeText={onChangeField('telegram')}
+            />
+          </View>
+          <View style={styles.button}>
+            <Button title="Сохранить" onPress={handleSubmit(onSubmit)} />
+          </View>
+          <View style={styles.button}>
+            <Button
+              color="red"
+              title="Выйти"
+              onPress={async () => {
+                if (signOut) {
+                  await signOut();
+                }
+              }}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,9 +1,9 @@
 import {Button, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import React, {useContext} from 'react';
 import {UserContext} from '../../common/components/AuthorizeRoute';
-import styles from './HomeScreen.styles';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../App';
+import styles from './HomeScreen.styles';
 
 type Props = StackScreenProps<RootStackParamList, 'Home'>;
 

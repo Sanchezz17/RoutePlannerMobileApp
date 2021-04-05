@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {AuthorizeRoute} from '../common/components/AuthorizeRoute';
 import {HomeScreen} from './HomeScreen/HomeScreen';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -18,7 +18,7 @@ const App = () => {
   return (
     <AuthorizeRoute>
       <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
+      <NavigationContainer theme={DefaultTheme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Main"

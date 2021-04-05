@@ -5,6 +5,7 @@ export interface User {
   picture: string;
   mobilePhone: string;
   telegram: string;
+  position: string;
   rights: Right[];
 }
 
@@ -20,5 +21,6 @@ export const defaultUser: User = {
   picture: '',
   mobilePhone: '',
   telegram: '',
+  position: '',
   rights: [],
 };
