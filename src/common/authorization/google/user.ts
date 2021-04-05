@@ -3,12 +3,9 @@ export interface User {
   name: string;
   email: string;
   picture: string;
-  rights: UserRight[];
-}
-
-export interface UserRight {
-  userId: number;
-  right: Right;
+  mobilePhone: string;
+  telegram: string;
+  rights: Right[];
 }
 
 export enum Right {
@@ -21,5 +18,7 @@ export const defaultUser: User = {
   name: '',
   email: '',
   picture: '',
+  mobilePhone: '',
+  telegram: '',
   rights: [],
 };
