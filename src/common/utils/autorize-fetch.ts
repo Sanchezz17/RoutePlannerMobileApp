@@ -31,6 +31,6 @@ export const authorizeFetch = async (
     console.error(e.message);
     console.error(e.stack);
     console.log(`Error in authorize fetch URL: ${url}`);
-    //throw e;
+    throw e;
   }
 };

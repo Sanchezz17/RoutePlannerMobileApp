@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React, {useCallback, useContext, useEffect} from 'react';
 import {
+  ChangeUserContext,
   SignOutContext,
   UserContext,
 } from '../../common/components/AuthorizeRoute';
@@ -18,6 +19,7 @@ import {updateUserAsync} from '../../common/authorization/google/user-api';
 
 export const OptionsScreen = () => {
   const user = useContext(UserContext);
+  const changeUser = useContext(ChangeUserContext);
   const signOut = useContext(SignOutContext);
 
   const {register, handleSubmit, setValue} = useForm();
@@ -33,6 +35,13 @@ export const OptionsScreen = () => {
         telegram: formData.telegram,
       });
       console.log(`user ${user.id} changed`);
+      if (changeUser) {
+        changeUser({
+          ...user,
+          telegram: formData.telegram,
+          mobilePhone: formData.mobilePhone,
+        });
+      }
     }
   }, []);
 

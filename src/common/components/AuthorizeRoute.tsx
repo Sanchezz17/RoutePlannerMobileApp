@@ -10,6 +10,7 @@ import {View} from 'react-native';
 import styles from './AuthorizeRoute.styles';
 
 export const UserContext = React.createContext<User>(defaultUser);
+export const ChangeUserContext = React.createContext<Function | null>(null);
 export const SignOutContext = React.createContext<Function | null>(null);
 
 export const AuthorizeRoute: FunctionComponent = ({children}) => {
@@ -41,15 +42,21 @@ export const AuthorizeRoute: FunctionComponent = ({children}) => {
     setUser(currentUser);
   };
 
+  const changeUser = (changedUser: User) => {
+    setUser(changedUser);
+  };
+
   const signOutAndClearUser = async () => {
     await signOut();
     setUser(null);
   };
 
   return user ? (
-    <SignOutContext.Provider value={signOutAndClearUser}>
-      <UserContext.Provider value={user}>{children}</UserContext.Provider>
-    </SignOutContext.Provider>
+    <ChangeUserContext.Provider value={changeUser}>
+      <SignOutContext.Provider value={signOutAndClearUser}>
+        <UserContext.Provider value={user}>{children}</UserContext.Provider>
+      </SignOutContext.Provider>
+    </ChangeUserContext.Provider>
   ) : (
     <View style={styles.view}>
       <GoogleSigninButton
