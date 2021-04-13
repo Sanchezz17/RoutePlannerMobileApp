@@ -22,17 +22,17 @@ export const OptionsScreen = () => {
 
   const {register, handleSubmit, setValue} = useForm();
 
-  const onSubmit = useCallback((formData) => {
+  const onSubmit = useCallback(async (formData) => {
     console.log(formData);
     if (
       user.telegram !== formData.telegram ||
       user.mobilePhone !== formData.mobilePhone
     ) {
-      updateUserAsync(user.id, {
+      await updateUserAsync(user.id, {
         mobilePhone: formData.mobilePhone,
         telegram: formData.telegram,
       });
-      console.log('user changed');
+      console.log(`user ${user.id} changed`);
     }
   }, []);
 

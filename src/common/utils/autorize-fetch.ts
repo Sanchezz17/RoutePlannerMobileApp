@@ -8,7 +8,7 @@ export const authorizeFetch = async (
   const defaultOptions = {
     headers: {
       ...(tokens ? {Authorization: `Bearer ${tokens.idToken}`} : {}),
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
     },
   };
 
@@ -17,6 +17,7 @@ export const authorizeFetch = async (
       ...defaultOptions,
       ...options,
     });
+    console.log(response);
     if (response.ok) {
       const json = await response.json();
       console.log(json);

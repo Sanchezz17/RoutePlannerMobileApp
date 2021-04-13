@@ -17,6 +17,6 @@ export const updateUserAsync = async (
 ): Promise<User> => {
   return await authorizeFetch(`${ApplicationPaths.UpdateUser}/${id}`, {
     method: 'PUT',
-    body: updateDto,
+    body: JSON.stringify(updateDto),
   });
 };
