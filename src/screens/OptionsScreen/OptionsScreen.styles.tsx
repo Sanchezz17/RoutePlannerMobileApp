@@ -5,7 +5,7 @@ export default StyleSheet.create({
     height: '100%',
     margin: 15,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   picture: {
@@ -44,5 +44,9 @@ export default StyleSheet.create({
     width: '40%',
     borderRadius: 10,
     marginVertical: 10,
+  },
+  map: {
+    height: 350,
+    width: '100%',
   },
 });

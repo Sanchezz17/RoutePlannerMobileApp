@@ -1,10 +1,11 @@
 import {authorizeFetch} from '../utils/autorize-fetch';
 import {ApplicationPaths} from '../api-routes';
-import {User} from './user';
+import {Coordinate, User} from './user';
 
 export interface UpdateUserDto {
   mobilePhone: string;
   telegram: string;
+  coordinate: Coordinate;
 }
 
 export const getCurrentUserAsync = async (): Promise<User> => {
