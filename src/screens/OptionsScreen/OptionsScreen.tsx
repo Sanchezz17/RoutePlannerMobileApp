@@ -10,9 +10,8 @@ import {
 import React, {useCallback, useContext, useEffect} from 'react';
 import {
   ChangeUserContext,
-  SignOutContext,
   UserContext,
-} from '../../common/components/AuthorizeRoute';
+} from '../../common/components/AuthorizeRoute/AuthorizeRoute';
 import {useForm} from 'react-hook-form';
 import styles from './OptionsScreen.styles';
 import {updateUserAsync} from '../../common/authorization/user-api';
@@ -20,7 +19,6 @@ import {updateUserAsync} from '../../common/authorization/user-api';
 export const OptionsScreen = () => {
   const user = useContext(UserContext);
   const changeUser = useContext(ChangeUserContext);
-  const signOut = useContext(SignOutContext);
 
   const {register, handleSubmit, setValue} = useForm();
 
@@ -98,17 +96,6 @@ export const OptionsScreen = () => {
           </View>
           <View style={styles.button}>
             <Button title="Сохранить" onPress={handleSubmit(onSubmit)} />
-          </View>
-          <View style={styles.button}>
-            <Button
-              color="red"
-              title="Выйти"
-              onPress={async () => {
-                if (signOut) {
-                  await signOut();
-                }
-              }}
-            />
           </View>
         </View>
       </ScrollView>

@@ -1,7 +1,7 @@
 import {Button, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import React, {useContext} from 'react';
-import {UserContext} from '../../common/components/AuthorizeRoute';
-import {RootDrawerParamList} from '../App';
+import {UserContext} from '../../common/components/AuthorizeRoute/AuthorizeRoute';
+import {RootDrawerParamList} from '../App/App';
 import styles from './HomeScreen.styles';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 
