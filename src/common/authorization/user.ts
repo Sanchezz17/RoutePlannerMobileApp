@@ -6,7 +6,13 @@ export interface User {
   mobilePhone: string;
   telegram: string;
   position: string;
+  coordinate: Coordinate;
   rights: Right[];
+}
+
+export interface Coordinate {
+  latitude: number;
+  longitude: number;
 }
 
 export enum Right {
@@ -22,5 +28,6 @@ export const defaultUser: User = {
   mobilePhone: '',
   telegram: '',
   position: '',
+  coordinate: {latitude: 0, longitude: 0},
   rights: [],
 };

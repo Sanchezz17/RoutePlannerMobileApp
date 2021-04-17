@@ -15,7 +15,7 @@ import {
 } from '../../common/components/AuthorizeRoute';
 import {useForm} from 'react-hook-form';
 import styles from './OptionsScreen.styles';
-import {updateUserAsync} from '../../common/authorization/google/user-api';
+import {updateUserAsync} from '../../common/authorization/user-api';
 
 export const OptionsScreen = () => {
   const user = useContext(UserContext);

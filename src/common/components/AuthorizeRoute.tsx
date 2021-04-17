@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {getCurrentUserAsync} from '../authorization/google/user-api';
-import {defaultUser, User} from '../authorization/google/user';
+import {getCurrentUserAsync} from '../authorization/user-api';
+import {defaultUser, User} from '../authorization/user';
 import {signIn, signOut} from '../authorization/google/auth-state-manager';
 import {
   GoogleSignin,

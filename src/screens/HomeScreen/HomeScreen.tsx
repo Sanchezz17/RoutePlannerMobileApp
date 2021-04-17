@@ -1,11 +1,11 @@
 import {Button, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import React, {useContext} from 'react';
 import {UserContext} from '../../common/components/AuthorizeRoute';
-import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParamList} from '../App';
+import {RootDrawerParamList} from '../App';
 import styles from './HomeScreen.styles';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 
-type Props = StackScreenProps<RootStackParamList, 'Home'>;
+type Props = DrawerScreenProps<RootDrawerParamList, 'Home'>;
 
 export const HomeScreen = ({navigation}: Props) => {
   const user = useContext(UserContext);

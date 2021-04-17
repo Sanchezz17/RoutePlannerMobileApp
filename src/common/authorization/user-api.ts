@@ -1,5 +1,5 @@
-import {authorizeFetch} from '../../utils/autorize-fetch';
-import {ApplicationPaths} from '../../api-routes';
+import {authorizeFetch} from '../utils/autorize-fetch';
+import {ApplicationPaths} from '../api-routes';
 import {User} from './user';
 
 export interface UpdateUserDto {
