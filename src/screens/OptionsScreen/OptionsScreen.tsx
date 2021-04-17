@@ -1,6 +1,5 @@
 import {
   Button,
-  Image,
   SafeAreaView,
   ScrollView,
   Text,
@@ -15,6 +14,7 @@ import {
 import {useForm} from 'react-hook-form';
 import styles from './OptionsScreen.styles';
 import {updateUserAsync} from '../../common/authorization/user-api';
+import {UserCard} from '../../common/components/UserCard/UserCard';
 
 export const OptionsScreen = () => {
   const user = useContext(UserContext);
@@ -65,8 +65,7 @@ export const OptionsScreen = () => {
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.view}>
-          <Text style={styles.userName}>{user.name}</Text>
-          <Image style={styles.picture} source={{uri: user.picture}} />
+          <UserCard user={user} />
           <View style={styles.form}>
             <Text style={styles.fieldLabel}>Email</Text>
             <TextInput
