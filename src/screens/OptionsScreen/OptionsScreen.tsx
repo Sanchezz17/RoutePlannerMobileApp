@@ -6,12 +6,19 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import MapView, {Marker} from 'react-native-maps';
 import {
   ChangeUserContext,
   UserContext,
 } from '../../common/components/AuthorizeRoute/AuthorizeRoute';
+import Toast from 'react-native-easy-toast';
 import {useForm} from 'react-hook-form';
 import styles from './OptionsScreen.styles';
 import {updateUserAsync} from '../../common/authorization/user-api';
@@ -33,6 +40,8 @@ export const OptionsScreen = () => {
   const user = useContext(UserContext);
   const changeUser = useContext(ChangeUserContext);
 
+  const toast = useRef<Toast>(null);
+
   const [coordinate, setCoordinate] = useState<Coordinate>(
     user?.coordinate ?? defaultCoordinate,
   );
@@ -51,6 +60,7 @@ export const OptionsScreen = () => {
         telegram: formData.telegram,
         coordinate: coordinate,
       });
+      toast.current?.show('Данные сохранены', 1000);
       console.log(`user ${user.id} changed`);
       if (changeUser) {
         changeUser({
@@ -86,6 +96,7 @@ export const OptionsScreen = () => {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.view}>
           <UserCard user={user} />
+          <Toast ref={toast} position={'center'} />
           <View style={styles.form}>
             <Text style={styles.fieldLabel}>Email</Text>
             <TextInput
