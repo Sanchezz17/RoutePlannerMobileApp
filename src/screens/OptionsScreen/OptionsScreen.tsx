@@ -50,25 +50,23 @@ export const OptionsScreen = () => {
 
   const onSubmit = useCallback(async (formData) => {
     console.log(formData);
+    console.log(coordinate);
     if (
       user.telegram !== formData.telegram ||
       user.mobilePhone !== formData.mobilePhone ||
-      user.coordinate !== coordinate
+      user.coordinate.latitude !== coordinate.latitude ||
+      user.coordinate.longitude !== coordinate.longitude
     ) {
-      await updateUserAsync(user.id, {
+      const updatedUser = await updateUserAsync(user.id, {
         mobilePhone: formData.mobilePhone,
         telegram: formData.telegram,
         coordinate: coordinate,
       });
       toast.current?.show('Данные сохранены', 1000);
       console.log(`user ${user.id} changed`);
+      console.log(`updated user ${JSON.stringify(updatedUser)}`);
       if (changeUser) {
-        changeUser({
-          ...user,
-          telegram: formData.telegram,
-          mobilePhone: formData.mobilePhone,
-          coordinate: coordinate,
-        });
+        changeUser({...updatedUser});
       }
     }
   }, []);
