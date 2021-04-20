@@ -1,9 +1,14 @@
-import {getTokens} from '../authorization/google/auth-state-manager';
+import {
+  clearCachedToken,
+  getTokens,
+} from '../authorization/google/auth-state-manager';
 
 export const authorizeFetch = async (
   url: string,
   options: object | null = null,
 ) => {
+  const oldTokens = await getTokens();
+  await clearCachedToken(oldTokens.accessToken);
   const tokens = await getTokens();
   const defaultOptions = {
     headers: {
@@ -23,7 +28,8 @@ export const authorizeFetch = async (
       console.log(json);
       return json;
     } else {
-      if (response.status === 403) {
+      if (response.status === 401) {
+        console.log('401 Unauthorized');
       }
     }
   } catch (e) {

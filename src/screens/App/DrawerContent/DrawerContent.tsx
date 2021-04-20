@@ -1,4 +1,7 @@
-import {SignOutContext} from '../../../common/components/AuthorizeRoute/AuthorizeRoute';
+import {
+  SignOutContext,
+  UserContext,
+} from '../../../common/components/AuthorizeRoute/AuthorizeRoute';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -7,25 +10,34 @@ import {
 } from '@react-navigation/drawer';
 import React from 'react';
 import {View} from 'react-native';
+import {UserCard} from '../../../common/components/UserCard/UserCard';
+import styles from './DrawerContent.styles';
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
   return (
-    <SignOutContext.Consumer>
-      {(signOut) => (
-        <DrawerContentScrollView {...props}>
-          <DrawerItemList {...props} />
-          <View>
-            <DrawerItem
-              label="Выйти"
-              onPress={async () => {
-                if (signOut) {
-                  await signOut();
-                }
-              }}
-            />
-          </View>
-        </DrawerContentScrollView>
+    <UserContext.Consumer>
+      {(user) => (
+        <SignOutContext.Consumer>
+          {(signOut) => (
+            <DrawerContentScrollView {...props} style={{flexWrap: 'wrap'}}>
+              <View style={styles.userCard}>
+                <UserCard user={user} />
+              </View>
+              <DrawerItemList {...props} />
+              <View>
+                <DrawerItem
+                  label="Выйти"
+                  onPress={async () => {
+                    if (signOut) {
+                      await signOut();
+                    }
+                  }}
+                />
+              </View>
+            </DrawerContentScrollView>
+          )}
+        </SignOutContext.Consumer>
       )}
-    </SignOutContext.Consumer>
+    </UserContext.Consumer>
   );
 };

@@ -2,10 +2,10 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   card: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'space-around',
     flexDirection: 'row',
+    margin: 10,
   },
   picture: {
     width: 96,
@@ -18,6 +18,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
+    maxWidth: '77%',
     fontSize: 18,
   },
   position: {

@@ -2,10 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   view: {
-    height: '100%',
     margin: 15,
-    display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   picture: {
@@ -40,10 +37,10 @@ export default StyleSheet.create({
     borderWidth: 0,
     color: 'black',
   },
-  button: {
+  saveButton: {
     width: '40%',
     borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 20,
   },
   map: {
     height: 350,

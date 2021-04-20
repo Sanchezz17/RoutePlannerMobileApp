@@ -53,3 +53,7 @@ export const getTokens = async () => {
   console.log(tokens);
   return tokens;
 };
+
+export const clearCachedToken = async (accessToken: string) => {
+  await GoogleSignin.clearCachedAccessToken(accessToken);
+};

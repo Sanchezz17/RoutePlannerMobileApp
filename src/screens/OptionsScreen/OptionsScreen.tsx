@@ -128,7 +128,7 @@ export const OptionsScreen = () => {
               />
             </MapView>
           </View>
-          <View style={styles.button}>
+          <View style={styles.saveButton}>
             <Button title="Сохранить" onPress={handleSubmit(onSubmit)} />
           </View>
         </View>
