@@ -52,8 +52,8 @@ export const OptionsScreen = () => {
     console.log(formData);
     console.log(coordinate);
     if (
-      user.telegram !== formData.telegram ||
-      user.mobilePhone !== formData.mobilePhone ||
+      (formData.telegram && user.telegram !== formData.telegram) ||
+      (formData.mobilePhone && user.mobilePhone !== formData.mobilePhone) ||
       user.coordinate.latitude !== coordinate.latitude ||
       user.coordinate.longitude !== coordinate.longitude
     ) {
@@ -64,6 +64,7 @@ export const OptionsScreen = () => {
       });
       toast.current?.show('Данные сохранены', 1000);
       console.log(`user ${user.id} changed`);
+      console.log(`form data ${JSON.stringify(formData)}`);
       console.log(`updated user ${JSON.stringify(updatedUser)}`);
       if (changeUser) {
         changeUser({...updatedUser});
