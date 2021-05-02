@@ -46,37 +46,40 @@ export const OptionsScreen = () => {
 
   const {register, handleSubmit, setValue} = useForm();
 
-  const onSubmit = useCallback(async (formData) => {
-    console.log(`User: ${JSON.stringify(user)}`);
-    console.log(formData);
-    console.log(coordinate);
-    if (
-      (formData.telegram && user.telegram !== formData.telegram) ||
-      (formData.mobilePhone && user.mobilePhone !== formData.mobilePhone) ||
-      user.coordinate.latitude !== coordinate.latitude ||
-      user.coordinate.longitude !== coordinate.longitude ||
-      user.coordinate.address !== coordinate.address
-    ) {
-      const updatedUser = await updateUserAsync(user.id, {
-        mobilePhone: formData.mobilePhone,
-        telegram: formData.telegram,
-        coordinate: coordinate,
-      });
-      toast.current?.show('Данные сохранены', 1000);
-      console.log(`user ${user.id} changed`);
-      console.log(`form data ${JSON.stringify(formData)}`);
-      console.log(`updated user ${JSON.stringify(updatedUser)}`);
-      if (changeUser) {
-        changeUser({...updatedUser});
+  const onSubmit = useCallback(
+    async (formData) => {
+      console.log(`User: ${JSON.stringify(user)}`);
+      console.log(formData);
+      console.log(coordinate);
+      if (
+        (formData.telegram && user.telegram !== formData.telegram) ||
+        (formData.mobilePhone && user.mobilePhone !== formData.mobilePhone) ||
+        user.coordinate.latitude !== coordinate.latitude ||
+        user.coordinate.longitude !== coordinate.longitude ||
+        user.coordinate.address !== coordinate.address
+      ) {
+        const updatedUser = await updateUserAsync(user.id, {
+          mobilePhone: formData.mobilePhone,
+          telegram: formData.telegram,
+          coordinate: coordinate,
+        });
+        toast.current?.show('Данные сохранены', 1000);
+        console.log(`user ${user.id} changed`);
+        console.log(`form data ${JSON.stringify(formData)}`);
+        console.log(`updated user ${JSON.stringify(updatedUser)}`);
+        if (changeUser) {
+          changeUser({...updatedUser});
+        }
       }
-    }
-  }, []);
+    },
+    [changeUser, coordinate, user],
+  );
 
   const onChangeField = useCallback(
     (name) => (text: string) => {
       setValue(name, text);
     },
-    [],
+    [setValue],
   );
 
   useEffect(() => {
@@ -125,20 +128,8 @@ export const OptionsScreen = () => {
             <Text style={styles.fieldLabel}>Адрес</Text>
             <GooglePlacesInput
               address={coordinate.address}
-              onChange={(data, details) => {
-                console.log(data);
-                console.log(details);
-                const location = details?.geometry?.location;
-                console.log(`Location: ${location}`);
-                if (location) {
-                  const newCoordinate: Coordinate = {
-                    latitude: location.lat,
-                    longitude: location.lng,
-                    address: data.description,
-                  };
-                  console.log(newCoordinate);
-                  setCoordinate(newCoordinate);
-                }
+              onChangeCoordinate={(newCoordinate) => {
+                setCoordinate(newCoordinate);
               }}
             />
           </View>

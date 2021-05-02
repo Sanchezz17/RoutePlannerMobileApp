@@ -6,25 +6,26 @@ LogBox.ignoreLogs([
 
 import React, {useEffect, useRef} from 'react';
 import {
-  GooglePlaceData,
-  GooglePlaceDetail,
   GooglePlacesAutocomplete,
   GooglePlacesAutocompleteRef,
 } from 'react-native-google-places-autocomplete';
+import {Coordinate} from '../../authorization/user';
 
 export interface GooglePlacesInputProps {
   address: string;
-  onChange: (data: GooglePlaceData, details: GooglePlaceDetail | null) => void;
+  onChangeCoordinate: (newCoordinate: Coordinate) => void;
 }
 
 export const GooglePlacesInput = ({
   address,
-  onChange,
+  onChangeCoordinate,
 }: GooglePlacesInputProps) => {
   const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
   useEffect(() => {
-    ref.current?.setAddressText(address);
+    if (address) {
+      ref.current?.setAddressText(address);
+    }
   }, [address]);
 
   return (
@@ -33,13 +34,30 @@ export const GooglePlacesInput = ({
       placeholder=""
       fetchDetails={true}
       onPress={(data, detail) => {
-        onChange(data, detail);
-        ref.current?.setAddressText(data.description);
+        //console.log(data);
+        //console.log(detail);
+        const location = detail?.geometry?.location;
+        console.log(`Location: ${JSON.stringify(location)}`);
+        if (location) {
+          const newCoordinate: Coordinate = {
+            latitude: location.lat,
+            longitude: location.lng,
+            address: data.description,
+          };
+          console.log(newCoordinate);
+          onChangeCoordinate(newCoordinate);
+          ref.current?.setAddressText(data.description);
+        }
       }}
       enablePoweredByContainer={false}
       query={{
-        key: '',
         language: 'ru',
+      }}
+      styles={{
+        textInput: {
+          borderColor: '#000000',
+          borderWidth: 2,
+        },
       }}
     />
   );
