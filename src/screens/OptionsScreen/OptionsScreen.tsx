@@ -13,7 +13,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import MapView, {Marker} from 'react-native-maps';
 import {
   ChangeUserContext,
   UserContext,
@@ -24,16 +23,15 @@ import styles from './OptionsScreen.styles';
 import {updateUserAsync} from '../../common/authorization/user-api';
 import {UserCard} from '../../common/components/UserCard/UserCard';
 import {Coordinate} from '../../common/authorization/user';
+import {GooglePlacesInput} from '../../common/components/GooglePlacesInput/GooglePlacesInput';
 
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
 
-const LATTITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = 0.0421;
-
 const defaultCoordinate: Coordinate = {
   latitude: 56.8519,
   longitude: 60.6122,
+  address: '',
 };
 
 export const OptionsScreen = () => {
@@ -49,13 +47,15 @@ export const OptionsScreen = () => {
   const {register, handleSubmit, setValue} = useForm();
 
   const onSubmit = useCallback(async (formData) => {
+    console.log(`User: ${JSON.stringify(user)}`);
     console.log(formData);
     console.log(coordinate);
     if (
       (formData.telegram && user.telegram !== formData.telegram) ||
       (formData.mobilePhone && user.mobilePhone !== formData.mobilePhone) ||
       user.coordinate.latitude !== coordinate.latitude ||
-      user.coordinate.longitude !== coordinate.longitude
+      user.coordinate.longitude !== coordinate.longitude ||
+      user.coordinate.address !== coordinate.address
     ) {
       const updatedUser = await updateUserAsync(user.id, {
         mobilePhone: formData.mobilePhone,
@@ -92,7 +92,9 @@ export const OptionsScreen = () => {
 
   return (
     <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        keyboardShouldPersistTaps={'handled'}>
         <View style={styles.view}>
           <UserCard user={user} />
           <Toast ref={toast} position={'center'} />
@@ -111,7 +113,6 @@ export const OptionsScreen = () => {
               autoCompleteType="tel"
               keyboardType="numeric"
               textContentType="telephoneNumber"
-              placeholder="Телефон"
               maxLength={11}
               onChangeText={onChangeField(MOBILE_PHONE_FIELD)}
             />
@@ -119,24 +120,27 @@ export const OptionsScreen = () => {
             <TextInput
               style={styles.input}
               defaultValue={user.telegram}
-              placeholder="Telegram"
               onChangeText={onChangeField(TELEGRAM_FIELD)}
             />
             <Text style={styles.fieldLabel}>Адрес</Text>
-            <MapView
-              style={styles.map}
-              initialRegion={{
-                latitude: coordinate.latitude,
-                longitude: coordinate.longitude,
-                latitudeDelta: LATTITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-              }}>
-              <Marker
-                draggable
-                coordinate={coordinate}
-                onDragEnd={(e) => setCoordinate(e.nativeEvent.coordinate)}
-              />
-            </MapView>
+            <GooglePlacesInput
+              address={coordinate.address}
+              onChange={(data, details) => {
+                console.log(data);
+                console.log(details);
+                const location = details?.geometry?.location;
+                console.log(`Location: ${location}`);
+                if (location) {
+                  const newCoordinate: Coordinate = {
+                    latitude: location.lat,
+                    longitude: location.lng,
+                    address: data.description,
+                  };
+                  console.log(newCoordinate);
+                  setCoordinate(newCoordinate);
+                }
+              }}
+            />
           </View>
           <View style={styles.saveButton}>
             <Button title="Сохранить" onPress={handleSubmit(onSubmit)} />

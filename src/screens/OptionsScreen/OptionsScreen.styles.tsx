@@ -2,8 +2,10 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   view: {
+    height: '100%',
     margin: 15,
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   picture: {
     width: 96,
@@ -26,15 +28,18 @@ export default StyleSheet.create({
     textAlign: 'left',
   },
   input: {
-    width: '100%',
-    fontSize: 17,
-    borderWidth: 2,
-    borderRadius: 10,
-    marginVertical: 10,
+    backgroundColor: '#FFFFFF',
+    height: 44,
+    borderRadius: 5,
+    paddingVertical: 5,
     paddingHorizontal: 10,
+    fontSize: 15,
+    flex: 1,
+    marginVertical: 10,
+    borderColor: '#000000',
+    borderWidth: 2,
   },
   emailInput: {
-    borderWidth: 0,
     color: 'black',
   },
   saveButton: {

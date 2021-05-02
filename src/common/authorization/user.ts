@@ -11,6 +11,7 @@ export interface User {
 }
 
 export interface Coordinate {
+  address: string;
   latitude: number;
   longitude: number;
 }
@@ -28,6 +29,6 @@ export const defaultUser: User = {
   mobilePhone: '',
   telegram: '',
   position: '',
-  coordinate: {latitude: 0, longitude: 0},
+  coordinate: {address: '', latitude: 0, longitude: 0},
   rights: [],
 };
