@@ -1,43 +1,39 @@
 import {
-  SignOutContext,
-  UserContext,
-} from '../../../common/components/AuthorizeRoute/AuthorizeRoute';
-import {
-  DrawerContentComponentProps,
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
+    DrawerContentComponentProps,
+    DrawerContentScrollView,
+    DrawerItem,
+    DrawerItemList,
 } from '@react-navigation/drawer';
 import React from 'react';
-import {View} from 'react-native';
-import {UserCard} from '../../../common/components/UserCard/UserCard';
+import { View } from 'react-native';
+import { UserCard } from '../../../components/UserCard/UserCard';
 import styles from './DrawerContent.styles';
+import { signOut } from '../../../common/authorization/google/auth-state-manager';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { removeUser } from '../../../redux/users/reducer';
+import { selectCurrentUser } from '../../../redux/users/selectors';
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
-  return (
-    <UserContext.Consumer>
-      {(user) => (
-        <SignOutContext.Consumer>
-          {(signOut) => (
-            <DrawerContentScrollView {...props} style={{flexWrap: 'wrap'}}>
-              <View style={styles.userCard}>
-                <UserCard user={user} />
-              </View>
-              <DrawerItemList {...props} />
-              <View>
+    const dispatch = useAppDispatch();
+    const currentUser = useAppSelector(selectCurrentUser);
+
+    return (
+        <DrawerContentScrollView {...props} style={styles.drawerContent}>
+            <View style={styles.userCard}>
+                <UserCard user={currentUser} />
+            </View>
+            <DrawerItemList {...props} />
+            <View>
                 <DrawerItem
-                  label="Выйти"
-                  onPress={async () => {
-                    if (signOut) {
-                      await signOut();
-                    }
-                  }}
+                    label="Выйти"
+                    onPress={async () => {
+                        if (signOut) {
+                            await signOut();
+                            dispatch(removeUser(currentUser.id));
+                        }
+                    }}
                 />
-              </View>
-            </DrawerContentScrollView>
-          )}
-        </SignOutContext.Consumer>
-      )}
-    </UserContext.Consumer>
-  );
+            </View>
+        </DrawerContentScrollView>
+    );
 };

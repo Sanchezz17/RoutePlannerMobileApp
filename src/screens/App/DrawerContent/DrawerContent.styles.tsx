@@ -1,7 +1,10 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  userCard: {
-    marginLeft: 12,
-  },
+    drawerContent: {
+        flexWrap: 'wrap',
+    },
+    userCard: {
+        marginLeft: 12,
+    },
 });
