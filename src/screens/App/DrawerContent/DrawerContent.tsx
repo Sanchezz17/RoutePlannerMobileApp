@@ -18,7 +18,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
 
     return (
-        <DrawerContentScrollView {...props} style={styles.drawerContent}>
+        <DrawerContentScrollView {...props} style={styles.view}>
             <View style={styles.userCard}>
                 <UserCard user={currentUser} />
             </View>

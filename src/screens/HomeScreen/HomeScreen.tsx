@@ -20,7 +20,11 @@ export const HomeScreen = ({ navigation }: Props) => {
                     </Text>
                     <Button
                         title="Настройки"
-                        onPress={() => navigation.navigate('Options')}
+                        onPress={() =>
+                            navigation.navigate('Options', {
+                                user: currentUser,
+                            })
+                        }
                     />
                 </View>
             </ScrollView>

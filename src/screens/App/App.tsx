@@ -9,10 +9,11 @@ import { HomeScreen } from '../HomeScreen/HomeScreen';
 import { OptionsScreen } from '../OptionsScreen/OptionsScreen';
 import { DrawerContent } from './DrawerContent/DrawerContent';
 import store from '../../redux/store';
+import { User } from '../../redux/users/types';
 
 export type RootDrawerParamList = {
     Home: undefined;
-    Options: undefined;
+    Options: { user: User };
 };
 
 const Drawer = createDrawerNavigator();

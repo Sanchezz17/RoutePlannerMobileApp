@@ -11,11 +11,14 @@ import Toast from 'react-native-easy-toast';
 import { useForm } from 'react-hook-form';
 import styles from './OptionsScreen.styles';
 import { UserCard } from '../../components/UserCard/UserCard';
-import { Coordinate, User } from '../../redux/users/types';
+import { Coordinate } from '../../redux/users/types';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateUserThunk } from '../../redux/users/thunks';
-import deepEqual from 'react-hook-form/dist/utils/deepEqual';
+import deepEqual from 'deep-equal';
+import { DrawerScreenProps } from '@react-navigation/drawer';
+import { RootDrawerParamList } from '../App/App';
+import { selectCurrentUser } from '../../redux/users/selectors';
 
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
@@ -26,11 +29,12 @@ const defaultCoordinate: Coordinate = {
     address: '',
 };
 
-export interface OptionsScreenProps {
-    user: User;
-}
+export interface OptionsScreenProps
+    extends DrawerScreenProps<RootDrawerParamList, 'Options'> {}
 
-export const OptionsScreen = ({ user }: OptionsScreenProps) => {
+export const OptionsScreen = ({ route }: OptionsScreenProps) => {
+    const currentUser = useAppSelector(selectCurrentUser);
+    const user = route.params?.user ?? currentUser;
     const dispatch = useAppDispatch();
 
     const toast = useRef<Toast>(null);
@@ -94,7 +98,7 @@ export const OptionsScreen = ({ user }: OptionsScreenProps) => {
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic"
                 keyboardShouldPersistTaps={'handled'}>
-                <View style={styles.drawerContent}>
+                <View style={styles.view}>
                     <UserCard user={user} />
                     <Toast ref={toast} position={'center'} />
                     <View style={styles.form}>

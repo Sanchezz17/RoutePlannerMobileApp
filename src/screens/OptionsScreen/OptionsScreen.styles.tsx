@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    drawerContent: {
+    view: {
         height: '100%',
         margin: 15,
         alignItems: 'center',
