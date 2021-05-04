@@ -6,12 +6,12 @@ import {
 } from '@react-navigation/drawer';
 import React from 'react';
 import { View } from 'react-native';
-import { UserCard } from '../../../components/UserCard/UserCard';
+import { UserCard } from '../UserCard/UserCard';
 import styles from './DrawerContent.styles';
-import { signOut } from '../../../common/authorization/google/auth-state-manager';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { removeUser } from '../../../redux/users/reducer';
-import { selectCurrentUser } from '../../../redux/users/selectors';
+import { signOut } from '../../common/authorization/google/authStateManager';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { removeUser } from '../../redux/users/reducer';
+import { selectCurrentUser } from '../../redux/users/selectors';
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
     const dispatch = useAppDispatch();

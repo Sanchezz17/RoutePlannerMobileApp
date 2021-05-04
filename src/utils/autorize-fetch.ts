@@ -1,7 +1,7 @@
 import {
     clearCachedToken,
     getTokens,
-} from '../common/authorization/google/auth-state-manager';
+} from '../common/authorization/google/authStateManager';
 
 export const authorizeFetch = async (
     url: string,

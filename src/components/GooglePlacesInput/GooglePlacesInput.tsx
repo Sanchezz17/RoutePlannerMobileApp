@@ -10,6 +10,7 @@ import {
     GooglePlacesAutocompleteRef,
 } from 'react-native-google-places-autocomplete';
 import { Coordinate } from '../../redux/users/types';
+import {GoogleMapsApiKey} from "../../common/secrets";
 
 export interface GooglePlacesInputProps {
     address: string;
@@ -51,7 +52,7 @@ export const GooglePlacesInput = ({
             }}
             enablePoweredByContainer={false}
             query={{
-                key: '',
+                key: GoogleMapsApiKey,
                 language: 'ru',
             }}
             styles={{

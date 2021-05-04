@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { signIn } from '../../common/authorization/google/auth-state-manager';
+import { signIn } from '../../common/authorization/google/authStateManager';
 import {
     GoogleSignin,
     GoogleSigninButton,

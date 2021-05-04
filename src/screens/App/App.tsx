@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { AuthorizeRoute } from '../../components/AuthorizeRoute/AuthorizeRoute';
 import { HomeScreen } from '../HomeScreen/HomeScreen';
 import { OptionsScreen } from '../OptionsScreen/OptionsScreen';
-import { DrawerContent } from './DrawerContent/DrawerContent';
+import { DrawerContent } from '../../components/DrawerContent/DrawerContent';
 import store from '../../redux/store';
 import { User } from '../../redux/users/types';
 
