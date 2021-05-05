@@ -1,10 +1,13 @@
 import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import React from 'react';
-import { DrawerRoutes, RootDrawerParamList } from '../App/App';
 import styles from './HomeScreen.styles';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import {
+    DrawerRoutes,
+    RootDrawerParamList,
+} from '../../containers/DrawerNavigation/DrawerNavigation';
 
 type Props = DrawerScreenProps<RootDrawerParamList, DrawerRoutes.Home>;
 

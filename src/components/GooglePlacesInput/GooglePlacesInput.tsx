@@ -10,7 +10,7 @@ import {
     GooglePlacesAutocompleteRef,
 } from 'react-native-google-places-autocomplete';
 import { Coordinate } from '../../redux/users/types';
-import {GoogleMapsApiKey} from "../../common/secrets";
+import { GoogleMapsApiKey } from '../../common/secrets';
 
 export interface GooglePlacesInputProps {
     address: string;

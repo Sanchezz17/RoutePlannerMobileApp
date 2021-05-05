@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/drawer';
 import React from 'react';
 import { View } from 'react-native';
-import { UserCard } from '../UserCard/UserCard';
+import { UserCard } from '../../components/UserCard/UserCard';
 import styles from './DrawerContent.styles';
 import { signOut } from '../../common/authorization/google/authStateManager';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';

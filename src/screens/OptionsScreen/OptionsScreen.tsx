@@ -17,8 +17,11 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateUserThunk } from '../../redux/users/thunks';
 import deepEqual from 'deep-equal';
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import { DrawerRoutes, RootDrawerParamList } from '../App/App';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import {
+    DrawerRoutes,
+    RootDrawerParamList,
+} from '../../containers/DrawerNavigation/DrawerNavigation';
 
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
@@ -66,7 +69,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         },
                     }),
                 );
-                toast.current?.show('Данные сохранены', 1000);
+                toast.current?.show('Данные сохранены', 1500);
                 console.log(`user ${user.id} changed`);
                 console.log(`form data ${JSON.stringify(formData)}`);
                 console.log(`updated user ${JSON.stringify(updatedUser)}`);
