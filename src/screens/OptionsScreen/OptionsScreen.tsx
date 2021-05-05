@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateUserThunk } from '../../redux/users/thunks';
 import deepEqual from 'deep-equal';
 import { DrawerScreenProps } from '@react-navigation/drawer';
-import { RootDrawerParamList } from '../App/App';
+import { DrawerRoutes, RootDrawerParamList } from '../App/App';
 import { selectCurrentUser } from '../../redux/users/selectors';
 
 const MOBILE_PHONE_FIELD = 'mobilePhone';
@@ -30,7 +30,7 @@ const defaultCoordinate: Coordinate = {
 };
 
 export interface OptionsScreenProps
-    extends DrawerScreenProps<RootDrawerParamList, 'Options'> {}
+    extends DrawerScreenProps<RootDrawerParamList, DrawerRoutes.Options> {}
 
 export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);

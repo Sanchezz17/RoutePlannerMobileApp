@@ -11,9 +11,14 @@ import { DrawerContent } from '../../components/DrawerContent/DrawerContent';
 import store from '../../redux/store';
 import { User } from '../../redux/users/types';
 
+export enum DrawerRoutes {
+    Home = 'Home',
+    Options = 'Options',
+}
+
 export type RootDrawerParamList = {
-    Home: undefined;
-    Options: { user: User };
+    [DrawerRoutes.Home]: undefined;
+    [DrawerRoutes.Options]: { user: User };
 };
 
 const Drawer = createDrawerNavigator();
