@@ -1,4 +1,4 @@
-import { authorizeFetch } from '../../utils/autorize-fetch';
+import { authorizeFetch } from '../../common/utils/autorize-fetch';
 import { prefix } from '../../common/constants';
 import { Coordinate, User } from './types';
 

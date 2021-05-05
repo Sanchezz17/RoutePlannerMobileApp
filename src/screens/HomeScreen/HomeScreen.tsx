@@ -1,17 +1,14 @@
 import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import React from 'react';
 import styles from './HomeScreen.styles';
-import { DrawerScreenProps } from '@react-navigation/drawer';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
-import {
-    DrawerRoutes,
-    RootDrawerParamList,
-} from '../../containers/DrawerNavigation/DrawerNavigation';
+import { DrawerRoutes } from '../../routing/routes';
+import { DrawerNavigationProps } from '../../routing/types';
 
-type Props = DrawerScreenProps<RootDrawerParamList, DrawerRoutes.Home>;
+type HomeScreenProps = DrawerNavigationProps<DrawerRoutes.Home>;
 
-export const HomeScreen = ({ navigation }: Props) => {
+export const HomeScreen = ({ navigation }: HomeScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
 
     return (

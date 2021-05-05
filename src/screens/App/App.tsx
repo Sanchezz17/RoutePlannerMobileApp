@@ -4,7 +4,7 @@ import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { AuthorizeRoute } from '../../containers/AuthorizeRoute/AuthorizeRoute';
 import store from '../../redux/store';
-import DrawerNavigation from '../../containers/DrawerNavigation/DrawerNavigation';
+import DrawerNavigation from '../../routing/DrawerNavigation';
 
 const App = () => {
     return (

@@ -16,12 +16,9 @@ import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlac
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateUserThunk } from '../../redux/users/thunks';
 import deepEqual from 'deep-equal';
-import { DrawerScreenProps } from '@react-navigation/drawer';
 import { selectCurrentUser } from '../../redux/users/selectors';
-import {
-    DrawerRoutes,
-    RootDrawerParamList,
-} from '../../containers/DrawerNavigation/DrawerNavigation';
+import { DrawerRoutes } from '../../routing/routes';
+import { DrawerNavigationProps } from '../../routing/types';
 
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
@@ -32,8 +29,7 @@ const defaultCoordinate: Coordinate = {
     address: '',
 };
 
-export interface OptionsScreenProps
-    extends DrawerScreenProps<RootDrawerParamList, DrawerRoutes.Options> {}
+type OptionsScreenProps = DrawerNavigationProps<DrawerRoutes.Options>;
 
 export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
