@@ -11,7 +11,7 @@ import Toast from 'react-native-easy-toast';
 import { useForm } from 'react-hook-form';
 import styles from './OptionsScreen.styles';
 import { UserCard } from '../../components/UserCard/UserCard';
-import { Coordinate } from '../../redux/users/types';
+import { Coordinate, Right } from '../../redux/users/types';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateUserThunk } from '../../redux/users/thunks';
@@ -49,6 +49,15 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
             //console.log(`Types: ${JSON.stringify(users)}`);
             //console.log(formData);
             //console.log(coordinate);
+
+            // Пользователь может обновлять только себя, если он не админ
+            if (
+                !currentUser.rights.includes(Right.Admin) &&
+                currentUser.id !== user.id
+            ) {
+                return;
+            }
+
             if (
                 !deepEqual(coordinate, user.coordinate) ||
                 (formData.telegram && user.telegram !== formData.telegram) ||
@@ -71,7 +80,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 console.log(`updated user ${JSON.stringify(updatedUser)}`);
             }
         },
-        [dispatch, coordinate, user],
+        [currentUser, dispatch, coordinate, user],
     );
 
     const onChangeField = useCallback(
