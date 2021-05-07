@@ -9,3 +9,6 @@ export const selectUserById = (state: RootState, userId: number): User =>
 
 export const selectCurrentUser = (state: RootState): User =>
     selectUserById(state, selectCurrentUserId(state));
+
+export const selectRequests = (state: RootState): User[] =>
+    Object.values(state.users.requests);

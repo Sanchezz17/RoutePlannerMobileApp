@@ -18,3 +18,17 @@ export const updateUserThunk = createAsyncThunk(
         return await userAPI.updateUserAsync(id, updateUserDto);
     },
 );
+
+export const deleteUserThunk = createAsyncThunk(
+    'users/deleteUserThunkStatus',
+    async (id: number, __) => {
+        return await userAPI.deleteUserAsync(id);
+    },
+);
+
+export const getUsersWithoutRightsThunk = createAsyncThunk(
+    'users/getUsersWithoutRightsThunkStatus',
+    async (_, __) => {
+        return await userAPI.getUsersWithoutRightsAsync();
+    },
+);
