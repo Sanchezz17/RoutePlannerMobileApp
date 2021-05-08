@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from './types';
+import { Right, User, UserRight } from './types';
 import {
     getCurrentUserThunk,
     updateUserThunk,
     deleteUserThunk,
     getUsersWithoutRightsThunk,
+    addRightToUserThunk,
 } from './thunks';
 
 export interface UsersState {
@@ -69,6 +70,18 @@ const usersSlice = createSlice({
                 ...state.requests,
                 ...requestsMap,
             };
+        },
+        [addRightToUserThunk.fulfilled.type]: (
+            state: UsersState,
+            action: PayloadAction<UserRight>,
+        ) => {
+            const userRight = action.payload;
+            if (state.users[userRight.userId]) {
+                state.users[userRight.userId].rights = [
+                    ...(state.users[userRight.userId].rights ?? []),
+                    userRight.right,
+                ];
+            }
         },
     },
 });

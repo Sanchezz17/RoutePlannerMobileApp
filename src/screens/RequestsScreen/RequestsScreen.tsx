@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DrawerNavigationProps } from '../../routing/types';
 import { DrawerRoutes } from '../../routing/routes';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectRequests } from '../../redux/users/selectors';
 import { FlatList, SafeAreaView, ScrollView } from 'react-native';
 import { UserCard } from '../../components/UserCard/UserCard';
+import { getUsersWithoutRightsThunk } from '../../redux/users/thunks';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
 export const RequestsScreen = (_: RequestsScreenProps) => {
+    const dispatch = useAppDispatch();
     const requests = useAppSelector(selectRequests);
+
+    useEffect(() => {
+        dispatch(getUsersWithoutRightsThunk());
+    });
 
     // toDo стили и удаление заявок, прием заявок
     return (

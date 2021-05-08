@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UpdateUserDto, userAPI } from './api';
+import { Right } from './types';
 
 export const getCurrentUserThunk = createAsyncThunk(
     'users/getCurrentUserThunkStatus',
@@ -30,5 +31,13 @@ export const getUsersWithoutRightsThunk = createAsyncThunk(
     'users/getUsersWithoutRightsThunkStatus',
     async (_, __) => {
         return await userAPI.getUsersWithoutRightsAsync();
+    },
+);
+
+export const addRightToUserThunk = createAsyncThunk(
+    'users/addRightToUserThunkStatus',
+    async (addRightToUserParameters: { id: number; right: Right }, _) => {
+        const { id, right } = addRightToUserParameters;
+        return await userAPI.addRightToUserAsync(id, right);
     },
 );

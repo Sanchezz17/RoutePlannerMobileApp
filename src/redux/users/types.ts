@@ -10,6 +10,11 @@ export interface User {
     rights: Right[];
 }
 
+export interface UserRight {
+    userId: number;
+    right: Right;
+}
+
 export interface Coordinate {
     address: string;
     latitude: number;

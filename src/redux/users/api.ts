@@ -1,6 +1,6 @@
 import { authorizeFetch } from '../../common/utils/autorize-fetch';
 import { prefix } from '../../common/constants';
-import { Coordinate, User } from './types';
+import { Coordinate, Right, User, UserRight } from './types';
 
 const usersApiPrefix = `${prefix}/users`;
 
@@ -35,9 +35,17 @@ const getUsersWithoutRightsAsync = async (): Promise<User[]> => {
     return await authorizeFetch(`${usersApiPrefix}/without-rights`);
 };
 
+const addRightToUserAsync = async (
+    id: number,
+    right: Right,
+): Promise<UserRight> => {
+    return await authorizeFetch(`${usersApiPrefix}/${id}/rights/${right}`);
+};
+
 export const userAPI = {
     getCurrentUserAsync,
     updateUserAsync,
     deleteUserAsync,
     getUsersWithoutRightsAsync,
+    addRightToUserAsync,
 };
