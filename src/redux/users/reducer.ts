@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Right, User, UserRight } from './types';
+import { User, UserRight } from './types';
 import {
     getCurrentUserThunk,
     updateUserThunk,
@@ -76,6 +76,8 @@ const usersSlice = createSlice({
             action: PayloadAction<UserRight>,
         ) => {
             const userRight = action.payload;
+            delete state.requests[userRight.userId];
+
             if (state.users[userRight.userId]) {
                 state.users[userRight.userId].rights = [
                     ...(state.users[userRight.userId].rights ?? []),

@@ -5,13 +5,6 @@ export default StyleSheet.create({
     scrollView: {
         backgroundColor: Colors.lighter,
     },
-    engine: {
-        position: 'absolute',
-        right: 0,
-    },
-    body: {
-        backgroundColor: Colors.white,
-    },
     sectionContainer: {
         marginTop: 32,
         paddingHorizontal: 24,

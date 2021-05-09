@@ -14,12 +14,14 @@ export const AuthorizeRoute: FunctionComponent = ({ children }) => {
     const dispatch = useAppDispatch();
     const currentUser = useAppSelector(selectCurrentUser);
 
-    const [isSigninInProgress, setIsSigninInProgress] = useState(false);
+    const [isSigninInProgress, setIsSigninInProgress] = useState(true);
 
     const trySignInSilently = async () => {
         const isSignedIn = await GoogleSignin.isSignedIn();
         if (isSignedIn) {
             dispatch(getCurrentUserThunk());
+        } else {
+            setIsSigninInProgress(false);
         }
     };
 
@@ -27,6 +29,12 @@ export const AuthorizeRoute: FunctionComponent = ({ children }) => {
         trySignInSilently();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (currentUser) {
+            setIsSigninInProgress(false);
+        }
+    }, [currentUser]);
 
     const signInAndSetUser = async () => {
         setIsSigninInProgress(true);

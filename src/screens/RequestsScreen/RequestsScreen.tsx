@@ -15,7 +15,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
 
     useEffect(() => {
         dispatch(getUsersWithoutRightsThunk());
-    });
+    }, [dispatch]);
 
     // toDo стили и удаление заявок, прием заявок
     return (
@@ -24,6 +24,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
                 <FlatList
                     data={requests}
                     renderItem={(props) => <UserCard user={props.item} />}
+                    keyExtractor={(item) => item.email}
                 />
             </ScrollView>
         </SafeAreaView>
