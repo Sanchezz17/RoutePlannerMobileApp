@@ -4,7 +4,9 @@ export default StyleSheet.create({
     card: {
         display: 'flex',
         flexDirection: 'row',
-        margin: 10,
+        padding: 10,
+        borderBottomColor: '#E0E0E0',
+        borderBottomWidth: 2,
     },
     picture: {
         width: 48,

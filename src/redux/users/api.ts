@@ -38,7 +38,9 @@ const addRightToUserAsync = async (
     id: number,
     right: Right,
 ): Promise<UserRight> => {
-    return await authorizeFetch(`${usersApiPrefix}/${id}/rights/${right}`);
+    return await authorizeFetch(`${usersApiPrefix}/${id}/rights/${right}`, {
+        method: 'POST',
+    });
 };
 
 export const userAPI = {

@@ -76,6 +76,7 @@ const usersSlice = createSlice({
             action: PayloadAction<UserRight>,
         ) => {
             const userRight = action.payload;
+            console.log(userRight);
             delete state.requests[userRight.userId];
 
             if (state.users[userRight.userId]) {
