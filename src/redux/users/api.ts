@@ -25,10 +25,9 @@ const updateUserAsync = async (
 };
 
 const deleteUserAsync = async (id: number): Promise<number> => {
-    await authorizeFetch(`${usersApiPrefix}/${id}`, {
+    return await authorizeFetch(`${usersApiPrefix}/${id}`, {
         method: 'DELETE',
     });
-    return id;
 };
 
 const getUsersWithoutRightsAsync = async (): Promise<User[]> => {

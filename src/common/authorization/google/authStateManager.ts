@@ -42,12 +42,6 @@ export const signOut = async () => {
     }
 };
 
-export const getCurrentUser = async () => {
-    const currentUser = await GoogleSignin.getCurrentUser();
-    console.log(currentUser);
-    return currentUser;
-};
-
 export const getTokens = async () => {
     const tokens = await GoogleSignin.getTokens();
     console.log(tokens);

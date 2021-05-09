@@ -14,10 +14,12 @@ export const AuthorizeRoute: FunctionComponent = ({ children }) => {
     const dispatch = useAppDispatch();
     const currentUser = useAppSelector(selectCurrentUser);
 
-    const [isSigninInProgress, setIsSigninInProgress] = useState(true);
+    const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
     const trySignInSilently = async () => {
+        setIsSigninInProgress(true);
         const isSignedIn = await GoogleSignin.isSignedIn();
+        console.log(`signed in: ${isSignedIn}`);
         if (isSignedIn) {
             dispatch(getCurrentUserThunk());
         } else {

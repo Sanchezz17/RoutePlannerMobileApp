@@ -1,6 +1,7 @@
 import {
     clearCachedToken,
     getTokens,
+    signIn,
 } from '../authorization/google/authStateManager';
 
 export const authorizeFetch = async (
@@ -18,25 +19,43 @@ export const authorizeFetch = async (
     };
 
     try {
-        const response = await fetch(url, {
-            ...defaultOptions,
-            ...options,
-        });
-        console.log(response);
-        if (response.ok) {
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } else {
-            if (response.status === 401) {
-                console.log('401 Unauthorized');
-            }
-        }
+        return await fetchJsonAsync(
+            url,
+            {
+                ...defaultOptions,
+                ...options,
+            },
+            true,
+        );
     } catch (e) {
         console.error(e);
         console.error(e.message);
         console.error(e.stack);
-        console.log(`Error in authorize fetch URL: ${url}`);
+        console.log(
+            `Error in authorize fetch URL: ${url}, options: ${options}`,
+        );
         throw e;
+    }
+};
+
+const fetchJsonAsync = async (
+    url: string,
+    options: object,
+    retryOnUnauthorized: boolean = false,
+): Promise<any> => {
+    const response = await fetch(url, options);
+    console.log(response);
+    if (response.ok) {
+        const json = await response.json();
+        console.log(json);
+        return json;
+    } else {
+        if (response.status === 401) {
+            console.log('401 Unauthorized');
+            await signIn();
+            if (retryOnUnauthorized) {
+                return fetchJsonAsync(url, options);
+            }
+        }
     }
 };

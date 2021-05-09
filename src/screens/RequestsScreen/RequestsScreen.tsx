@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DrawerNavigationProps } from '../../routing/types';
 import { DrawerRoutes } from '../../routing/routes';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectRequests } from '../../redux/users/selectors';
-import { FlatList, SafeAreaView, ScrollView } from 'react-native';
-import { UserCard } from '../../components/UserCard/UserCard';
-import { getUsersWithoutRightsThunk } from '../../redux/users/thunks';
+import { FlatList, SafeAreaView, Text, View } from 'react-native';
+import {
+    addRightToUserThunk,
+    deleteUserThunk,
+    getUsersWithoutRightsThunk,
+} from '../../redux/users/thunks';
+import styles from './RequestsScreen.styles';
+import { Request } from '../../components/Request/Request';
+import { Right } from '../../redux/users/types';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -13,20 +19,50 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     const dispatch = useAppDispatch();
     const requests = useAppSelector(selectRequests);
 
+    const [loadingRequests, setLoadingRequests] = useState(false);
+
     useEffect(() => {
+        setLoadingRequests(true);
         dispatch(getUsersWithoutRightsThunk());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (requests.length > 0) {
+            setLoadingRequests(false);
+        }
+    }, [requests]);
 
     // toDo стили и удаление заявок, прием заявок
     return (
         <SafeAreaView>
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-                <FlatList
-                    data={requests}
-                    renderItem={(props) => <UserCard user={props.item} />}
-                    keyExtractor={(item) => item.email}
-                />
-            </ScrollView>
+            <View>
+                {loadingRequests ? (
+                    <Text style={styles.loadingText}>
+                        {'Загрузка заявок...'}
+                    </Text>
+                ) : (
+                    <FlatList
+                        data={requests}
+                        renderItem={(props) => (
+                            <Request
+                                user={props.item}
+                                onAccept={() => {
+                                    dispatch(
+                                        addRightToUserThunk({
+                                            id: props.item.id,
+                                            right: Right.Manager,
+                                        }),
+                                    );
+                                }}
+                                onReject={() => {
+                                    dispatch(deleteUserThunk(props.item.id));
+                                }}
+                            />
+                        )}
+                        keyExtractor={(item) => item.email}
+                    />
+                )}
+            </View>
         </SafeAreaView>
     );
 };
