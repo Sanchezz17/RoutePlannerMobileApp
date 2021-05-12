@@ -44,9 +44,14 @@ const fetchJsonAsync = async (
     const response = await fetch(url, options);
     console.log(response);
     if (response.ok) {
-        const json = await response.json();
-        console.log(json);
-        return json;
+        const contentType = response.headers.get('content-type');
+        console.log(`contentType: ${contentType}`);
+        if (contentType?.includes('application/json')) {
+            const json = await response.json();
+            console.log(json);
+            return json;
+        }
+        return;
     } else {
         if (response.status === 401) {
             console.log('401 Unauthorized');
