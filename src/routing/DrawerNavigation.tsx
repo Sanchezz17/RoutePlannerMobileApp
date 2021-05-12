@@ -33,6 +33,7 @@ const DrawerNavigation = () => {
                     component={HomeScreen}
                     options={{
                         title: 'Главная',
+                        headerShown: true,
                     }}
                 />
                 <Drawer.Screen
@@ -43,6 +44,7 @@ const DrawerNavigation = () => {
                         drawerIcon: ({ focused }) => (
                             <ScheduleIcon focused={focused} />
                         ),
+                        headerShown: true,
                     }}
                 />
                 <Drawer.Screen
@@ -53,6 +55,7 @@ const DrawerNavigation = () => {
                         drawerIcon: ({ focused }) => (
                             <RouteIcon focused={focused} />
                         ),
+                        headerShown: true,
                     }}
                 />
                 {currentUserIsAdmin && (
@@ -64,6 +67,7 @@ const DrawerNavigation = () => {
                             drawerIcon: ({ focused }) => (
                                 <ManagersIcon focused={focused} />
                             ),
+                            headerShown: true,
                         }}
                     />
                 )}
@@ -75,6 +79,7 @@ const DrawerNavigation = () => {
                         drawerIcon: ({ focused }) => (
                             <ClientsIcon focused={focused} />
                         ),
+                        headerShown: true,
                     }}
                 />
                 <Drawer.Screen
@@ -85,6 +90,7 @@ const DrawerNavigation = () => {
                         drawerIcon: ({ focused }) => (
                             <MeetingsIcon focused={focused} />
                         ),
+                        headerShown: true,
                     }}
                 />
                 {currentUserIsAdmin && (
@@ -96,6 +102,7 @@ const DrawerNavigation = () => {
                             drawerIcon: ({ focused }) => (
                                 <RequestsIcon focused={focused} />
                             ),
+                            headerShown: true,
                         }}
                     />
                 )}
@@ -107,6 +114,7 @@ const DrawerNavigation = () => {
                         drawerIcon: ({ focused }) => (
                             <SettingsIcon focused={focused} />
                         ),
+                        headerShown: true,
                     }}
                 />
             </Drawer.Navigator>
