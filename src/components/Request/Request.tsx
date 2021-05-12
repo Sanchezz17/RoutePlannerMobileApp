@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { User } from '../../redux/users/types';
 import styles from './Request.styles';
 import AcceptRequestIcon from '../icons/AcceptRequestIcon';

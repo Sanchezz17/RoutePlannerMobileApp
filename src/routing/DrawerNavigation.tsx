@@ -9,6 +9,8 @@ import { RequestsScreen } from '../screens/RequestsScreen/RequestsScreen';
 import { useAppSelector } from '../redux/hooks';
 import { selectCurrentUser } from '../redux/users/selectors';
 import { Right } from '../redux/users/types';
+import SettingsIcon from '../components/icons/SettingsIcon';
+import RequestsIcon from "../components/icons/RequestsIcon";
 
 const Drawer = createDrawerNavigator();
 
@@ -24,19 +26,31 @@ const DrawerNavigation = () => {
                 <Drawer.Screen
                     name={DrawerRoutes.Home}
                     component={HomeScreen}
-                    options={{ title: 'Главная' }}
+                    options={{
+                        title: 'Главная',
+                    }}
                 />
                 {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Requests}
                         component={RequestsScreen}
-                        options={{ title: 'Заявки' }}
+                        options={{
+                            title: 'Заявки',
+                            drawerIcon: ({ focused }) => (
+                                <RequestsIcon focused={focused} />
+                            ),
+                        }}
                     />
                 )}
                 <Drawer.Screen
                     name={DrawerRoutes.Options}
                     component={OptionsScreen}
-                    options={{ title: 'Настройки' }}
+                    options={{
+                        title: 'Настройки',
+                        drawerIcon: ({ focused }) => (
+                            <SettingsIcon focused={focused} />
+                        ),
+                    }}
                 />
             </Drawer.Navigator>
         </NavigationContainer>

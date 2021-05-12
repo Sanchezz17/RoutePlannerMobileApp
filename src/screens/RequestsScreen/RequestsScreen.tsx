@@ -27,7 +27,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (requests != undefined) {
+        if (requests !== undefined) {
             setLoadingRequests(false);
         }
     }, [requests]);
