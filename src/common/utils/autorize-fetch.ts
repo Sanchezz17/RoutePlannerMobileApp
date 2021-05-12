@@ -1,15 +1,13 @@
 import {
-    clearCachedToken,
     getTokens,
     signIn,
+    trySignInSilently,
 } from '../authorization/google/authStateManager';
 
 export const authorizeFetch = async (
     url: string,
     options: object | null = null,
 ) => {
-    const oldTokens = await getTokens();
-    await clearCachedToken(oldTokens.accessToken);
     const tokens = await getTokens();
     const defaultOptions = {
         headers: {
@@ -52,7 +50,10 @@ const fetchJsonAsync = async (
     } else {
         if (response.status === 401) {
             console.log('401 Unauthorized');
-            await signIn();
+            const isSignedIn = await trySignInSilently();
+            if (!isSignedIn) {
+                await signIn();
+            }
             if (retryOnUnauthorized) {
                 return fetchJsonAsync(url, options);
             }

@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { signIn } from '../../common/authorization/google/authStateManager';
 import {
-    GoogleSignin,
-    GoogleSigninButton,
-} from '@react-native-google-signin/google-signin';
+    signIn,
+    trySignInSilently,
+} from '../../common/authorization/google/authStateManager';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { View } from 'react-native';
 import styles from './AuthorizeRoute.styles';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -16,9 +16,9 @@ export const AuthorizeRoute: FunctionComponent = ({ children }) => {
 
     const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
-    const trySignInSilently = async () => {
+    const signInSilentlyIfPossible = async () => {
         setIsSigninInProgress(true);
-        const isSignedIn = await GoogleSignin.isSignedIn();
+        const isSignedIn = await trySignInSilently();
         console.log(`signed in: ${isSignedIn}`);
         if (isSignedIn) {
             dispatch(getCurrentUserThunk());
@@ -28,7 +28,7 @@ export const AuthorizeRoute: FunctionComponent = ({ children }) => {
     };
 
     useEffect(() => {
-        trySignInSilently();
+        signInSilentlyIfPossible();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

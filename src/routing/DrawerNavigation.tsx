@@ -14,8 +14,8 @@ import RequestsIcon from '../components/icons/RequestsIcon';
 import ManagersIcon from '../components/icons/ManagersIcon';
 import ClientsIcon from '../components/icons/ClientsIcon';
 import MeetingsIcon from '../components/icons/MeetingsIcon';
-import ScheduleIcon from "../components/icons/ScheduleIcon";
-import RouteIcon from "../components/icons/RouteIcon";
+import ScheduleIcon from '../components/icons/ScheduleIcon';
+import RouteIcon from '../components/icons/RouteIcon';
 
 const Drawer = createDrawerNavigator();
 
@@ -55,7 +55,7 @@ const DrawerNavigation = () => {
                         ),
                     }}
                 />
-                {currentUserIsAdmin && [
+                {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Managers}
                         component={RequestsScreen}
@@ -65,27 +65,29 @@ const DrawerNavigation = () => {
                                 <ManagersIcon focused={focused} />
                             ),
                         }}
-                    />,
-                    <Drawer.Screen
-                        name={DrawerRoutes.Clients}
-                        component={RequestsScreen}
-                        options={{
-                            title: 'Клиенты',
-                            drawerIcon: ({ focused }) => (
-                                <ClientsIcon focused={focused} />
-                            ),
-                        }}
-                    />,
-                    <Drawer.Screen
-                        name={DrawerRoutes.Meetings}
-                        component={RequestsScreen}
-                        options={{
-                            title: 'Встречи',
-                            drawerIcon: ({ focused }) => (
-                                <MeetingsIcon focused={focused} />
-                            ),
-                        }}
-                    />,
+                    />
+                )}
+                <Drawer.Screen
+                    name={DrawerRoutes.Clients}
+                    component={RequestsScreen}
+                    options={{
+                        title: 'Клиенты',
+                        drawerIcon: ({ focused }) => (
+                            <ClientsIcon focused={focused} />
+                        ),
+                    }}
+                />
+                <Drawer.Screen
+                    name={DrawerRoutes.Meetings}
+                    component={RequestsScreen}
+                    options={{
+                        title: 'Встречи',
+                        drawerIcon: ({ focused }) => (
+                            <MeetingsIcon focused={focused} />
+                        ),
+                    }}
+                />
+                {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Requests}
                         component={RequestsScreen}
@@ -95,8 +97,8 @@ const DrawerNavigation = () => {
                                 <RequestsIcon focused={focused} />
                             ),
                         }}
-                    />,
-                ]}
+                    />
+                )}
                 <Drawer.Screen
                     name={DrawerRoutes.Options}
                     component={OptionsScreen}

@@ -33,6 +33,16 @@ export const signIn = async () => {
     }
 };
 
+export const trySignInSilently = async () => {
+    try {
+        await GoogleSignin.signInSilently();
+        return true;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+};
+
 export const signOut = async () => {
     try {
         await GoogleSignin.revokeAccess();
@@ -46,8 +56,4 @@ export const getTokens = async () => {
     const tokens = await GoogleSignin.getTokens();
     console.log(tokens);
     return tokens;
-};
-
-export const clearCachedToken = async (accessToken: string) => {
-    await GoogleSignin.clearCachedAccessToken(accessToken);
 };
