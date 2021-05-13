@@ -3,16 +3,25 @@ import { Appearance } from 'react-native';
 interface IPalette {
     readonly Primary: string;
     readonly SystemUI: string;
+    readonly SystemUISecondary: string;
+    readonly SystemUIStroke: string;
+    readonly Background: string;
 }
 
 class LightPalette implements IPalette {
     readonly Primary: string = '#6200EE';
     readonly SystemUI: string = '#606060';
+    readonly SystemUISecondary: string = '#808080';
+    readonly SystemUIStroke: string = '#E0E0E0';
+    readonly Background: string = '#FFFFFF';
 }
 
 class DarkPalette implements IPalette {
     readonly Primary: string = '#6200EE';
     readonly SystemUI: string = '#606060';
+    readonly SystemUISecondary: string = '#808080';
+    readonly SystemUIStroke: string = '#E0E0E0';
+    readonly Background: string = '#FFFFFF';
 }
 
 export class PaletteStorage {

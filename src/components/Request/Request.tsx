@@ -4,6 +4,7 @@ import { User } from '../../redux/users/types';
 import styles from './Request.styles';
 import AcceptRequestIcon from '../icons/AcceptRequestIcon';
 import RejectRequestIcon from '../icons/RejectRequestIcon';
+import AccountIcon from '../icons/AccountIcon';
 
 export interface RequestProps {
     user: User;
@@ -14,7 +15,10 @@ export interface RequestProps {
 export const Request = ({ user, onAccept, onReject }: RequestProps) => {
     return (
         <View style={styles.card}>
-            <Image style={styles.picture} source={{ uri: user.picture }} />
+            <View style={styles.container}>
+                <AccountIcon size={'small'} style={styles.placeholder} />
+                <Image style={styles.picture} source={{ uri: user.picture }} />
+            </View>
             <View style={styles.info}>
                 <Text style={styles.name}>{user.name}</Text>
                 <Text style={styles.email}>{user.email}</Text>

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     card: {
@@ -8,8 +8,20 @@ export default StyleSheet.create({
         margin: 10,
     },
     picture: {
-        width: 96,
-        height: 96,
+        position: 'absolute',
+        width: 84,
+        height: 84,
+        borderRadius: 50,
+        zIndex: 2,
+    },
+    placeholder: {
+        position: 'absolute',
+        zIndex: 1,
+    },
+    container: {
+        display: 'flex',
+        width: 84,
+        height: 84,
         borderRadius: 50,
         margin: 10,
     },
