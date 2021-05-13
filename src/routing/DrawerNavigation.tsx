@@ -28,36 +28,36 @@ const DrawerNavigation = () => {
             <Drawer.Navigator
                 initialRouteName="Home"
                 drawerContent={(props) => <DrawerContent {...props} />}>
-                <Drawer.Screen
-                    name={DrawerRoutes.Home}
-                    component={HomeScreen}
-                    options={{
-                        title: 'Главная',
-                        headerShown: true,
-                    }}
-                />
-                <Drawer.Screen
-                    name={DrawerRoutes.Schedule}
-                    component={HomeScreen}
-                    options={{
-                        title: 'График',
-                        drawerIcon: ({ focused }) => (
-                            <ScheduleIcon focused={focused} />
-                        ),
-                        headerShown: true,
-                    }}
-                />
-                <Drawer.Screen
-                    name={DrawerRoutes.Route}
-                    component={HomeScreen}
-                    options={{
-                        title: 'Маршрут',
-                        drawerIcon: ({ focused }) => (
-                            <RouteIcon focused={focused} />
-                        ),
-                        headerShown: true,
-                    }}
-                />
+                {/*<Drawer.Screen*/}
+                {/*    name={DrawerRoutes.Home}*/}
+                {/*    component={HomeScreen}*/}
+                {/*    options={{*/}
+                {/*        title: 'Главная',*/}
+                {/*        headerShown: true,*/}
+                {/*    }}*/}
+                {/*/>*/}
+                {/*<Drawer.Screen*/}
+                {/*    name={DrawerRoutes.Schedule}*/}
+                {/*    component={HomeScreen}*/}
+                {/*    options={{*/}
+                {/*        title: 'График',*/}
+                {/*        drawerIcon: ({ focused }) => (*/}
+                {/*            <ScheduleIcon focused={focused} />*/}
+                {/*        ),*/}
+                {/*        headerShown: true,*/}
+                {/*    }}*/}
+                {/*/>*/}
+                {/*<Drawer.Screen*/}
+                {/*    name={DrawerRoutes.Route}*/}
+                {/*    component={HomeScreen}*/}
+                {/*    options={{*/}
+                {/*        title: 'Маршрут',*/}
+                {/*        drawerIcon: ({ focused }) => (*/}
+                {/*            <RouteIcon focused={focused} />*/}
+                {/*        ),*/}
+                {/*        headerShown: true,*/}
+                {/*    }}*/}
+                {/*/>*/}
                 {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Managers}

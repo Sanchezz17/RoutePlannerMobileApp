@@ -5,7 +5,7 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { UserCard } from '../../components/UserCard/UserCard';
 import styles from './DrawerContent.styles';
 import { signOut } from '../../common/authorization/google/authStateManager';
@@ -21,18 +21,21 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
 
     return (
-        <DrawerContentScrollView {...props}>
-            <View style={styles.userCard}>
-                <UserCard user={currentUser} />
-            </View>
-            <DrawerItemList
-                activeBackgroundColor={palette.PrimaryTransparent}
-                activeTintColor={palette.Primary}
-                inactiveTintColor={palette.SystemUI}
-                {...props}
-            />
-            <View>
+        <View style={styles.drawerElements}>
+            <DrawerContentScrollView style={styles.drawerElements} {...props}>
+                <View style={styles.userCard}>
+                    <UserCard user={currentUser} />
+                </View>
+                <DrawerItemList
+                    activeBackgroundColor={palette.PrimaryTransparent}
+                    activeTintColor={palette.Primary}
+                    inactiveTintColor={palette.SystemUI}
+                    {...props}
+                />
+            </DrawerContentScrollView>
+            <View style={styles.exitButton}>
                 <DrawerItem
+                    labelStyle={styles.exitButtonLabel}
                     label="Выйти"
                     onPress={async () => {
                         if (signOut) {
@@ -42,6 +45,6 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
                     }}
                 />
             </View>
-        </DrawerContentScrollView>
+        </View>
     );
 };
