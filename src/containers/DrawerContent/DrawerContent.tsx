@@ -12,6 +12,9 @@ import { signOut } from '../../common/authorization/google/authStateManager';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { removeUser } from '../../redux/users/reducer';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import { PaletteStorage } from '../../components/palette/PaletteStorage';
+
+const palette = PaletteStorage.getPalette();
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
     const dispatch = useAppDispatch();
@@ -22,7 +25,12 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
             <View style={styles.userCard}>
                 <UserCard user={currentUser} />
             </View>
-            <DrawerItemList {...props} />
+            <DrawerItemList
+                activeBackgroundColor={palette.PrimaryTransparent}
+                activeTintColor={palette.Primary}
+                inactiveTintColor={palette.SystemUI}
+                {...props}
+            />
             <View>
                 <DrawerItem
                     label="Выйти"
