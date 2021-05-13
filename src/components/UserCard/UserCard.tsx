@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './UserCard.styles';
-import { Image, Text, View } from 'react-native';
+import { Image, ImageBackground, Text, View } from 'react-native';
 import { User } from '../../redux/users/types';
 
 export interface UserCardProps {
@@ -14,7 +14,11 @@ export const UserCard = ({ user }: UserCardProps) => {
                 <Text style={styles.name}>{user.name}</Text>
                 <Text style={styles.position}>{user.position}</Text>
             </View>
-            <Image style={styles.picture} source={{ uri: user.picture }} />
+            <ImageBackground
+                style={styles.picture}
+                source={require('../../images/account_circle_small.svg')}>
+                <Image style={styles.picture} source={{ uri: user.picture }} />
+            </ImageBackground>
         </View>
     );
 };
