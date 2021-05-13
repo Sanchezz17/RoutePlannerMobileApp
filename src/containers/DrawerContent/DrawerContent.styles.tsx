@@ -10,7 +10,7 @@ export default StyleSheet.create({
         marginLeft: 12,
     },
     exitButton: {
-        backgroundColor: palette.SystemUITransparent,
+        backgroundColor: palette.SystemUIStroke,
         position: 'absolute',
         bottom: 0,
         left: 0,
