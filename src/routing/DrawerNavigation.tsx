@@ -16,6 +16,7 @@ import ClientsIcon from '../components/icons/ClientsIcon';
 import MeetingsIcon from '../components/icons/MeetingsIcon';
 import ScheduleIcon from '../components/icons/ScheduleIcon';
 import RouteIcon from '../components/icons/RouteIcon';
+import {ManagerScreen} from "../screens/ManagersScreen/ManagersScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -61,7 +62,7 @@ const DrawerNavigation = () => {
                 {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Managers}
-                        component={RequestsScreen}
+                        component={ManagerScreen}
                         options={{
                             title: 'Менеджеры',
                             drawerIcon: ({ focused }) => (

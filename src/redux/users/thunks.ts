@@ -33,7 +33,12 @@ export const getUsersWithoutRightsThunk = createAsyncThunk(
         return await userAPI.getUsersWithoutRightsAsync();
     },
 );
-
+export const getManagersThunk = createAsyncThunk(
+    'users/getManagersThunkStatus',
+    async (_, __) => {
+        return await userAPI.getManagers();
+    },
+);
 export const addRightToUserThunk = createAsyncThunk(
     'users/addRightToUserThunkStatus',
     async (addRightToUserParameters: { id: number; right: Right }, _) => {

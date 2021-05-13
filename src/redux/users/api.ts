@@ -34,6 +34,10 @@ const getUsersWithoutRightsAsync = async (): Promise<User[]> => {
     return await authorizeFetch(`${usersApiPrefix}/without-rights`);
 };
 
+const getManagers = async (): Promise<User[]> => {
+    return await authorizeFetch(`${usersApiPrefix}/with-rights`);
+};
+
 const addRightToUserAsync = async (
     id: number,
     right: Right,
@@ -49,4 +53,5 @@ export const userAPI = {
     deleteUserAsync,
     getUsersWithoutRightsAsync,
     addRightToUserAsync,
+    getManagers,
 };

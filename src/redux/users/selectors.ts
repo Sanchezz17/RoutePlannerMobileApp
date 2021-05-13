@@ -12,3 +12,6 @@ export const selectCurrentUser = (state: RootState): User =>
 
 export const selectRequests = (state: RootState): User[] =>
     Object.values(state.users.requests);
+
+export const selectManagers = (state: RootState): User[] =>
+    Object.values(state.users.managers);

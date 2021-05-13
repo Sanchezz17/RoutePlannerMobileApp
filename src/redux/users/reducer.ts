@@ -6,18 +6,21 @@ import {
     deleteUserThunk,
     getUsersWithoutRightsThunk,
     addRightToUserThunk,
+    getManagersThunk,
 } from './thunks';
 
 export interface UsersState {
     currentUserId: number;
     users: { [key: number]: User };
     requests: { [key: number]: User };
+    managers: { [key: number]: User };
 }
 
 const initialState: UsersState = {
     currentUserId: 0,
     users: {},
     requests: {},
+    managers: {},
 };
 
 const usersSlice = createSlice({
@@ -69,6 +72,24 @@ const usersSlice = createSlice({
             state.requests = {
                 ...state.requests,
                 ...requestsMap,
+            };
+        },
+        [getManagersThunk.fulfilled.type]: (
+            state: UsersState,
+            action: PayloadAction<User[]>,
+        ) => {
+            const managers = action.payload;
+            const managersMap = managers.reduce(function (
+                map: { [key: number]: User },
+                obj,
+            ) {
+                map[obj.id] = obj;
+                return map;
+            },
+            {});
+            state.managers = {
+                ...state.managers,
+                ...managersMap,
             };
         },
         [addRightToUserThunk.fulfilled.type]: (
