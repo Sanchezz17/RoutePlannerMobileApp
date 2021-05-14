@@ -45,7 +45,8 @@ export const trySignInSilently = async () => {
 
 export const signOut = async () => {
     try {
-        await GoogleSignin.revokeAccess();
+        const tokens = await getTokens();
+        await GoogleSignin.clearCachedAccessToken(tokens.accessToken);
         await GoogleSignin.signOut();
     } catch (error) {
         console.error(error);

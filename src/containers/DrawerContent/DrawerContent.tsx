@@ -5,7 +5,7 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { UserCard } from '../../components/UserCard/UserCard';
 import styles from './DrawerContent.styles';
 import { signOut } from '../../common/authorization/google/authStateManager';
