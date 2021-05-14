@@ -10,12 +10,12 @@ export interface UserCardProps {
 
 export const UserCard = ({ user }: UserCardProps) => {
     return (
-        <View style={styles.card}>
+        <View style={styles.cardInfo}>
             <View style={styles.info}>
                 <Text style={styles.name}>{user.name}</Text>
                 <Text style={styles.position}>{user.position}</Text>
             </View>
-            <View style={styles.container}>
+            <View style={styles.imageContainer}>
                 <AccountIcon style={styles.placeholder} size={'big'} />
                 <Image style={styles.picture} source={{ uri: user.picture }} />
             </View>

@@ -3,7 +3,7 @@ import { PaletteStorage } from '../palette/PaletteStorage';
 
 const palette = PaletteStorage.getPalette();
 export default StyleSheet.create({
-    card: {
+    cardInfo: {
         display: 'flex',
         flexDirection: 'row',
         padding: 10,
@@ -22,7 +22,7 @@ export default StyleSheet.create({
         width: 48,
         height: 48,
     },
-    container: {
+    imageContainer: {
         width: 48,
         height: 48,
         alignSelf: 'center',

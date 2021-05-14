@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    card: {
+    cardInfo: {
         display: 'flex',
         justifyContent: 'space-around',
         flexDirection: 'row',
@@ -18,7 +18,7 @@ export default StyleSheet.create({
         position: 'absolute',
         zIndex: 1,
     },
-    container: {
+    imageContainer: {
         display: 'flex',
         width: 84,
         height: 84,

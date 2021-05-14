@@ -7,6 +7,7 @@ import { FlatList, SafeAreaView, Text, View } from 'react-native';
 import { getManagersThunk } from '../../redux/users/thunks';
 import styles from './ManagersScreen.styles';
 import { UserCard } from '../../components/UserCard/UserCard';
+import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 
 type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -37,7 +38,9 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
                 ) : (
                     <FlatList
                         data={managers}
-                        renderItem={(props) => <UserCard user={props.item} />}
+                        renderItem={(props) => (
+                            <ManagerCard user={props.item} />
+                        )}
                         keyExtractor={(item) => item.email}
                     />
                 )}

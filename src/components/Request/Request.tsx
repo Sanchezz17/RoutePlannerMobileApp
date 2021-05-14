@@ -14,8 +14,8 @@ export interface RequestProps {
 
 export const Request = ({ user, onAccept, onReject }: RequestProps) => {
     return (
-        <View style={styles.card}>
-            <View style={styles.container}>
+        <View style={styles.cardInfo}>
+            <View style={styles.imageContainer}>
                 <AccountIcon size={'small'} style={styles.placeholder} />
                 <Image style={styles.picture} source={{ uri: user.picture }} />
             </View>
