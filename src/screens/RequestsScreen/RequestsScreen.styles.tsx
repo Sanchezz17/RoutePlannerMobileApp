@@ -7,4 +7,7 @@ export default StyleSheet.create({
         margin: 15,
         fontSize: 17,
     },
+    requests: {
+        height: '100%',
+    },
 });
