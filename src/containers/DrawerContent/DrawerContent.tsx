@@ -10,9 +10,9 @@ import { UserCard } from '../../components/UserCard/UserCard';
 import styles from './DrawerContent.styles';
 import { signOut } from '../../common/authorization/google/authStateManager';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { removeUser } from '../../redux/users/reducer';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { PaletteStorage } from '../../components/palette/PaletteStorage';
+import { clearState } from '../../redux/rootReducer';
 
 const palette = PaletteStorage.getPalette();
 
@@ -38,10 +38,8 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
                     labelStyle={styles.exitButtonLabel}
                     label="Выйти"
                     onPress={async () => {
-                        if (signOut) {
-                            await signOut();
-                            dispatch(removeUser(currentUser.id));
-                        }
+                        await signOut();
+                        dispatch(clearState);
                     }}
                 />
             </View>

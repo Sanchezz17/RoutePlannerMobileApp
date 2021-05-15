@@ -26,12 +26,7 @@ const initialState: UsersState = {
 const usersSlice = createSlice({
     name: 'users',
     initialState: initialState,
-    reducers: {
-        removeUser: (state: UsersState, action: PayloadAction<number>) => {
-            const userId = action.payload;
-            delete state.users[userId];
-        },
-    },
+    reducers: {},
     extraReducers: {
         [getCurrentUserThunk.fulfilled.type]: (
             state: UsersState,
@@ -110,5 +105,4 @@ const usersSlice = createSlice({
     },
 });
 
-export const { removeUser } = usersSlice.actions;
 export default usersSlice.reducer;
