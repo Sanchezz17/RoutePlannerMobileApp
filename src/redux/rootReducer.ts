@@ -1,10 +1,5 @@
-import {
-    AnyAction,
-    combineReducers,
-    createAction,
-    Reducer,
-} from '@reduxjs/toolkit';
-import usersReducer from './users/reducer';
+import { AnyAction, combineReducers, Reducer } from '@reduxjs/toolkit';
+import usersReducer, { logout } from './users/reducer';
 
 const appReducer = combineReducers({
     users: usersReducer,
@@ -12,10 +7,8 @@ const appReducer = combineReducers({
 
 type RootState = ReturnType<typeof appReducer>;
 
-export const clearState = createAction('CLEAR_STATE');
-
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-    if (action.type === clearState.type) {
+    if (action.type === logout.type) {
         state = {} as RootState;
     }
     return appReducer(state, action);

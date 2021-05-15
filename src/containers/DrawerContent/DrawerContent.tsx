@@ -12,7 +12,7 @@ import { signOut } from '../../common/authorization/google/authStateManager';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { PaletteStorage } from '../../components/palette/PaletteStorage';
-import { clearState } from '../../redux/rootReducer';
+import { logout } from '../../redux/users/reducer';
 
 const palette = PaletteStorage.getPalette();
 
@@ -39,7 +39,7 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
                     label="Выйти"
                     onPress={async () => {
                         await signOut();
-                        dispatch(clearState);
+                        dispatch(logout());
                     }}
                 />
             </View>

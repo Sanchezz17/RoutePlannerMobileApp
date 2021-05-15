@@ -26,7 +26,7 @@ const initialState: UsersState = {
 const usersSlice = createSlice({
     name: 'users',
     initialState: initialState,
-    reducers: {},
+    reducers: { logout: (_: UsersState) => {} },
     extraReducers: {
         [getCurrentUserThunk.fulfilled.type]: (
             state: UsersState,
@@ -105,4 +105,5 @@ const usersSlice = createSlice({
     },
 });
 
+export const { logout } = usersSlice.actions;
 export default usersSlice.reducer;
