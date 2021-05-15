@@ -1,18 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserRight } from './types';
 import {
-    getCurrentUserThunk,
-    updateUserThunk,
-    deleteUserThunk,
-    getUsersWithoutRightsThunk,
     addRightToUserThunk,
+    deleteUserThunk,
+    getCurrentUserThunk,
     getManagersThunk,
+    getUsersWithoutRightsThunk,
+    updateUserThunk,
 } from './thunks';
 
 export interface UsersState {
     currentUserId: number;
     users: { [key: number]: User };
     requests: { [key: number]: User };
+    loadingRequests: boolean;
     managers: { [key: number]: User };
 }
 
@@ -20,6 +21,7 @@ const initialState: UsersState = {
     currentUserId: 0,
     users: {},
     requests: {},
+    loadingRequests: false,
     managers: {},
 };
 
@@ -51,12 +53,15 @@ const usersSlice = createSlice({
             delete state.users[userId];
             delete state.requests[userId];
         },
+        [getUsersWithoutRightsThunk.pending.type]: (state: UsersState) => {
+            state.loadingRequests = true;
+        },
         [getUsersWithoutRightsThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User[]>,
         ) => {
             const usersWithoutRights = action.payload;
-            const requestsMap = usersWithoutRights.reduce(function (
+            state.requests = usersWithoutRights.reduce(function (
                 map: { [key: number]: User },
                 obj,
             ) {
@@ -64,10 +69,7 @@ const usersSlice = createSlice({
                 return map;
             },
             {});
-            state.requests = {
-                ...state.requests,
-                ...requestsMap,
-            };
+            state.loadingRequests = false;
         },
         [getManagersThunk.fulfilled.type]: (
             state: UsersState,
