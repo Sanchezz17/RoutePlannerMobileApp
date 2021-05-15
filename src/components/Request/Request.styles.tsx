@@ -7,8 +7,7 @@ export default StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         padding: 10,
-        borderColor: palette.SystemUIStroke,
-        borderBottomWidth: 1,
+        marginTop: 1.5,
         backgroundColor: palette.Background,
     },
     picture: {

@@ -8,9 +8,8 @@ export default StyleSheet.create({
         display: 'flex',
         justifyContent: 'flex-start',
         flexDirection: 'column',
-        borderBottomColor: palette.SystemUIStroke,
-        borderBottomWidth: 1,
         backgroundColor: palette.Background,
+        marginTop: 1.5,
     },
     cardInfo: {
         display: 'flex',
@@ -46,7 +45,8 @@ export default StyleSheet.create({
         width: 62,
         height: 62,
         borderRadius: 50,
-        margin: 20,
+        marginTop: 15,
+        marginRight: 20,
     },
     info: {
         display: 'flex',
@@ -59,5 +59,8 @@ export default StyleSheet.create({
     position: {
         fontSize: 15,
         color: palette.SystemUI,
+    },
+    contacts: {
+        marginLeft: 20,
     },
 });

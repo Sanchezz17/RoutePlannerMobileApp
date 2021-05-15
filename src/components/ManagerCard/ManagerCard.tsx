@@ -5,6 +5,7 @@ import { User } from '../../redux/users/types';
 import AccountIcon from '../icons/AccountIcon';
 import KebabMenuIcon from '../icons/KebabMenuIcon';
 import ExpandCardIcon from '../icons/ExpandCardIcon';
+import { Contacts } from '../Contacts/Contacts';
 
 export interface UserCardProps {
     user: User;
@@ -27,6 +28,12 @@ export const ManagerCard = ({ user }: UserCardProps) => {
                     />
                 </View>
             </View>
+            <Contacts
+                email={user.email}
+                phone={user.mobilePhone}
+                telegram={user.telegram}
+                style={styles.contacts}
+            />
             <ExpandCardIcon style={styles.expandCardIcon} />
         </View>
     );

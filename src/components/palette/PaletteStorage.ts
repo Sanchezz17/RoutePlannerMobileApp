@@ -3,6 +3,7 @@ import { Appearance } from 'react-native';
 interface IPalette {
     readonly Primary: string;
     readonly PrimaryTransparent: string;
+    readonly Secondary: string;
     readonly SystemUI: string;
     readonly SystemUITransparent: string;
     readonly SystemUISecondary: string;
@@ -13,6 +14,7 @@ interface IPalette {
 class LightPalette implements IPalette {
     readonly Primary: string = '#6200EE';
     readonly PrimaryTransparent: string = '#6200EE44';
+    readonly Secondary: string = '#883EF1';
     readonly SystemUI: string = '#606060';
     readonly SystemUITransparent: string = '#60606022';
     readonly SystemUISecondary: string = '#808080';
@@ -23,6 +25,7 @@ class LightPalette implements IPalette {
 class DarkPalette implements IPalette {
     readonly Primary: string = '#6200EE';
     readonly PrimaryTransparent: string = '#6200EE44';
+    readonly Secondary: string = '#883EF1';
     readonly SystemUI: string = '#606060';
     readonly SystemUITransparent: string = '#60606022';
     readonly SystemUISecondary: string = '#808080';
