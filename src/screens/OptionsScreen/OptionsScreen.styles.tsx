@@ -1,11 +1,21 @@
 import { StyleSheet } from 'react-native';
+import { PaletteStorage } from '../../components/palette/PaletteStorage';
+import { DefaultTheme } from 'react-native-paper';
+
+const palette = PaletteStorage.getPalette();
+
+export const theme = {
+    ...DefaultTheme,
+    roundness: 10,
+};
 
 export default StyleSheet.create({
     view: {
-        height: '100%',
-        margin: 15,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
+        flex: 1,
+        backgroundColor: palette.Background,
+    },
+    container: {
+        paddingHorizontal: 15,
     },
     picture: {
         width: 96,
@@ -20,6 +30,7 @@ export default StyleSheet.create({
         width: '100%',
         display: 'flex',
         justifyContent: 'flex-start',
+        flexDirection: 'column',
     },
     fieldLabel: {
         fontSize: 17,
@@ -28,27 +39,34 @@ export default StyleSheet.create({
         textAlign: 'left',
     },
     input: {
-        backgroundColor: '#FFFFFF',
-        height: 44,
-        borderRadius: 5,
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        fontSize: 15,
         flex: 1,
         marginVertical: 10,
-        borderColor: '#000000',
-        borderWidth: 2,
     },
-    emailInput: {
-        color: 'black',
+    activeInput: {
+        backgroundColor: palette.Background,
+    },
+    inactiveInput: {
+        backgroundColor: palette.SystemUIStroke,
     },
     saveButton: {
         width: '40%',
-        borderRadius: 10,
+        height: 40,
         marginVertical: 20,
+        alignSelf: 'flex-end',
+        backgroundColor: palette.Secondary,
+    },
+    saveButtonLabel: {
+        textAlignVertical: 'center',
     },
     map: {
         height: 350,
         width: '100%',
+    },
+    divider: {
+        width: '90%',
+        alignSelf: 'center',
+        borderWidth: 0.5,
+        borderColor: palette.SystemUIStroke,
+        marginBottom: 10,
     },
 });
