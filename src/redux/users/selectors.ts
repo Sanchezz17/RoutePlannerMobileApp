@@ -18,3 +18,6 @@ export const selectLoadingRequests = (state: RootState): boolean =>
 
 export const selectManagers = (state: RootState): User[] =>
     Object.values(state.users.managers);
+
+export const selectLoadingManagers = (state: RootState): boolean =>
+    state.users.loadingManagers;

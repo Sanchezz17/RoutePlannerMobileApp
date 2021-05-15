@@ -15,6 +15,7 @@ export interface UsersState {
     requests: { [key: number]: User };
     loadingRequests: boolean;
     managers: { [key: number]: User };
+    loadingManagers: boolean;
 }
 
 const initialState: UsersState = {
@@ -23,6 +24,7 @@ const initialState: UsersState = {
     requests: {},
     loadingRequests: false,
     managers: {},
+    loadingManagers: false,
 };
 
 const usersSlice = createSlice({
@@ -71,12 +73,15 @@ const usersSlice = createSlice({
             {});
             state.loadingRequests = false;
         },
+        [getManagersThunk.pending.type]: (state: UsersState) => {
+            state.loadingManagers = true;
+        },
         [getManagersThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User[]>,
         ) => {
             const managers = action.payload;
-            const managersMap = managers.reduce(function (
+            state.managers = managers.reduce(function (
                 map: { [key: number]: User },
                 obj,
             ) {
@@ -84,10 +89,7 @@ const usersSlice = createSlice({
                 return map;
             },
             {});
-            state.managers = {
-                ...state.managers,
-                ...managersMap,
-            };
+            state.loadingManagers = false;
         },
         [addRightToUserThunk.fulfilled.type]: (
             state: UsersState,
