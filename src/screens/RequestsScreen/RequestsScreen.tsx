@@ -6,7 +6,8 @@ import {
     selectLoadingRequests,
     selectRequests,
 } from '../../redux/users/selectors';
-import { FlatList, SafeAreaView, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
 import {
     addRightToUserThunk,
     deleteUserThunk,
@@ -22,6 +23,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     const dispatch = useAppDispatch();
     const requests = useAppSelector(selectRequests);
     const loadingRequests = useAppSelector(selectLoadingRequests);
+    const [search, setSearch] = useState('');
 
     const loadRequests = useCallback(() => {
         dispatch(getUsersWithoutRightsThunk());
@@ -33,10 +35,17 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
 
     return (
         <SafeAreaView>
+            <Searchbar
+                placeholder="Поиск по имени"
+                onChangeText={setSearch}
+                value={search}
+            />
             <View>
                 <FlatList
                     style={styles.requests}
-                    data={requests}
+                    data={requests.filter(
+                        (request) => !search || request.name.startsWith(search),
+                    )}
                     refreshing={loadingRequests}
                     onRefresh={loadRequests}
                     renderItem={(props) => (
