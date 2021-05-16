@@ -46,7 +46,7 @@ export default StyleSheet.create({
         width: '40%',
         height: 40,
         marginVertical: 20,
-        alignSelf: 'center',
+        alignSelf: 'flex-end',
         backgroundColor: palette.Secondary,
     },
     saveButtonLabel: {
