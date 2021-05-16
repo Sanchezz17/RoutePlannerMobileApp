@@ -3,11 +3,19 @@ import {
     signIn,
     trySignInSilently,
 } from '../authorization/google/authStateManager';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export const authorizeFetch = async (
     url: string,
     options: object | null = null,
 ) => {
+    const signedIn = await GoogleSignin.isSignedIn();
+    if (!signedIn) {
+        const signsInSilently = await trySignInSilently();
+        if (!signsInSilently) {
+            await signIn();
+        }
+    }
     const tokens = await getTokens();
     const defaultOptions = {
         headers: {
@@ -15,7 +23,6 @@ export const authorizeFetch = async (
             'Content-Type': 'application/json; charset=UTF-8',
         },
     };
-
     try {
         return await fetchJsonAsync(
             url,
