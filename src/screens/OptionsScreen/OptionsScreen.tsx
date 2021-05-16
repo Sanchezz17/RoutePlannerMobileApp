@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Toast from 'react-native-easy-toast';
 import { useForm } from 'react-hook-form';
 import styles, { theme } from './OptionsScreen.styles';
-import { UserCard } from '../../components/UserCard/UserCard';
 import { Coordinate, Right } from '../../redux/users/types';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -15,7 +14,8 @@ import { DrawerNavigationProps } from '../../routing/types';
 import { TextInput, Button, Divider } from 'react-native-paper';
 import TelegramIcon from '../../components/Contacts/TelegramIcon';
 import PhoneIcon from '../../components/Contacts/PhoneIcon';
-import {SettingsCard} from "../../components/SettingsCard/SettingsCard";
+import { SettingsCard } from '../../components/SettingsCard/SettingsCard';
+import MailIcon from "../../components/Contacts/MailIcon";
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
 
@@ -46,10 +46,6 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
 
     const onSubmit = useCallback(
         async (formData) => {
-            //console.log(`Types: ${JSON.stringify(users)}`);
-            //console.log(formData);
-            //console.log(coordinate);
-
             // Пользователь может обновлять только себя, если он не админ
             if (
                 !currentUser.rights.includes(Right.Admin) &&
@@ -119,6 +115,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         value={user.email}
                         editable={false}
                         onChangeText={() => undefined}
+                        left={<TextInput.Icon name={() => <MailIcon />} />}
                     />
                     <TextInput
                         mode={'outlined'}

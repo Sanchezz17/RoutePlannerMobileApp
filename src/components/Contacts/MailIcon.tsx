@@ -4,7 +4,7 @@ import { PaletteStorage } from '../palette/PaletteStorage';
 import { StyleProp, ViewStyle } from 'react-native';
 
 interface IconProps {
-    style: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
 }
 
 const palette = PaletteStorage.getPalette();
