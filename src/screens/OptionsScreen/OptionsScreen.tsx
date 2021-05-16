@@ -1,4 +1,4 @@
-import { LogBox, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { LogBox, SafeAreaView, ScrollView, View } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Toast from 'react-native-easy-toast';
 import { useForm } from 'react-hook-form';
@@ -15,12 +15,12 @@ import { TextInput, Button, Divider } from 'react-native-paper';
 import TelegramIcon from '../../components/Contacts/TelegramIcon';
 import PhoneIcon from '../../components/Contacts/PhoneIcon';
 import { SettingsCard } from '../../components/SettingsCard/SettingsCard';
-import MailIcon from "../../components/Contacts/MailIcon";
+import MailIcon from '../../components/Contacts/MailIcon';
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
 
 LogBox.ignoreLogs([
-    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.',
+    /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
 ]);
 
 const defaultCoordinate: Coordinate = {
@@ -140,7 +140,6 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         onChangeText={onChangeField(TELEGRAM_FIELD)}
                         left={<TextInput.Icon name={() => <TelegramIcon />} />}
                     />
-                    <Text style={styles.fieldLabel}>Адрес</Text>
                     <GooglePlacesInput
                         address={coordinate.address}
                         onChangeCoordinate={(newCoordinate) => {

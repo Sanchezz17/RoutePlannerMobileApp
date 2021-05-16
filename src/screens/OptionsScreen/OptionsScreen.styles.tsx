@@ -32,12 +32,6 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'column',
     },
-    fieldLabel: {
-        fontSize: 17,
-        fontWeight: 'bold',
-        marginVertical: 5,
-        textAlign: 'left',
-    },
     input: {
         flex: 1,
         marginVertical: 10,
@@ -52,7 +46,7 @@ export default StyleSheet.create({
         width: '40%',
         height: 40,
         marginVertical: 20,
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
         backgroundColor: palette.Secondary,
     },
     saveButtonLabel: {

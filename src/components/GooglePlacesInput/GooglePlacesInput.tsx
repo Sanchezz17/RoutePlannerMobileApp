@@ -1,7 +1,7 @@
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
-    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.',
+    /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
 ]);
 
 import React, { useEffect, useRef } from 'react';
@@ -11,6 +11,10 @@ import {
 } from 'react-native-google-places-autocomplete';
 import { Coordinate } from '../../redux/users/types';
 import { GoogleMapsApiKey } from '../../common/secrets';
+import { TextInput } from 'react-native-paper';
+import styles, {
+    theme,
+} from '../../screens/OptionsScreen/OptionsScreen.styles';
 
 export interface GooglePlacesInputProps {
     address: string;
@@ -55,11 +59,12 @@ export const GooglePlacesInput = ({
                 key: GoogleMapsApiKey,
                 language: 'ru',
             }}
-            styles={{
-                textInput: {
-                    borderColor: '#000000',
-                    borderWidth: 2,
-                },
+            textInputProps={{
+                InputComp: TextInput,
+                mode: 'outlined',
+                label: 'Адрес',
+                style: [styles.input, styles.activeInput],
+                theme: theme,
             }}
         />
     );
