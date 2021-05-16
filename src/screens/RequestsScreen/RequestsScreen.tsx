@@ -16,6 +16,7 @@ import {
 import styles from './RequestsScreen.styles';
 import { Request } from '../../components/Request/Request';
 import { Right } from '../../redux/users/types';
+import searchUsers from '../../common/utils/searchUsers';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -36,16 +37,14 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     return (
         <SafeAreaView>
             <Searchbar
-                placeholder="Поиск по имени"
+                placeholder="Поиск заявок"
                 onChangeText={setSearch}
                 value={search}
             />
             <View>
                 <FlatList
                     style={styles.requests}
-                    data={requests.filter(
-                        (request) => !search || request.name.startsWith(search),
-                    )}
+                    data={searchUsers(search, requests)}
                     refreshing={loadingRequests}
                     onRefresh={loadRequests}
                     renderItem={(props) => (
