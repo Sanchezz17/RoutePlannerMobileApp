@@ -15,7 +15,7 @@ export default StyleSheet.create({
         backgroundColor: palette.Background,
     },
     container: {
-        paddingHorizontal: 15,
+        paddingHorizontal: 20,
     },
     picture: {
         width: 96,
@@ -57,7 +57,7 @@ export default StyleSheet.create({
         width: '100%',
     },
     divider: {
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
         borderWidth: 0.5,
         borderColor: palette.SystemUIStroke,
