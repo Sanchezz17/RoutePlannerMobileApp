@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DrawerNavigationProps } from '../../routing/types';
 import { DrawerRoutes } from '../../routing/routes';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -17,7 +17,7 @@ import styles from './RequestsScreen.styles';
 import { Request } from '../../components/Request/Request';
 import { Right } from '../../redux/users/types';
 import searchUsers from '../../common/utils/searchUsers';
-import Toast from "react-native-easy-toast";
+import Toast from 'react-native-easy-toast';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
