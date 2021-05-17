@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ManagerCard.styles';
-import { Animated, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import Animated, {
+    Easing,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+    withTiming,
+} from 'react-native-reanimated';
 import { User } from '../../redux/users/types';
 import AccountIcon from '../icons/AccountIcon';
 import KebabMenuIcon from '../icons/KebabMenuIcon';
@@ -22,100 +29,63 @@ export const ManagerCard = ({
     setExpandedCardNumber,
 }: UserCardProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [expandAnimation, setExpandAnimation] = useState(
-        new Animated.Value(0),
-    );
+    const expandAnimation = useSharedValue(0);
+    const animationDuration = 400;
     useEffect(() => {
         if (cardNumber === expandedCardNumber) {
-            handleExpandAnimation();
+            expandAnimation.value = 1;
             setIsExpanded(true);
-        } else {
-            handleCollapseAnimation();
+        } else if (isExpanded) {
+            expandAnimation.value = 0;
             setIsExpanded(false);
         }
     }, [cardNumber, expandedCardNumber]);
 
-    const interpolateRotating = expandAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', '180deg'],
-    });
-
-    const interpolateExpansion = expandAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 300],
-    });
-
-    const interpolateOpacity = expandAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 1],
-    });
-
-    const interpolateTranslateX = expandAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, -10],
-    });
-
-    const interpolateTranslateY = expandAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 20],
-    });
-
-    const interpolateScale = expandAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: [1, 1.5],
-    });
-
-    const animatedRotationStyle = {
-        transform: [
-            {
-                rotateX: interpolateRotating,
-            },
-        ],
-    };
-    const animatedExpansionStyle = {
-        maxHeight: interpolateExpansion,
-        opacity: interpolateOpacity,
-    };
-
-    const animatedImageStyle = {
-        transform: [
-            {
-                translateX: interpolateTranslateX,
-            },
-            {
-                translateY: interpolateTranslateY,
-            },
-            {
-                scale: interpolateScale,
-            },
-        ],
-    };
-
-    const handleExpandAnimation = () => {
-        Animated.parallel([
-            Animated.timing(expandAnimation, {
-                toValue: 1,
-                duration: 400,
-                delay: 0,
-                useNativeDriver: false,
-            }),
-        ]).start(() => {
-            expandAnimation.setValue(1);
+    const rotateX = useDerivedValue(() => {
+        return withTiming(isExpanded ? 180 : 0, {
+            duration: animationDuration,
+            easing: Easing.linear,
         });
-    };
+    });
 
-    const handleCollapseAnimation = () => {
-        Animated.parallel([
-            Animated.timing(expandAnimation, {
-                toValue: 0,
-                delay: 0,
-                duration: 200,
-                useNativeDriver: false,
+    const animatedRotationStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ rotateX: `${rotateX.value}deg` }],
+        };
+    });
+
+    const animatedExpansionStyle = useAnimatedStyle(() => {
+        return {
+            maxHeight: withTiming(expandAnimation.value * 300, {
+                duration: animationDuration,
             }),
-        ]).start(() => {
-            expandAnimation.setValue(0);
-        });
-    };
+            opacity: withTiming(expandAnimation.value, {
+                duration: animationDuration,
+            }),
+        };
+    });
+
+    const animatedImageStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                {
+                    translateX: withTiming(expandAnimation.value * -10, {
+                        duration: animationDuration,
+                    }),
+                },
+                {
+                    translateY: withTiming(expandAnimation.value * 20, {
+                        duration: animationDuration,
+                    }),
+                },
+                {
+                    scale: withTiming(isExpanded ? 1.5 : 1, {
+                        duration: animationDuration,
+                    }),
+                },
+            ],
+        };
+    });
 
     return (
         <View style={styles.card}>
