@@ -1,8 +1,10 @@
 import { AnyAction, combineReducers, Reducer } from '@reduxjs/toolkit';
 import usersReducer, { logout } from './users/reducer';
+import requestsReducer from './requests/reducer';
 
 const appReducer = combineReducers({
-    users: usersReducer,
+    usersSlice: usersReducer,
+    requestsSlice: requestsReducer,
 });
 
 type RootState = ReturnType<typeof appReducer>;

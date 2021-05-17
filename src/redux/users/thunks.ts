@@ -33,18 +33,13 @@ interface UsersSearchParameters {
     query: string;
 }
 
-export const getUsersWithoutRightsThunk = createAsyncThunk(
-    'users/getUsersWithoutRightsThunkStatus',
-    async ({ offset, limit, query }: UsersSearchParameters, __) => {
-        return await userAPI.getUsersWithoutRightsAsync(offset, limit, query);
-    },
-);
 export const getManagersThunk = createAsyncThunk(
     'users/getManagersThunkStatus',
     async ({ offset, limit, query }: UsersSearchParameters, __) => {
         return await userAPI.getManagers(offset, limit, query);
     },
 );
+
 export const addRightToUserThunk = createAsyncThunk(
     'users/addRightToUserThunkStatus',
     async (addRightToUserParameters: { id: number; right: Right }, _) => {

@@ -2,21 +2,18 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DrawerNavigationProps } from '../../routing/types';
 import { DrawerRoutes } from '../../routing/routes';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import {
-    selectLoadingRequests,
-    selectRequests,
-} from '../../redux/users/selectors';
 import { FlatList, SafeAreaView, View } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-import {
-    addRightToUserThunk,
-    deleteUserThunk,
-    getUsersWithoutRightsThunk,
-} from '../../redux/users/thunks';
+import { addRightToUserThunk, deleteUserThunk } from '../../redux/users/thunks';
 import styles from './RequestsScreen.styles';
 import { Request } from '../../components/Request/Request';
 import { Right } from '../../redux/users/types';
 import Toast from 'react-native-easy-toast';
+import {
+    selectLoadingRequests,
+    selectRequests,
+} from '../../redux/requests/selectors';
+import { getRequestsThunk } from '../../redux/requests/thunks';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -31,7 +28,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     const loadRequests = useCallback(
         (offset: number = 0) => {
             dispatch(
-                getUsersWithoutRightsThunk({
+                getRequestsThunk({
                     offset,
                     limit: 5,
                     query,
@@ -59,6 +56,8 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
                     data={requests}
                     refreshing={loadingRequests}
                     onRefresh={loadRequests}
+                    // onEndReached={}
+                    // onEndReachedThreshold={0.7}
                     renderItem={(props) => (
                         <Request
                             user={props.item}

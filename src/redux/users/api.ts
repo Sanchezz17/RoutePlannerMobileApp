@@ -30,16 +30,6 @@ const deleteUserAsync = async (id: number): Promise<number> => {
     });
 };
 
-const getUsersWithoutRightsAsync = async (
-    offset: number,
-    limit: number,
-    query: string,
-): Promise<User[]> => {
-    return await authorizeFetch(
-        `${usersApiPrefix}/without-rights?offset=${offset}&limit=${limit}&query=${query}`,
-    );
-};
-
 const getManagers = async (
     offset: number,
     limit: number,
@@ -63,7 +53,6 @@ export const userAPI = {
     getCurrentUserAsync,
     updateUserAsync,
     deleteUserAsync,
-    getUsersWithoutRightsAsync,
     addRightToUserAsync,
     getManagers,
 };

@@ -2,19 +2,13 @@ import { RootState } from '../store';
 import { User } from './types';
 
 export const selectCurrentUser = (state: RootState): number =>
-    state.users.currentUser;
+    state.usersSlice.currentUser;
 
 export const selectUserById = (state: RootState, userId: number): User =>
-    state.users.users[userId];
-
-export const selectRequests = (state: RootState): User[] =>
-    Object.values(state.users.requests);
-
-export const selectLoadingRequests = (state: RootState): boolean =>
-    state.users.loadingRequests;
+    state.usersSlice.users[userId];
 
 export const selectManagers = (state: RootState): User[] =>
-    Object.values(state.users.users);
+    Object.values(state.usersSlice.users);
 
 export const selectLoadingManagers = (state: RootState): boolean =>
-    state.users.loadingManagers;
+    state.usersSlice.loadingManagers;
