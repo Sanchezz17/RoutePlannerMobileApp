@@ -28,15 +28,18 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
 
     const toast = useRef<Toast>(null);
 
-    const loadRequests = useCallback(() => {
-        dispatch(
-            getUsersWithoutRightsThunk({
-                offset: requests.length,
-                limit: 5,
-                query,
-            }),
-        );
-    }, [dispatch, query]);
+    const loadRequests = useCallback(
+        (offset: number = 0) => {
+            dispatch(
+                getUsersWithoutRightsThunk({
+                    offset,
+                    limit: 5,
+                    query,
+                }),
+            );
+        },
+        [dispatch, query],
+    );
 
     useEffect(() => {
         loadRequests();

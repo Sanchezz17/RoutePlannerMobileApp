@@ -20,15 +20,18 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
     const loadingManagers = useAppSelector(selectLoadingManagers);
     const [query, setQuery] = useState('');
 
-    const loadManagers = useCallback(() => {
-        dispatch(
-            getManagersThunk({
-                offset: managers.length,
-                limit: 5,
-                query,
-            }),
-        );
-    }, [dispatch, query]);
+    const loadManagers = useCallback(
+        (offset: number = 0) => {
+            dispatch(
+                getManagersThunk({
+                    offset,
+                    limit: 5,
+                    query,
+                }),
+            );
+        },
+        [dispatch, query],
+    );
 
     useEffect(() => {
         loadManagers();
