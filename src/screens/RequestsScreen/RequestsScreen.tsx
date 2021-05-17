@@ -44,7 +44,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     }, [loadRequests]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.view}>
             <Searchbar
                 placeholder="Поиск заявок"
                 onChangeText={setQuery}

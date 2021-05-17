@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    view: {},
+    view: {
+        flex: 1,
+    },
     loadingText: {
         textAlign: 'center',
         margin: 15,

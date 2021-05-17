@@ -39,7 +39,7 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
     }, [loadManagers]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.view}>
             <Searchbar
                 placeholder="Поиск менеджеров"
                 onChangeText={setQuery}
@@ -47,7 +47,6 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
             />
             <View>
                 <FlatList
-                    style={styles.managers}
                     data={managers}
                     refreshing={loadingManagers}
                     onRefresh={loadManagers}
