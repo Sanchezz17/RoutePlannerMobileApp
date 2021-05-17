@@ -19,6 +19,7 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
     const managers = useAppSelector(selectManagers);
     const loadingManagers = useAppSelector(selectLoadingManagers);
     const [query, setQuery] = useState('');
+    const [expandedCardIndex, setExpandedCardIndex] = useState(-1);
 
     const loadManagers = useCallback(
         (offset: number = 0) => {
@@ -50,7 +51,17 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
                     data={managers}
                     refreshing={loadingManagers}
                     onRefresh={loadManagers}
-                    renderItem={(props) => <ManagerCard user={props.item} />}
+                    renderItem={(props) => (
+                        <ManagerCard
+                            user={props.item}
+                            key={props.index}
+                            setExpandedCardNumber={(cardNumber: number) =>
+                                setExpandedCardIndex(cardNumber)
+                            }
+                            cardNumber={props.index}
+                            expandedCardNumber={expandedCardIndex}
+                        />
+                    )}
                     keyExtractor={(item) => item.email}
                 />
             </View>

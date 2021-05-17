@@ -27,7 +27,18 @@ export default StyleSheet.create({
     expandCardIcon: {
         display: 'flex',
         alignSelf: 'center',
-        minWidth: 80,
+    },
+    expandCardTouchableContainer: {
+        width: 100,
+        height: 30,
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    divider: {
+        borderWidth: 0.5,
+        borderColor: palette.SystemUIStroke,
+        width: 180,
+        marginLeft: 20,
     },
     picture: {
         position: 'absolute',
@@ -62,5 +73,8 @@ export default StyleSheet.create({
     },
     contacts: {
         marginLeft: 20,
+        marginTop: 10,
+        marginBottom: 10,
+        width: 200,
     },
 });
