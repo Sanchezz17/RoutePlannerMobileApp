@@ -11,11 +11,12 @@ import deepEqual from 'deep-equal';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { DrawerRoutes } from '../../routing/routes';
 import { DrawerNavigationProps } from '../../routing/types';
-import { TextInput, Button, Divider } from 'react-native-paper';
+import { Button, Divider } from 'react-native-paper';
 import TelegramIcon from '../../components/Contacts/TelegramIcon';
 import PhoneIcon from '../../components/Contacts/PhoneIcon';
 import { SettingsCard } from '../../components/SettingsCard/SettingsCard';
 import MailIcon from '../../components/Contacts/MailIcon';
+import TextInput from '../../components/TextInput/TextInput';
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
 
@@ -108,37 +109,27 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 <Toast ref={toast} position={'center'} />
                 <View style={styles.form}>
                     <TextInput
-                        mode={'outlined'}
                         label={'Email'}
-                        style={[styles.input, styles.inactiveInput]}
-                        theme={theme}
                         value={user.email}
-                        editable={false}
-                        onChangeText={() => undefined}
-                        left={<TextInput.Icon name={() => <MailIcon />} />}
+                        active={false}
+                        leftIcon={<MailIcon />}
                     />
                     <TextInput
-                        mode={'outlined'}
                         label={'Телефон'}
-                        style={[styles.input, styles.activeInput]}
-                        theme={theme}
                         defaultValue={user.mobilePhone}
                         autoCompleteType="tel"
                         keyboardType="numeric"
                         textContentType="telephoneNumber"
                         maxLength={11}
                         onChangeText={onChangeField(MOBILE_PHONE_FIELD)}
-                        left={<TextInput.Icon name={() => <PhoneIcon />} />}
+                        leftIcon={<PhoneIcon />}
                     />
                     <TextInput
-                        mode={'outlined'}
                         label={'Telegram'}
-                        style={[styles.input, styles.activeInput]}
-                        theme={theme}
                         autoCorrect={false}
                         defaultValue={user.telegram}
                         onChangeText={onChangeField(TELEGRAM_FIELD)}
-                        left={<TextInput.Icon name={() => <TelegramIcon />} />}
+                        leftIcon={<TelegramIcon />}
                     />
                     <GooglePlacesInput
                         address={coordinate.address}

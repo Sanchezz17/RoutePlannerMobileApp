@@ -11,10 +11,7 @@ import {
 } from 'react-native-google-places-autocomplete';
 import { Coordinate } from '../../redux/users/types';
 import { GoogleMapsApiKey } from '../../common/secrets';
-import { TextInput } from 'react-native-paper';
-import styles, {
-    theme,
-} from '../../screens/OptionsScreen/OptionsScreen.styles';
+import TextInput from '../../components/TextInput/TextInput';
 
 export interface GooglePlacesInputProps {
     address: string;
@@ -61,10 +58,7 @@ export const GooglePlacesInput = ({
             }}
             textInputProps={{
                 InputComp: TextInput,
-                mode: 'outlined',
                 label: 'Адрес',
-                style: [styles.input, styles.activeInput],
-                theme: theme,
             }}
         />
     );
