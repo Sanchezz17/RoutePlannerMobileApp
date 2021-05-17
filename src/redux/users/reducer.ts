@@ -7,6 +7,7 @@ import {
     getManagersThunk,
     updateUserThunk,
 } from './thunks';
+import createMap from '../../common/utils/createMap';
 
 export interface UsersState {
     currentUser?: User;
@@ -56,14 +57,7 @@ const usersSlice = createSlice({
             action: PayloadAction<User[]>,
         ) => {
             const managers = action.payload;
-            state.users = managers.reduce(function (
-                map: { [key: number]: User },
-                obj,
-            ) {
-                map[obj.id] = obj;
-                return map;
-            },
-            {});
+            state.users = createMap(managers);
             state.loadingManagers = false;
         },
         [addRightToUserThunk.fulfilled.type]: (

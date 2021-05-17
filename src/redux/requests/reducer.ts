@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getRequestsThunk } from './thunks';
+import { getMoreRequestsThunk, getRequestsThunk } from './thunks';
 import { User } from '../users/types';
 import { deleteUserThunk } from '../users/thunks';
+import createMap from '../../common/utils/createMap';
 
 export interface RequestsState {
     requests: { [key: number]: User };
@@ -36,16 +37,17 @@ const requestsSlice = createSlice({
             state: RequestsState,
             action: PayloadAction<User[]>,
         ) => {
-            const usersWithoutRights = action.payload;
-            state.requests = usersWithoutRights.reduce(function (
-                map: { [key: number]: User },
-                obj,
-            ) {
-                map[obj.id] = obj;
-                return map;
-            },
-            {});
+            const requests = action.payload;
+            state.requests = createMap(requests);
             state.loadingRequests = false;
+        },
+        [getMoreRequestsThunk.pending.type]: (
+            state: RequestsState,
+            action: PayloadAction<User[]>,
+        ) => {
+            const extraRequests = action.payload;
+            const extraRequestsMap = createMap(extraRequests);
+            state.requests = { ...state.requests, ...extraRequestsMap };
         },
     },
 });
