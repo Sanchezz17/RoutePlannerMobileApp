@@ -11,7 +11,6 @@ import { getManagersThunk } from '../../redux/users/thunks';
 import styles from './ManagersScreen.styles';
 import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { Searchbar } from 'react-native-paper';
-import searchUsers from '../../common/utils/searchUsers';
 
 type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -19,11 +18,17 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
     const dispatch = useAppDispatch();
     const managers = useAppSelector(selectManagers);
     const loadingManagers = useAppSelector(selectLoadingManagers);
-    const [search, setSearch] = useState('');
+    const [query, setQuery] = useState('');
 
     const loadManagers = useCallback(() => {
-        dispatch(getManagersThunk());
-    }, [dispatch]);
+        dispatch(
+            getManagersThunk({
+                offset: managers.length,
+                limit: 5,
+                query,
+            }),
+        );
+    }, [dispatch, query]);
 
     useEffect(() => {
         loadManagers();
@@ -33,13 +38,13 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
         <SafeAreaView>
             <Searchbar
                 placeholder="Поиск менеджеров"
-                onChangeText={setSearch}
-                value={search}
+                onChangeText={setQuery}
+                value={query}
             />
             <View>
                 <FlatList
                     style={styles.managers}
-                    data={searchUsers(search, managers)}
+                    data={managers}
                     refreshing={loadingManagers}
                     onRefresh={loadManagers}
                     renderItem={(props) => <ManagerCard user={props.item} />}

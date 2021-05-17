@@ -27,16 +27,22 @@ export const deleteUserThunk = createAsyncThunk(
     },
 );
 
+interface UsersSearchParameters {
+    offset: number;
+    limit: number;
+    query: string;
+}
+
 export const getUsersWithoutRightsThunk = createAsyncThunk(
     'users/getUsersWithoutRightsThunkStatus',
-    async (_, __) => {
-        return await userAPI.getUsersWithoutRightsAsync();
+    async ({ offset, limit, query }: UsersSearchParameters, __) => {
+        return await userAPI.getUsersWithoutRightsAsync(offset, limit, query);
     },
 );
 export const getManagersThunk = createAsyncThunk(
     'users/getManagersThunkStatus',
-    async (_, __) => {
-        return await userAPI.getManagers();
+    async ({ offset, limit, query }: UsersSearchParameters, __) => {
+        return await userAPI.getManagers(offset, limit, query);
     },
 );
 export const addRightToUserThunk = createAsyncThunk(

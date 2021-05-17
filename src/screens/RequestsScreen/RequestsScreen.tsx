@@ -16,7 +16,6 @@ import {
 import styles from './RequestsScreen.styles';
 import { Request } from '../../components/Request/Request';
 import { Right } from '../../redux/users/types';
-import searchUsers from '../../common/utils/searchUsers';
 import Toast from 'react-native-easy-toast';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
@@ -25,13 +24,19 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     const dispatch = useAppDispatch();
     const requests = useAppSelector(selectRequests);
     const loadingRequests = useAppSelector(selectLoadingRequests);
-    const [search, setSearch] = useState('');
+    const [query, setQuery] = useState('');
 
     const toast = useRef<Toast>(null);
 
     const loadRequests = useCallback(() => {
-        dispatch(getUsersWithoutRightsThunk());
-    }, [dispatch]);
+        dispatch(
+            getUsersWithoutRightsThunk({
+                offset: requests.length,
+                limit: 5,
+                query,
+            }),
+        );
+    }, [dispatch, query]);
 
     useEffect(() => {
         loadRequests();
@@ -41,14 +46,14 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
         <SafeAreaView>
             <Searchbar
                 placeholder="Поиск заявок"
-                onChangeText={setSearch}
-                value={search}
+                onChangeText={setQuery}
+                value={query}
             />
             <Toast ref={toast} position={'center'} />
             <View>
                 <FlatList
                     style={styles.requests}
-                    data={searchUsers(search, requests)}
+                    data={requests}
                     refreshing={loadingRequests}
                     onRefresh={loadRequests}
                     renderItem={(props) => (
