@@ -22,7 +22,7 @@ export const updateUserThunk = createAsyncThunk(
 
 export const deleteUserThunk = createAsyncThunk(
     'users/deleteUserThunkStatus',
-    async (id: number, __) => {
+    async (id: number, _) => {
         return await userAPI.deleteUserAsync(id);
     },
 );
@@ -35,7 +35,7 @@ interface UsersSearchParameters {
 
 export const getManagersThunk = createAsyncThunk(
     'users/getManagersThunkStatus',
-    async ({ offset, limit, query }: UsersSearchParameters, __) => {
+    async ({ offset, limit, query }: UsersSearchParameters, _) => {
         return await userAPI.getManagers(offset, limit, query);
     },
 );

@@ -13,18 +13,22 @@ const initialState: RequestsState = {
     loadingRequests: false,
 };
 
+const deleteRequestByIdHandler = (
+    state: RequestsState,
+    action: PayloadAction<number>,
+) => {
+    const userId = action.payload;
+    delete state.requests[userId];
+};
+
 const requestsSlice = createSlice({
     name: 'requestsSlice',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        acceptRequest: deleteRequestByIdHandler,
+    },
     extraReducers: {
-        [deleteUserThunk.fulfilled.type]: (
-            state: RequestsState,
-            action: PayloadAction<number>,
-        ) => {
-            const userId = action.payload;
-            delete state.requests[userId];
-        },
+        [deleteUserThunk.fulfilled.type]: deleteRequestByIdHandler,
         [getRequestsThunk.pending.type]: (state: RequestsState) => {
             state.loadingRequests = true;
         },
@@ -46,4 +50,5 @@ const requestsSlice = createSlice({
     },
 });
 
+export const { acceptRequest } = requestsSlice.actions;
 export default requestsSlice.reducer;

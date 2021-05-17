@@ -14,6 +14,7 @@ import {
     selectRequests,
 } from '../../redux/requests/selectors';
 import { getRequestsThunk } from '../../redux/requests/thunks';
+import { acceptRequest } from '../../redux/requests/reducer';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -62,12 +63,14 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
                         <Request
                             user={props.item}
                             onAccept={() => {
+                                const userId = props.item.id;
                                 dispatch(
                                     addRightToUserThunk({
-                                        id: props.item.id,
+                                        id: userId,
                                         right: Right.Manager,
                                     }),
                                 );
+                                dispatch(acceptRequest(userId));
                                 toast.current?.show('Заявка принята', 1500);
                             }}
                             onReject={() => {
