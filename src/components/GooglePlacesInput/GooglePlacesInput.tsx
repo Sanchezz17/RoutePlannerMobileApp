@@ -12,6 +12,7 @@ import {
 import { Coordinate } from '../../redux/users/types';
 import { GoogleMapsApiKey } from '../../common/secrets';
 import TextInput from '../../components/TextInput/TextInput';
+import AddressIcon from "../icons/AddressIcon";
 
 export interface GooglePlacesInputProps {
     address: string;
@@ -59,6 +60,7 @@ export const GooglePlacesInput = ({
             textInputProps={{
                 InputComp: TextInput,
                 label: 'Адрес',
+                leftIcon: <AddressIcon />,
             }}
         />
     );
