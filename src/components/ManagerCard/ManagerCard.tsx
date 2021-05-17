@@ -18,7 +18,7 @@ export const ManagerCard = ({ user }: UserCardProps) => {
                 <KebabMenuIcon style={styles.kebabIcon} />
                 <View style={styles.info}>
                     <Text style={styles.name}>{user.name}</Text>
-                    <Text style={styles.position}>Менеджер</Text>
+                    <Text style={styles.position}>{user.position}</Text>
                 </View>
                 <View style={styles.imageContainer}>
                     <AccountIcon style={styles.placeholder} size={'medium'} />

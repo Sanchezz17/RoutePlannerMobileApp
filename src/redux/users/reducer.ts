@@ -10,20 +10,17 @@ import {
 } from './thunks';
 
 export interface UsersState {
-    currentUserId: number;
+    currentUser?: User;
     users: { [key: number]: User };
     requests: { [key: number]: User };
     loadingRequests: boolean;
-    managers: { [key: number]: User };
     loadingManagers: boolean;
 }
 
 const initialState: UsersState = {
-    currentUserId: 0,
     users: {},
     requests: {},
     loadingRequests: false,
-    managers: {},
     loadingManagers: false,
 };
 
@@ -36,16 +33,18 @@ const usersSlice = createSlice({
             state: UsersState,
             action: PayloadAction<User>,
         ) => {
-            const currentUser = action.payload;
-            state.currentUserId = currentUser.id;
-            state.users[currentUser.id] = currentUser;
+            state.currentUser = action.payload;
         },
         [updateUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User>,
         ) => {
             const user = action.payload;
-            state.users[user.id] = user;
+            if (user.id === state.currentUser?.id) {
+                state.currentUser = user;
+            } else {
+                state.users[user.id] = user;
+            }
         },
         [deleteUserThunk.fulfilled.type]: (
             state: UsersState,
@@ -81,7 +80,7 @@ const usersSlice = createSlice({
             action: PayloadAction<User[]>,
         ) => {
             const managers = action.payload;
-            state.managers = managers.reduce(function (
+            state.users = managers.reduce(function (
                 map: { [key: number]: User },
                 obj,
             ) {
@@ -96,7 +95,6 @@ const usersSlice = createSlice({
             action: PayloadAction<UserRight>,
         ) => {
             const userRight = action.payload;
-            console.log(userRight);
             delete state.requests[userRight.userId];
 
             if (state.users[userRight.userId]) {
