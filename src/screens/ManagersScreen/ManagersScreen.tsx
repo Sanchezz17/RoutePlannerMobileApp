@@ -50,57 +50,55 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
                 onChangeText={setQuery}
                 value={query}
             />
-            <View>
-                <FlatList
-                    data={managers}
-                    refreshing={loadingManagers}
-                    onRefresh={loadManagers}
-                    onEndReachedThreshold={0.01}
-                    onEndReached={({ distanceFromEnd }) => {
-                        if (distanceFromEnd < -1) {
-                            return;
+            <FlatList
+                data={managers}
+                refreshing={loadingManagers}
+                onRefresh={loadManagers}
+                onEndReachedThreshold={0.01}
+                onEndReached={({ distanceFromEnd }) => {
+                    if (distanceFromEnd < -1) {
+                        return;
+                    }
+                    console.log(distanceFromEnd);
+                    dispatch(
+                        getMoreManagersThunk({
+                            offset: managers.length,
+                            limit: LIMIT,
+                            query,
+                        }),
+                    );
+                }}
+                renderItem={(props) => (
+                    <ManagerCard
+                        user={props.item}
+                        key={props.index}
+                        setExpandedCardNumber={(cardNumber: number) =>
+                            setExpandedCardIndex(cardNumber)
                         }
-                        console.log(distanceFromEnd);
-                        dispatch(
-                            getMoreManagersThunk({
-                                offset: managers.length,
-                                limit: LIMIT,
-                                query,
-                            }),
-                        );
-                    }}
-                    renderItem={(props) => (
-                        <ManagerCard
-                            user={props.item}
-                            key={props.index}
-                            setExpandedCardNumber={(cardNumber: number) =>
-                                setExpandedCardIndex(cardNumber)
-                            }
-                            cardNumber={props.index}
-                            expandedCardNumber={expandedCardIndex}
-                            menuItems={[
-                                {
-                                    name: 'Посмотреть график',
-                                    action: () => {},
-                                },
-                                {
-                                    name: 'Посмотреть маршрут',
-                                    action: () => {},
-                                },
-                                {
-                                    name: 'Назначить администратором',
-                                    action: () => {},
-                                },
-                                {
-                                    name: 'Изменить данные',
-                                    action: () => {},
-                                },
-                            ]}
-                        />
-                    )}
-                    keyExtractor={(item) => `${item.id}${item.email}`}
-                />
-            </View>
+                        cardNumber={props.index}
+                        expandedCardNumber={expandedCardIndex}
+                        menuItems={[
+                            {
+                                name: 'Посмотреть график',
+                                action: () => {},
+                            },
+                            {
+                                name: 'Посмотреть маршрут',
+                                action: () => {},
+                            },
+                            {
+                                name: 'Назначить администратором',
+                                action: () => {},
+                            },
+                            {
+                                name: 'Изменить данные',
+                                action: () => {},
+                            },
+                        ]}
+                    />
+                )}
+                keyExtractor={(item) => `${item.id}${item.email}`}
+            />
         </ScreenContainer>
     );
 };
