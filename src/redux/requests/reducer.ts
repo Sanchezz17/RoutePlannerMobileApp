@@ -41,6 +41,9 @@ const requestsSlice = createSlice({
             state.requests = createMap(requests);
             state.loadingRequests = false;
         },
+        [getMoreRequestsThunk.pending.type]: (state: RequestsState) => {
+            state.loadingRequests = true;
+        },
         [getMoreRequestsThunk.fulfilled.type]: (
             state: RequestsState,
             action: PayloadAction<User[]>,
@@ -48,6 +51,7 @@ const requestsSlice = createSlice({
             const extraRequests = action.payload;
             const extraRequestsMap = createMap(extraRequests);
             state.requests = { ...state.requests, ...extraRequestsMap };
+            state.loadingRequests = false;
         },
     },
 });
