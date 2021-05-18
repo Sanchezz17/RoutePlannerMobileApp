@@ -1,7 +1,7 @@
 import { RootState } from '../store';
 import { User } from './types';
 
-export const selectCurrentUser = (state: RootState): number =>
+export const selectCurrentUser = (state: RootState): User =>
     state.usersSlice.currentUser;
 
 export const selectUserById = (state: RootState, userId: number): User =>

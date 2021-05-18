@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DrawerNavigationProps } from '../../routing/types';
 import { DrawerRoutes } from '../../routing/routes';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { FlatList, SafeAreaView, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { addRightToUserThunk, deleteUserThunk } from '../../redux/users/thunks';
 import styles from './RequestsScreen.styles';
@@ -13,8 +13,14 @@ import {
     selectLoadingRequests,
     selectRequests,
 } from '../../redux/requests/selectors';
-import { getRequestsThunk } from '../../redux/requests/thunks';
+import {
+    getMoreRequestsThunk,
+    getRequestsThunk,
+} from '../../redux/requests/thunks';
 import { acceptRequest } from '../../redux/requests/reducer';
+import { ScreenContainer } from 'react-native-screens';
+
+const LIMIT = 10;
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 
@@ -31,7 +37,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
             dispatch(
                 getRequestsThunk({
                     offset,
-                    limit: 5,
+                    limit: LIMIT,
                     query,
                 }),
             );
@@ -44,44 +50,50 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     }, [loadRequests]);
 
     return (
-        <SafeAreaView style={styles.view}>
+        <ScreenContainer style={styles.view}>
             <Searchbar
                 placeholder="Поиск заявок"
                 onChangeText={setQuery}
                 value={query}
             />
             <Toast ref={toast} position={'center'} />
-            <View>
-                <FlatList
-                    style={styles.requests}
-                    data={requests}
-                    refreshing={loadingRequests}
-                    onRefresh={loadRequests}
-                    // onEndReached={}
-                    // onEndReachedThreshold={0.7}
-                    renderItem={(props) => (
-                        <Request
-                            user={props.item}
-                            onAccept={() => {
-                                const userId = props.item.id;
-                                dispatch(
-                                    addRightToUserThunk({
-                                        id: userId,
-                                        right: Right.Manager,
-                                    }),
-                                );
-                                dispatch(acceptRequest(userId));
-                                toast.current?.show('Заявка принята', 1500);
-                            }}
-                            onReject={() => {
-                                dispatch(deleteUserThunk(props.item.id));
-                                toast.current?.show('Заявка отклонена', 1500);
-                            }}
-                        />
-                    )}
-                    keyExtractor={(item) => item.email}
-                />
-            </View>
-        </SafeAreaView>
+            <FlatList
+                data={requests}
+                refreshing={loadingRequests}
+                onRefresh={loadRequests}
+                onEndReachedThreshold={0.01}
+                onEndReached={({ distanceFromEnd }) => {
+                    console.log(distanceFromEnd);
+                    dispatch(
+                        getMoreRequestsThunk({
+                            offset: requests.length,
+                            limit: LIMIT,
+                            query,
+                        }),
+                    );
+                }}
+                renderItem={(props) => (
+                    <Request
+                        user={props.item}
+                        onAccept={() => {
+                            const userId = props.item.id;
+                            dispatch(
+                                addRightToUserThunk({
+                                    id: userId,
+                                    right: Right.Manager,
+                                }),
+                            );
+                            dispatch(acceptRequest(userId));
+                            toast.current?.show('Заявка принята', 1500);
+                        }}
+                        onReject={() => {
+                            dispatch(deleteUserThunk(props.item.id));
+                            toast.current?.show('Заявка отклонена', 1500);
+                        }}
+                    />
+                )}
+                keyExtractor={(item) => `${item.id}${item.email}`}
+            />
+        </ScreenContainer>
     );
 };
