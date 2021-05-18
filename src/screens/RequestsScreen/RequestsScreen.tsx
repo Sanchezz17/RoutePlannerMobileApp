@@ -50,7 +50,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     }, [loadRequests]);
 
     return (
-        <ScreenContainer style={styles.view}>
+        <ScreenContainer style={styles.container}>
             <Searchbar
                 placeholder="Поиск заявок"
                 onChangeText={setQuery}
