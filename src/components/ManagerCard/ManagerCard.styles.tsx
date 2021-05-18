@@ -3,6 +3,7 @@ import { PaletteStorage } from '../palette/PaletteStorage';
 
 const palette = PaletteStorage.getPalette();
 
+
 export default StyleSheet.create({
     card: {
         display: 'flex',
@@ -13,7 +14,7 @@ export default StyleSheet.create({
     },
     cardInfo: {
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         flexDirection: 'row',
     },
     kebabIconView: {
@@ -65,14 +66,19 @@ export default StyleSheet.create({
         borderRadius: 50,
         marginTop: 15,
         marginRight: 20,
+        marginLeft: 30,
     },
     info: {
         display: 'flex',
         justifyContent: 'center',
+        marginLeft: 20,
     },
     name: {
-        minWidth: '55%',
+        width: 210,
         fontSize: 18,
+    },
+    nameContainer: {
+        maxHeight: 45,
     },
     position: {
         fontSize: 15,

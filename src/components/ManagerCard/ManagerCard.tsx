@@ -10,7 +10,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import { User } from '../../redux/users/types';
 import AccountIcon from '../icons/AccountIcon';
-import KebabMenuIcon from '../icons/KebabMenuIcon';
 import ExpandCardIcon from '../icons/ExpandCardIcon';
 import { Contacts } from '../Contacts/Contacts';
 import { Divider } from 'react-native-paper';
@@ -65,6 +64,14 @@ export const ManagerCard = ({
         };
     });
 
+    const animatedNameExpansionStyle = useAnimatedStyle(() => {
+        return {
+            maxHeight: withTiming(isExpanded ? 110 : 45, {
+                duration: animationDuration,
+            }),
+        };
+    });
+
     const animatedExpansionStyle = useAnimatedStyle(() => {
         return {
             maxHeight: withTiming(expandAnimation.value * 300, {
@@ -110,7 +117,13 @@ export const ManagerCard = ({
                     />
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.name}>{user.name}</Text>
+                    <Animated.View
+                        style={[
+                            animatedNameExpansionStyle,
+                            styles.nameContainer,
+                        ]}>
+                        <Text style={styles.name}>{user.name}</Text>
+                    </Animated.View>
                     <Text style={styles.position}>{user.position}</Text>
                 </View>
                 <Animated.View style={animatedImageStyle}>
