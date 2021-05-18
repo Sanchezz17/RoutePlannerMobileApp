@@ -4,7 +4,7 @@ import styles, { theme } from './TextInput.styles';
 
 type PaperTextInputProps = React.ComponentProps<typeof PaperTextInput>;
 type TextInputProps = PaperTextInputProps & {
-    active: boolean;
+    active?: boolean;
     leftIcon?: Element;
 };
 
