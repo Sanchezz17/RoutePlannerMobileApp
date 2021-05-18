@@ -5,6 +5,7 @@ import {
     deleteUserThunk,
     getCurrentUserThunk,
     getManagersThunk,
+    getMoreManagersThunk,
     updateUserThunk,
 } from './thunks';
 import createMap from '../../common/utils/createMap';
@@ -58,6 +59,18 @@ const usersSlice = createSlice({
         ) => {
             const managers = action.payload;
             state.users = createMap(managers);
+            state.loadingManagers = false;
+        },
+        [getMoreManagersThunk.pending.type]: (state: UsersState) => {
+            state.loadingManagers = true;
+        },
+        [getMoreManagersThunk.fulfilled.type]: (
+            state: UsersState,
+            action: PayloadAction<User[]>,
+        ) => {
+            const extraManagers = action.payload;
+            const extraManagersMap = createMap(extraManagers);
+            state.users = { ...state.users, ...extraManagersMap };
             state.loadingManagers = false;
         },
         [addRightToUserThunk.fulfilled.type]: (

@@ -6,11 +6,17 @@ import {
     selectLoadingManagers,
     selectManagers,
 } from '../../redux/users/selectors';
-import { FlatList, SafeAreaView, View } from 'react-native';
-import { getManagersThunk } from '../../redux/users/thunks';
+import { FlatList } from 'react-native';
+import {
+    getManagersThunk,
+    getMoreManagersThunk,
+} from '../../redux/users/thunks';
 import styles from './ManagersScreen.styles';
 import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { Searchbar } from 'react-native-paper';
+import { ScreenContainer } from 'react-native-screens';
+
+const LIMIT = 10;
 
 type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Managers>;
 
@@ -26,7 +32,7 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
             dispatch(
                 getManagersThunk({
                     offset,
-                    limit: 5,
+                    limit: LIMIT,
                     query,
                 }),
             );
@@ -39,31 +45,43 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
     }, [loadManagers]);
 
     return (
-        <SafeAreaView style={styles.view}>
+        <ScreenContainer style={styles.container}>
             <Searchbar
                 placeholder="Поиск менеджеров"
                 onChangeText={setQuery}
                 value={query}
             />
-            <View>
-                <FlatList
-                    data={managers}
-                    refreshing={loadingManagers}
-                    onRefresh={loadManagers}
-                    renderItem={(props) => (
-                        <ManagerCard
-                            user={props.item}
-                            key={props.index}
-                            setExpandedCardNumber={(cardNumber: number) =>
-                                setExpandedCardIndex(cardNumber)
-                            }
-                            cardNumber={props.index}
-                            expandedCardNumber={expandedCardIndex}
-                        />
-                    )}
-                    keyExtractor={(item) => item.email}
-                />
-            </View>
-        </SafeAreaView>
+            <FlatList
+                data={managers}
+                refreshing={loadingManagers}
+                onRefresh={loadManagers}
+                onEndReachedThreshold={0.01}
+                onEndReached={({ distanceFromEnd }) => {
+                    if (distanceFromEnd < -1) {
+                        return;
+                    }
+                    console.log(distanceFromEnd);
+                    dispatch(
+                        getMoreManagersThunk({
+                            offset: managers.length,
+                            limit: LIMIT,
+                            query,
+                        }),
+                    );
+                }}
+                renderItem={(props) => (
+                    <ManagerCard
+                        user={props.item}
+                        key={props.index}
+                        setExpandedCardNumber={(cardNumber: number) =>
+                            setExpandedCardIndex(cardNumber)
+                        }
+                        cardNumber={props.index}
+                        expandedCardNumber={expandedCardIndex}
+                    />
+                )}
+                keyExtractor={(item) => `${item.id}${item.email}`}
+            />
+        </ScreenContainer>
     );
 };

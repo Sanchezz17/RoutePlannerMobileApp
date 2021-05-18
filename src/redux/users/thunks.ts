@@ -4,17 +4,17 @@ import { Right } from './types';
 
 export const getCurrentUserThunk = createAsyncThunk(
     'users/getCurrentUserThunkStatus',
-    async (_, __) => {
+    async () => {
         return await userAPI.getCurrentUserAsync();
     },
 );
 
 export const updateUserThunk = createAsyncThunk(
     'users/updateUserThunkStatus',
-    async (
-        updateUserParameters: { id: number; updateUserDto: UpdateUserDto },
-        _,
-    ) => {
+    async (updateUserParameters: {
+        id: number;
+        updateUserDto: UpdateUserDto;
+    }) => {
         const { id, updateUserDto } = updateUserParameters;
         return await userAPI.updateUserAsync(id, updateUserDto);
     },
@@ -22,7 +22,7 @@ export const updateUserThunk = createAsyncThunk(
 
 export const deleteUserThunk = createAsyncThunk(
     'users/deleteUserThunkStatus',
-    async (id: number, _) => {
+    async (id: number) => {
         return await userAPI.deleteUserAsync(id);
     },
 );
@@ -33,16 +33,27 @@ interface UsersSearchParameters {
     query: string;
 }
 
+const getManagersPayloadCreator = async ({
+    offset,
+    limit,
+    query,
+}: UsersSearchParameters) => {
+    return await userAPI.getManagers(offset, limit, query);
+};
+
 export const getManagersThunk = createAsyncThunk(
     'users/getManagersThunkStatus',
-    async ({ offset, limit, query }: UsersSearchParameters, _) => {
-        return await userAPI.getManagers(offset, limit, query);
-    },
+    getManagersPayloadCreator,
+);
+
+export const getMoreManagersThunk = createAsyncThunk(
+    'users/getMoreManagerThunkStatus',
+    getManagersPayloadCreator,
 );
 
 export const addRightToUserThunk = createAsyncThunk(
     'users/addRightToUserThunkStatus',
-    async (addRightToUserParameters: { id: number; right: Right }, _) => {
+    async (addRightToUserParameters: { id: number; right: Right }) => {
         const { id, right } = addRightToUserParameters;
         return await userAPI.addRightToUserAsync(id, right);
     },
