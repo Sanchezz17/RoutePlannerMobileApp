@@ -14,12 +14,19 @@ import KebabMenuIcon from '../icons/KebabMenuIcon';
 import ExpandCardIcon from '../icons/ExpandCardIcon';
 import { Contacts } from '../Contacts/Contacts';
 import { Divider } from 'react-native-paper';
+import { Menu } from 'react-native-paper';
+
+interface MenuItem {
+    name: string;
+    action: () => void;
+}
 
 export interface UserCardProps {
     user: User;
     cardNumber: number;
     expandedCardNumber: number;
     setExpandedCardNumber: Function;
+    menuItems: MenuItem[];
 }
 
 export const ManagerCard = ({
@@ -27,8 +34,13 @@ export const ManagerCard = ({
     cardNumber,
     expandedCardNumber,
     setExpandedCardNumber,
+    menuItems,
 }: UserCardProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [menuOpened, setMenuOpened] = useState(false);
+    const openMenu = () => setMenuOpened(true);
+    const closeMenu = () => setMenuOpened(false);
+
     const expandAnimation = useSharedValue(0);
     const animationDuration = 400;
     useEffect(() => {
@@ -40,7 +52,6 @@ export const ManagerCard = ({
             setIsExpanded(false);
         }
     }, [cardNumber, expandedCardNumber]);
-
     const rotateX = useDerivedValue(() => {
         return withTiming(isExpanded ? 180 : 0, {
             duration: animationDuration,
@@ -90,7 +101,29 @@ export const ManagerCard = ({
     return (
         <View style={styles.card}>
             <View style={styles.cardInfo}>
-                <KebabMenuIcon style={styles.kebabIcon} />
+                <View style={styles.kebabIconView}>
+                    <Menu
+                        visible={menuOpened}
+                        onDismiss={closeMenu}
+                        anchor={
+                            <TouchableOpacity
+                                key={user.id}
+                                style={styles.kebabIcon}
+                                onPressIn={() => {
+                                    openMenu();
+                                }}>
+                                <KebabMenuIcon />
+                            </TouchableOpacity>
+                        }>
+                        {menuItems.map((item) => (
+                            <Menu.Item
+                                key={item.name}
+                                onPress={item.action}
+                                title={item.name}
+                            />
+                        ))}
+                    </Menu>
+                </View>
                 <View style={styles.info}>
                     <Text style={styles.name}>{user.name}</Text>
                     <Text style={styles.position}>{user.position}</Text>

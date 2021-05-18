@@ -16,13 +16,23 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         flexDirection: 'row',
     },
-    kebabIcon: {
+    kebabIconView: {
         position: 'absolute',
         right: 0,
         top: 0,
         width: 36,
         height: 36,
         marginTop: 5,
+        zIndex: 2,
+    },
+    kebabIcon: {
+        zIndex: 3,
+    },
+    menu: {
+        width: 200,
+        borderWidth: 1,
+        zIndex: 4,
+        elevation: 5,
     },
     expandCardIcon: {
         display: 'flex',

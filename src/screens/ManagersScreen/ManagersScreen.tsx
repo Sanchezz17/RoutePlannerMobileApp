@@ -6,7 +6,7 @@ import {
     selectLoadingManagers,
     selectManagers,
 } from '../../redux/users/selectors';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import {
     getManagersThunk,
     getMoreManagersThunk,
@@ -26,7 +26,6 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
     const loadingManagers = useAppSelector(selectLoadingManagers);
     const [query, setQuery] = useState('');
     const [expandedCardIndex, setExpandedCardIndex] = useState(-1);
-
     const loadManagers = useCallback(
         (offset: number = 0) => {
             dispatch(
@@ -51,37 +50,57 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
                 onChangeText={setQuery}
                 value={query}
             />
-            <FlatList
-                data={managers}
-                refreshing={loadingManagers}
-                onRefresh={loadManagers}
-                onEndReachedThreshold={0.01}
-                onEndReached={({ distanceFromEnd }) => {
-                    if (distanceFromEnd < -1) {
-                        return;
-                    }
-                    console.log(distanceFromEnd);
-                    dispatch(
-                        getMoreManagersThunk({
-                            offset: managers.length,
-                            limit: LIMIT,
-                            query,
-                        }),
-                    );
-                }}
-                renderItem={(props) => (
-                    <ManagerCard
-                        user={props.item}
-                        key={props.index}
-                        setExpandedCardNumber={(cardNumber: number) =>
-                            setExpandedCardIndex(cardNumber)
+            <View>
+                <FlatList
+                    data={managers}
+                    refreshing={loadingManagers}
+                    onRefresh={loadManagers}
+                    onEndReachedThreshold={0.01}
+                    onEndReached={({ distanceFromEnd }) => {
+                        if (distanceFromEnd < -1) {
+                            return;
                         }
-                        cardNumber={props.index}
-                        expandedCardNumber={expandedCardIndex}
-                    />
-                )}
-                keyExtractor={(item) => `${item.id}${item.email}`}
-            />
+                        console.log(distanceFromEnd);
+                        dispatch(
+                            getMoreManagersThunk({
+                                offset: managers.length,
+                                limit: LIMIT,
+                                query,
+                            }),
+                        );
+                    }}
+                    renderItem={(props) => (
+                        <ManagerCard
+                            user={props.item}
+                            key={props.index}
+                            setExpandedCardNumber={(cardNumber: number) =>
+                                setExpandedCardIndex(cardNumber)
+                            }
+                            cardNumber={props.index}
+                            expandedCardNumber={expandedCardIndex}
+                            menuItems={[
+                                {
+                                    name: 'Посмотреть график',
+                                    action: () => {},
+                                },
+                                {
+                                    name: 'Посмотреть маршрут',
+                                    action: () => {},
+                                },
+                                {
+                                    name: 'Назначить администратором',
+                                    action: () => {},
+                                },
+                                {
+                                    name: 'Изменить данные',
+                                    action: () => {},
+                                },
+                            ]}
+                        />
+                    )}
+                    keyExtractor={(item) => `${item.id}${item.email}`}
+                />
+            </View>
         </ScreenContainer>
     );
 };
