@@ -14,7 +14,7 @@ import KebabMenuIcon from '../icons/KebabMenuIcon';
 import ExpandCardIcon from '../icons/ExpandCardIcon';
 import { Contacts } from '../Contacts/Contacts';
 import { Divider } from 'react-native-paper';
-import { Menu } from 'react-native-paper';
+import Menu from '../Menu/Menu';
 
 interface MenuItem {
     name: string;
@@ -103,26 +103,11 @@ export const ManagerCard = ({
             <View style={styles.cardInfo}>
                 <View style={styles.kebabIconView}>
                     <Menu
+                        items={menuItems}
                         visible={menuOpened}
+                        onPressIn={openMenu}
                         onDismiss={closeMenu}
-                        anchor={
-                            <TouchableOpacity
-                                key={user.id}
-                                style={styles.kebabIcon}
-                                onPressIn={() => {
-                                    openMenu();
-                                }}>
-                                <KebabMenuIcon />
-                            </TouchableOpacity>
-                        }>
-                        {menuItems.map((item) => (
-                            <Menu.Item
-                                key={item.name}
-                                onPress={item.action}
-                                title={item.name}
-                            />
-                        ))}
-                    </Menu>
+                    />
                 </View>
                 <View style={styles.info}>
                     <Text style={styles.name}>{user.name}</Text>

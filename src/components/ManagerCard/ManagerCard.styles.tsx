@@ -25,9 +25,6 @@ export default StyleSheet.create({
         marginTop: 5,
         zIndex: 2,
     },
-    kebabIcon: {
-        zIndex: 3,
-    },
     menu: {
         width: 200,
         borderWidth: 1,
