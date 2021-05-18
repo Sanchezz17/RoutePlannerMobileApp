@@ -12,7 +12,7 @@ import styles from './ManagersScreen.styles';
 import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { Searchbar } from 'react-native-paper';
 
-type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
+type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Managers>;
 
 export const ManagerScreen = (_: ManagersScreenProps) => {
     const dispatch = useAppDispatch();

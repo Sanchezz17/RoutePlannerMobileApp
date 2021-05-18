@@ -5,10 +5,7 @@ import {
 } from '../authorization/google/authStateManager';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-export const authorizeFetch = async (
-    url: string,
-    options: object | null = null,
-) => {
+export const authorizeFetch = async (url: string, options: object = {}) => {
     const signedIn = await GoogleSignin.isSignedIn();
     if (!signedIn) {
         const signsInSilently = await trySignInSilently();
@@ -16,22 +13,8 @@ export const authorizeFetch = async (
             await signIn();
         }
     }
-    const tokens = await getTokens();
-    const defaultOptions = {
-        headers: {
-            ...(tokens ? { Authorization: `Bearer ${tokens.idToken}` } : {}),
-            'Content-Type': 'application/json; charset=UTF-8',
-        },
-    };
     try {
-        return await fetchJsonAsync(
-            url,
-            {
-                ...defaultOptions,
-                ...options,
-            },
-            true,
-        );
+        return await fetchJsonAsync(url, options, true);
     } catch (e) {
         console.error(e);
         console.error(e.message);
@@ -48,7 +31,15 @@ const fetchJsonAsync = async (
     options: object,
     retryOnUnauthorized: boolean = false,
 ): Promise<any> => {
-    const response = await fetch(url, options);
+    const tokens = await getTokens();
+    const defaultOptions = {
+        headers: {
+            ...(tokens ? { Authorization: `Bearer ${tokens.idToken}` } : {}),
+            'Content-Type': 'application/json; charset=UTF-8',
+        },
+    };
+
+    const response = await fetch(url, { ...defaultOptions, ...options });
     console.log(response);
     if (response.ok) {
         const contentType = response.headers.get('content-type');
