@@ -63,6 +63,9 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
                 onRefresh={loadRequests}
                 onEndReachedThreshold={0.01}
                 onEndReached={({ distanceFromEnd }) => {
+                    if (distanceFromEnd < -1) {
+                        return;
+                    }
                     console.log(distanceFromEnd);
                     dispatch(
                         getMoreRequestsThunk({
