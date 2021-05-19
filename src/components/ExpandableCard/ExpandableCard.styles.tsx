@@ -28,7 +28,6 @@ export default StyleSheet.create({
     },
     menu: {
         width: 200,
-        borderWidth: 1,
         zIndex: 4,
         elevation: 5,
     },
@@ -46,6 +45,7 @@ export default StyleSheet.create({
         borderWidth: 0.5,
         borderColor: palette.SystemUIStroke,
         width: 180,
+        marginTop: 10,
         marginLeft: 20,
     },
     picture: {
@@ -70,20 +70,26 @@ export default StyleSheet.create({
     },
     info: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         marginLeft: 20,
     },
     name: {
+        marginTop: 0,
         width: 210,
         fontSize: 18,
     },
     nameContainer: {
         maxHeight: 45,
+        marginTop: 10,
     },
-    position: {
+    additionalInfosContainer: {
+        marginBottom: 10,
+    },
+    additionalInfo: {
         fontSize: 15,
         color: palette.SystemUI,
     },
+    contactsContainer: {},
     contacts: {
         marginLeft: 20,
         marginTop: 10,
