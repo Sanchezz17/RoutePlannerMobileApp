@@ -32,7 +32,10 @@ const Menu = ({ items, visible, onPressIn, onDismiss }: MenuProps) => (
         {items.map((item) => (
             <PaperMenu.Item
                 key={item.name}
-                onPress={item.action}
+                onPress={() => {
+                    item.action();
+                    onDismiss();
+                }}
                 title={item.name}
             />
         ))}

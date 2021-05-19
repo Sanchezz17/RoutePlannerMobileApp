@@ -6,8 +6,9 @@ import {
     selectLoadingManagers,
     selectManagers,
 } from '../../redux/users/selectors';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import {
+    addRightToUserThunk,
     getManagersThunk,
     getMoreManagersThunk,
 } from '../../redux/users/thunks';
@@ -15,12 +16,13 @@ import styles from './ManagersScreen.styles';
 import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { Searchbar } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
+import { Right } from '../../redux/users/types';
 
 const LIMIT = 10;
 
 type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Managers>;
 
-export const ManagerScreen = (_: ManagersScreenProps) => {
+export const ManagerScreen = ({ navigation }: ManagersScreenProps) => {
     const dispatch = useAppDispatch();
     const managers = useAppSelector(selectManagers);
     const loadingManagers = useAppSelector(selectLoadingManagers);
@@ -68,14 +70,14 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
                         }),
                     );
                 }}
-                renderItem={(props) => (
+                renderItem={({ item: user, index }) => (
                     <ManagerCard
-                        user={props.item}
-                        key={props.index}
+                        user={user}
+                        key={index}
                         setExpandedCardNumber={(cardNumber: number) =>
                             setExpandedCardIndex(cardNumber)
                         }
-                        cardNumber={props.index}
+                        cardNumber={index}
                         expandedCardNumber={expandedCardIndex}
                         menuItems={[
                             {
@@ -86,13 +88,28 @@ export const ManagerScreen = (_: ManagersScreenProps) => {
                                 name: 'Посмотреть маршрут',
                                 action: () => {},
                             },
-                            {
-                                name: 'Назначить администратором',
-                                action: () => {},
-                            },
+                            ...(!user?.rights.includes(Right.Admin)
+                                ? [
+                                      {
+                                          name: 'Назначить администратором',
+                                          action: () => {
+                                              dispatch(
+                                                  addRightToUserThunk({
+                                                      id: user.id,
+                                                      right: Right.Admin,
+                                                  }),
+                                              );
+                                          },
+                                      },
+                                  ]
+                                : []),
                             {
                                 name: 'Изменить данные',
-                                action: () => {},
+                                action: () => {
+                                    navigation.navigate(DrawerRoutes.Options, {
+                                        user,
+                                    });
+                                },
                             },
                         ]}
                     />

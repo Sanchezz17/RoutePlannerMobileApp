@@ -90,13 +90,10 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     useEffect(() => {
         register(MOBILE_PHONE_FIELD);
         register(TELEGRAM_FIELD);
-        if (user.mobilePhone) {
-            setValue(MOBILE_PHONE_FIELD, user.mobilePhone);
-        }
-        if (user.telegram) {
-            setValue(TELEGRAM_FIELD, user.telegram);
-        }
-    }, [register, setValue, user.mobilePhone, user.telegram]);
+        setValue(MOBILE_PHONE_FIELD, user.mobilePhone);
+        setValue(TELEGRAM_FIELD, user.telegram);
+        setCoordinate(user?.coordinate ?? defaultCoordinate);
+    }, [register, setValue, user]);
 
     return (
         <SafeAreaView style={styles.view}>
@@ -116,7 +113,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                     />
                     <TextInput
                         label={'Телефон'}
-                        defaultValue={user.mobilePhone}
+                        value={user.mobilePhone}
                         autoCompleteType="tel"
                         keyboardType="numeric"
                         textContentType="telephoneNumber"
@@ -127,7 +124,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                     <TextInput
                         label={'Telegram'}
                         autoCorrect={false}
-                        defaultValue={user.telegram}
+                        value={user.telegram}
                         onChangeText={onChangeField(TELEGRAM_FIELD)}
                         leftIcon={<TelegramIcon />}
                     />

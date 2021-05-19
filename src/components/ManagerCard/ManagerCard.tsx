@@ -50,7 +50,7 @@ export const ManagerCard = ({
             expandAnimation.value = 0;
             setIsExpanded(false);
         }
-    }, [cardNumber, expandedCardNumber]);
+    }, [cardNumber, expandedCardNumber, expandAnimation.value, isExpanded]);
     const rotateX = useDerivedValue(() => {
         return withTiming(isExpanded ? 180 : 0, {
             duration: animationDuration,

@@ -12,7 +12,7 @@ import {
 import { Coordinate } from '../../redux/users/types';
 import { GoogleMapsApiKey } from '../../common/secrets';
 import TextInput from '../../components/TextInput/TextInput';
-import AddressIcon from "../icons/AddressIcon";
+import AddressIcon from '../icons/AddressIcon';
 
 export interface GooglePlacesInputProps {
     address: string;
@@ -26,10 +26,8 @@ export const GooglePlacesInput = ({
     const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
     useEffect(() => {
-        if (address) {
-            ref.current?.setAddressText(address);
-        }
-    }, [address]);
+        ref.current?.setAddressText(address);
+    }, [address, onChangeCoordinate]);
 
     return (
         <GooglePlacesAutocomplete
@@ -37,8 +35,6 @@ export const GooglePlacesInput = ({
             placeholder=""
             fetchDetails={true}
             onPress={(data, detail) => {
-                //console.log(data);
-                //console.log(detail);
                 const location = detail?.geometry?.location;
                 console.log(`Location: ${JSON.stringify(location)}`);
                 if (location) {
