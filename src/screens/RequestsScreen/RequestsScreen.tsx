@@ -1,14 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { DrawerNavigationProps } from '../../routing/types';
-import { DrawerRoutes } from '../../routing/routes';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { FlatList } from 'react-native';
-import { Searchbar } from 'react-native-paper';
-import { addRightToUserThunk, deleteUserThunk } from '../../redux/users/thunks';
-import styles from './RequestsScreen.styles';
-import { Request } from '../../components/Request/Request';
-import { Right } from '../../redux/users/types';
 import Toast from 'react-native-easy-toast';
+import { Searchbar } from 'react-native-paper';
+import { ScreenContainer } from 'react-native-screens';
+
+import { Request } from '../../components/Request/Request';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { acceptRequest } from '../../redux/requests/reducer';
 import {
     selectLoadingRequests,
     selectRequests,
@@ -17,8 +15,11 @@ import {
     getMoreRequestsThunk,
     getRequestsThunk,
 } from '../../redux/requests/thunks';
-import { acceptRequest } from '../../redux/requests/reducer';
-import { ScreenContainer } from 'react-native-screens';
+import { addRightToUserThunk, deleteUserThunk } from '../../redux/users/thunks';
+import { Right } from '../../redux/users/types';
+import { DrawerRoutes } from '../../routing/routes';
+import { DrawerNavigationProps } from '../../routing/types';
+import styles from './RequestsScreen.styles';
 
 const LIMIT = 10;
 

@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { PaletteStorage } from '../palette/PaletteStorage';
 import { DefaultTheme } from 'react-native-paper';
+
+import { PaletteStorage } from '../palette/PaletteStorage';
 
 const palette = PaletteStorage.getPalette();
 

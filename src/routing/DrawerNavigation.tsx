@@ -1,22 +1,23 @@
-import React from 'react';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import { DrawerContent } from '../containers/DrawerContent/DrawerContent';
-import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
-import { OptionsScreen } from '../screens/OptionsScreen/OptionsScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerRoutes } from './routes';
-import { RequestsScreen } from '../screens/RequestsScreen/RequestsScreen';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+
+import ClientsIcon from '../components/icons/ClientsIcon';
+import ManagersIcon from '../components/icons/ManagersIcon';
+import MeetingsIcon from '../components/icons/MeetingsIcon';
+import RequestsIcon from '../components/icons/RequestsIcon';
+import RouteIcon from '../components/icons/RouteIcon';
+import ScheduleIcon from '../components/icons/ScheduleIcon';
+import SettingsIcon from '../components/icons/SettingsIcon';
+import { DrawerContent } from '../containers/DrawerContent/DrawerContent';
 import { useAppSelector } from '../redux/hooks';
 import { selectCurrentUser } from '../redux/users/selectors';
 import { Right } from '../redux/users/types';
-import SettingsIcon from '../components/icons/SettingsIcon';
-import RequestsIcon from '../components/icons/RequestsIcon';
-import ManagersIcon from '../components/icons/ManagersIcon';
-import ClientsIcon from '../components/icons/ClientsIcon';
-import MeetingsIcon from '../components/icons/MeetingsIcon';
-import ScheduleIcon from '../components/icons/ScheduleIcon';
-import RouteIcon from '../components/icons/RouteIcon';
+import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
 import { ManagerScreen } from '../screens/ManagersScreen/ManagersScreen';
+import { OptionsScreen } from '../screens/OptionsScreen/OptionsScreen';
+import { RequestsScreen } from '../screens/RequestsScreen/RequestsScreen';
+import { DrawerRoutes } from './routes';
 
 const Drawer = createDrawerNavigator();
 

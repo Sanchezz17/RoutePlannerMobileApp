@@ -1,14 +1,15 @@
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { View } from 'react-native';
+
 import {
     signIn,
     trySignInSilently,
 } from '../../common/authorization/google/authStateManager';
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import { View } from 'react-native';
-import styles from './AuthorizeRoute.styles';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { getCurrentUserThunk } from '../../redux/users/thunks';
+import styles from './AuthorizeRoute.styles';
 
 export const AuthorizeRoute: FunctionComponent = ({ children }) => {
     const dispatch = useAppDispatch();

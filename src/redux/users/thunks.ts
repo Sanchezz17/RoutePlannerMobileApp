@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { UpdateUserDto, userAPI } from './api';
 import { Right } from './types';
 

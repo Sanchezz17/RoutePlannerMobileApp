@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+
 import { PaletteStorage } from '../palette/PaletteStorage';
-import { StyleProp, ViewStyle} from 'react-native';
 
 interface IconProps {
     style?: StyleProp<ViewStyle>;

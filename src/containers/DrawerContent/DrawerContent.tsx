@@ -6,13 +6,14 @@ import {
 } from '@react-navigation/drawer';
 import React from 'react';
 import { View } from 'react-native';
-import { UserCard } from '../../components/UserCard/UserCard';
-import styles from './DrawerContent.styles';
+
 import { signOut } from '../../common/authorization/google/authStateManager';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { selectCurrentUser } from '../../redux/users/selectors';
 import { PaletteStorage } from '../../components/palette/PaletteStorage';
+import { UserCard } from '../../components/UserCard/UserCard';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logout } from '../../redux/users/reducer';
+import { selectCurrentUser } from '../../redux/users/selectors';
+import styles from './DrawerContent.styles';
 
 const palette = PaletteStorage.getPalette();
 

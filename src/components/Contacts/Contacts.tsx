@@ -1,13 +1,14 @@
 import React from 'react';
-import styles from './Contacts.styles';
 import {
-    Text,
-    View,
     Linking,
-    TouchableOpacity,
     StyleProp,
+    Text,
+    TouchableOpacity,
+    View,
     ViewStyle,
 } from 'react-native';
+
+import styles from './Contacts.styles';
 import MailIcon from './MailIcon';
 import PhoneIcon from './PhoneIcon';
 import TelegramIcon from './TelegramIcon';

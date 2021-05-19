@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, UserRight } from './types';
+
+import createMap from '../../common/utils/createMap';
 import {
     addRightToUserThunk,
     deleteUserThunk,
@@ -8,7 +9,7 @@ import {
     getMoreManagersThunk,
     updateUserThunk,
 } from './thunks';
-import createMap from '../../common/utils/createMap';
+import { User, UserRight } from './types';
 
 export interface UsersState {
     currentUser?: User;

@@ -1,5 +1,5 @@
-import { authorizeFetch } from '../../common/utils/autorizeFetch';
 import { prefix } from '../../common/constants';
+import { authorizeFetch } from '../../common/utils/autorizeFetch';
 import { User } from '../users/types';
 
 const requestsApiPrefix = `${prefix}/users`;

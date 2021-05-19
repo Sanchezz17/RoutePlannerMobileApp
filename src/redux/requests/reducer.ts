@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getMoreRequestsThunk, getRequestsThunk } from './thunks';
-import { User } from '../users/types';
-import { deleteUserThunk } from '../users/thunks';
+
 import createMap from '../../common/utils/createMap';
+import { deleteUserThunk } from '../users/thunks';
+import { User } from '../users/types';
+import { getMoreRequestsThunk, getRequestsThunk } from './thunks';
 
 export interface RequestsState {
     requests: { [key: number]: User };

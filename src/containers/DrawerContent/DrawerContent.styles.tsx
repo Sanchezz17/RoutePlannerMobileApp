@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { PaletteStorage } from '../../components/palette/PaletteStorage';
 
 const palette = PaletteStorage.getPalette();

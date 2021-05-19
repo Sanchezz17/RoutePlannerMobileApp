@@ -1,6 +1,7 @@
 import { AnyAction, combineReducers, Reducer } from '@reduxjs/toolkit';
-import usersReducer, { logout } from './users/reducer';
+
 import requestsReducer from './requests/reducer';
+import usersReducer, { logout } from './users/reducer';
 
 const appReducer = combineReducers({
     usersSlice: usersReducer,

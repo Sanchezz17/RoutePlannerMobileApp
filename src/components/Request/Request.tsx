@@ -1,10 +1,11 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+
 import { User } from '../../redux/users/types';
-import styles from './Request.styles';
 import AcceptRequestIcon from '../icons/AcceptRequestIcon';
-import RejectRequestIcon from '../icons/RejectRequestIcon';
 import AccountIcon from '../icons/AccountIcon';
+import RejectRequestIcon from '../icons/RejectRequestIcon';
+import styles from './Request.styles';
 
 export interface RequestProps {
     user: User;

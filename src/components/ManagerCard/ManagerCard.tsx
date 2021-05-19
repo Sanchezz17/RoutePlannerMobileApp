@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from './ManagerCard.styles';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Divider } from 'react-native-paper';
 import Animated, {
     Easing,
     useAnimatedStyle,
@@ -8,12 +8,13 @@ import Animated, {
     useSharedValue,
     withTiming,
 } from 'react-native-reanimated';
+
 import { User } from '../../redux/users/types';
+import { Contacts } from '../Contacts/Contacts';
 import AccountIcon from '../icons/AccountIcon';
 import ExpandCardIcon from '../icons/ExpandCardIcon';
-import { Contacts } from '../Contacts/Contacts';
-import { Divider } from 'react-native-paper';
 import Menu from '../Menu/Menu';
+import styles from './ManagerCard.styles';
 
 interface MenuItem {
     name: string;

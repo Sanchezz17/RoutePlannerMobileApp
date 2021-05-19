@@ -9,9 +9,10 @@ import {
     GooglePlacesAutocomplete,
     GooglePlacesAutocompleteRef,
 } from 'react-native-google-places-autocomplete';
-import { Coordinate } from '../../redux/users/types';
+
 import { GoogleMapsApiKey } from '../../common/secrets';
 import TextInput from '../../components/TextInput/TextInput';
+import { Coordinate } from '../../redux/users/types';
 import AddressIcon from '../icons/AddressIcon';
 
 export interface GooglePlacesInputProps {

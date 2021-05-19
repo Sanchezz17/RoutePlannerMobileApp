@@ -1,4 +1,5 @@
 import { ConfigureParams } from '@react-native-google-signin/google-signin';
+
 import { GoogleWebClientId } from '../../secrets';
 
 export const Config: ConfigureParams = {

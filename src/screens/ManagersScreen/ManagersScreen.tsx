@@ -1,22 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { DrawerNavigationProps } from '../../routing/types';
-import { DrawerRoutes } from '../../routing/routes';
+import { FlatList } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { ScreenContainer } from 'react-native-screens';
+
+import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
     selectLoadingManagers,
     selectManagers,
 } from '../../redux/users/selectors';
-import { FlatList } from 'react-native';
 import {
     addRightToUserThunk,
     getManagersThunk,
     getMoreManagersThunk,
 } from '../../redux/users/thunks';
-import styles from './ManagersScreen.styles';
-import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
-import { Searchbar } from 'react-native-paper';
-import { ScreenContainer } from 'react-native-screens';
 import { Right } from '../../redux/users/types';
+import { DrawerRoutes } from '../../routing/routes';
+import { DrawerNavigationProps } from '../../routing/types';
+import styles from './ManagersScreen.styles';
 
 const LIMIT = 10;
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import styles from './UserCard.styles';
 import { Image, Text, View } from 'react-native';
+
 import { User } from '../../redux/users/types';
 import AccountIcon from '../icons/AccountIcon';
+import styles from './UserCard.styles';
 
 export interface UserCardProps {
     user: User;

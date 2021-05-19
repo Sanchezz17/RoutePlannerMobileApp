@@ -1,9 +1,10 @@
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 import {
     getTokens,
     signIn,
     trySignInSilently,
 } from '../authorization/google/authStateManager';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export const authorizeFetch = async (url: string, options: object = {}) => {
     const signedIn = await GoogleSignin.isSignedIn();

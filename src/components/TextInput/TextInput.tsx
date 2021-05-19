@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput as PaperTextInput } from 'react-native-paper';
+
 import styles, { theme } from './TextInput.styles';
 
 type PaperTextInputProps = React.ComponentProps<typeof PaperTextInput>;

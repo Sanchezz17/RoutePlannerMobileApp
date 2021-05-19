@@ -1,28 +1,30 @@
-import { LogBox, SafeAreaView, ScrollView, View } from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Toast from 'react-native-easy-toast';
-import { useForm } from 'react-hook-form';
-import styles, { theme } from './OptionsScreen.styles';
-import { Coordinate, Right } from '../../redux/users/types';
-import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { updateUserThunk } from '../../redux/users/thunks';
 import deepEqual from 'deep-equal';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { LogBox, SafeAreaView, ScrollView, View } from 'react-native';
+import Toast from 'react-native-easy-toast';
+import { Button, Divider } from 'react-native-paper';
+
+import MailIcon from '../../components/Contacts/MailIcon';
+import PhoneIcon from '../../components/Contacts/PhoneIcon';
+import TelegramIcon from '../../components/Contacts/TelegramIcon';
+import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
+import { SettingsCard } from '../../components/SettingsCard/SettingsCard';
+import TextInput from '../../components/TextInput/TextInput';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import { updateUserThunk } from '../../redux/users/thunks';
+import { Coordinate, Right } from '../../redux/users/types';
 import { DrawerRoutes } from '../../routing/routes';
 import { DrawerNavigationProps } from '../../routing/types';
-import { Button, Divider } from 'react-native-paper';
-import TelegramIcon from '../../components/Contacts/TelegramIcon';
-import PhoneIcon from '../../components/Contacts/PhoneIcon';
-import { SettingsCard } from '../../components/SettingsCard/SettingsCard';
-import MailIcon from '../../components/Contacts/MailIcon';
-import TextInput from '../../components/TextInput/TextInput';
-const MOBILE_PHONE_FIELD = 'mobilePhone';
-const TELEGRAM_FIELD = 'telegram';
+import styles, { theme } from './OptionsScreen.styles';
 
 LogBox.ignoreLogs([
     /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
 ]);
+
+const MOBILE_PHONE_FIELD = 'mobilePhone';
+const TELEGRAM_FIELD = 'telegram';
 
 const defaultCoordinate: Coordinate = {
     latitude: 56.8519,

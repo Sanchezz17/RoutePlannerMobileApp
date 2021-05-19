@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
+
 import { PaletteStorage } from '../palette/PaletteStorage';
 
 const palette = PaletteStorage.getPalette();
