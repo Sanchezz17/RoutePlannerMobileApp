@@ -30,7 +30,7 @@ const deleteUserAsync = async (id: number): Promise<number> => {
     });
 };
 
-const getManagers = async (
+const getManagersAsync = async (
     offset: number,
     limit: number,
     query: string,
@@ -54,5 +54,5 @@ export const userAPI = {
     updateUserAsync,
     deleteUserAsync,
     addRightToUserAsync,
-    getManagers,
+    getManagers: getManagersAsync,
 };
