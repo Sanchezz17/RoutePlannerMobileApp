@@ -48,7 +48,7 @@ export const ListScreen = <T,>({
                 loadDataThunk({ offset: offset, limit: LIMIT, query: query }),
             );
         },
-        [dispatch, query],
+        [dispatch, query, loadDataThunk],
     );
 
     useEffect(() => {
