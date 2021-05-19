@@ -1,4 +1,4 @@
-import { User } from '../redux/users/types';
+import { User } from '../../redux/users/types';
 
 export enum DrawerRoutes {
     Home = 'Home',

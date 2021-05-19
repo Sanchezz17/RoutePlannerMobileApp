@@ -17,8 +17,8 @@ import {
 } from '../../redux/requests/thunks';
 import { addRightToUserThunk, deleteUserThunk } from '../../redux/users/thunks';
 import { Right } from '../../redux/users/types';
-import { DrawerRoutes } from '../../routing/routes';
-import { DrawerNavigationProps } from '../../routing/types';
+import { DrawerRoutes } from '../../routing/main/routes';
+import { DrawerNavigationProps } from '../../routing/main/types';
 import styles from './RequestsScreen.styles';
 
 const LIMIT = 10;

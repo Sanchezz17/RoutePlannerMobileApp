@@ -6,6 +6,7 @@ import { ScreenContainer } from 'react-native-screens';
 import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
+    selectCurrentUser,
     selectLoadingManagers,
     selectManagers,
 } from '../../redux/users/selectors';
@@ -15,16 +16,18 @@ import {
     getMoreManagersThunk,
 } from '../../redux/users/thunks';
 import { Right } from '../../redux/users/types';
-import { DrawerRoutes } from '../../routing/routes';
-import { DrawerNavigationProps } from '../../routing/types';
+import { DrawerRoutes } from '../../routing/main/routes';
+import { ManagersRoutes } from '../../routing/managers/routes';
+import { ManagersStackNavigationProps } from '../../routing/managers/types';
 import styles from './ManagersScreen.styles';
 
 const LIMIT = 10;
 
-type ManagersScreenProps = DrawerNavigationProps<DrawerRoutes.Managers>;
+type ManagersScreenProps = ManagersStackNavigationProps<ManagersRoutes.Managers>;
 
-export const ManagerScreen = ({ navigation }: ManagersScreenProps) => {
+export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
     const dispatch = useAppDispatch();
+    const currentUser = useAppSelector(selectCurrentUser);
     const managers = useAppSelector(selectManagers);
     const loadingManagers = useAppSelector(selectLoadingManagers);
     const [query, setQuery] = useState('');
@@ -107,9 +110,22 @@ export const ManagerScreen = ({ navigation }: ManagersScreenProps) => {
                             {
                                 name: 'Изменить данные',
                                 action: () => {
-                                    navigation.navigate(DrawerRoutes.Options, {
-                                        user,
-                                    });
+                                    if (currentUser.id === user.id) {
+                                        navigation.navigate(
+                                            ManagersRoutes.CurrentUserOptions,
+                                            {
+                                                screen: DrawerRoutes.Options,
+                                                params: { user },
+                                            },
+                                        );
+                                    } else {
+                                        navigation.navigate(
+                                            ManagersRoutes.Options,
+                                            {
+                                                user,
+                                            },
+                                        );
+                                    }
                                 },
                             },
                         ]}

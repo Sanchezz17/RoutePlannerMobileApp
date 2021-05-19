@@ -15,8 +15,10 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { updateUserThunk } from '../../redux/users/thunks';
 import { Coordinate, Right } from '../../redux/users/types';
-import { DrawerRoutes } from '../../routing/routes';
-import { DrawerNavigationProps } from '../../routing/types';
+import { DrawerRoutes } from '../../routing/main/routes';
+import { DrawerNavigationProps } from '../../routing/main/types';
+import { ManagersRoutes } from '../../routing/managers/routes';
+import { ManagersStackNavigationProps } from '../../routing/managers/types';
 import styles, { theme } from './OptionsScreen.styles';
 
 LogBox.ignoreLogs([
@@ -32,7 +34,9 @@ const defaultCoordinate: Coordinate = {
     address: '',
 };
 
-type OptionsScreenProps = DrawerNavigationProps<DrawerRoutes.Options>;
+type OptionsScreenProps =
+    | DrawerNavigationProps<DrawerRoutes.Options>
+    | ManagersStackNavigationProps<ManagersRoutes.Options>;
 
 export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
@@ -109,13 +113,13 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 <View style={styles.form}>
                     <TextInput
                         label={'Email'}
-                        value={user.email}
+                        defaultValue={user.email}
                         active={false}
                         leftIcon={<MailIcon />}
                     />
                     <TextInput
                         label={'Телефон'}
-                        value={user.mobilePhone}
+                        defaultValue={user.mobilePhone}
                         autoCompleteType="tel"
                         keyboardType="numeric"
                         textContentType="telephoneNumber"
@@ -126,7 +130,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                     <TextInput
                         label={'Telegram'}
                         autoCorrect={false}
-                        value={user.telegram}
+                        defaultValue={user.telegram}
                         onChangeText={onChangeField(TELEGRAM_FIELD)}
                         leftIcon={<TelegramIcon />}
                     />
