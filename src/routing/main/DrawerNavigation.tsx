@@ -14,6 +14,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { Right } from '../../redux/users/types';
 import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
+import { MeetingsScreen } from '../../screens/MeetingsScreen/MeetingsScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
 import ManagersNavigation from '../managers/ManagersNavigation';
@@ -86,7 +87,7 @@ const DrawerNavigation = () => {
                 />
                 <Drawer.Screen
                     name={DrawerRoutes.Meetings}
-                    component={RequestsScreen}
+                    component={MeetingsScreen}
                     options={{
                         title: 'Встречи',
                         drawerIcon: ({ focused }) => (

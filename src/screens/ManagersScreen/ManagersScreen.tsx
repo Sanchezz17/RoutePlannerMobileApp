@@ -17,6 +17,7 @@ import { Right, User } from '../../redux/users/types';
 import { DrawerRoutes } from '../../routing/main/routes';
 import { ManagersRoutes } from '../../routing/managers/routes';
 import { ManagersStackNavigationProps } from '../../routing/managers/types';
+
 type ManagersScreenProps = ManagersStackNavigationProps<ManagersRoutes.Managers>;
 
 export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
