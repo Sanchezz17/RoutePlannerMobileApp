@@ -28,7 +28,7 @@ export const deleteUserThunk = createAsyncThunk(
     },
 );
 
-interface UsersSearchParameters {
+export interface UsersSearchParameters {
     offset: number;
     limit: number;
     query: string;
