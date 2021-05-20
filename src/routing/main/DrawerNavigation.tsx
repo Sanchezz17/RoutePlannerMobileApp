@@ -13,6 +13,7 @@ import { DrawerContent } from '../../containers/DrawerContent/DrawerContent';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { Right } from '../../redux/users/types';
+import { ClientsScreen } from '../../screens/ClientsScreen/ClientsScreen';
 import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { MeetingsScreen } from '../../screens/MeetingsScreen/MeetingsScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
@@ -76,7 +77,7 @@ const DrawerNavigation = () => {
                 )}
                 <Drawer.Screen
                     name={DrawerRoutes.Clients}
-                    component={RequestsScreen}
+                    component={ClientsScreen}
                     options={{
                         title: 'Клиенты',
                         drawerIcon: ({ focused }) => (
