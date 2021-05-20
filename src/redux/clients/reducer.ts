@@ -52,7 +52,7 @@ const clientsSlice = createSlice({
         [getMoreClientsThunk.pending.type]: (state: ClientsState) => {
             state.loadingClients = true;
         },
-        [getClientsThunk.fulfilled.type]: (
+        [getMoreClientsThunk.fulfilled.type]: (
             state: ClientsState,
             action: PayloadAction<Client[]>,
         ) => {
