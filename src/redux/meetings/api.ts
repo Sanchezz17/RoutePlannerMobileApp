@@ -17,27 +17,30 @@ const getMeetingsAsync = async (
     limit: number,
     query: string,
     date: Date,
-): Promise<Meeting> => {
+): Promise<Meeting[]> => {
     return await authorizeFetch(
         `${meetingsApiPrefix}?offset=${offset}&limit=${limit}&query=${query}&date=${date}`,
     );
 };
 
-const createMeetingAsync = async (meeting: Meeting) => {
+const createMeetingAsync = async (meeting: Meeting): Promise<Meeting> => {
     return await authorizeFetch(`${meetingsApiPrefix}`, {
         method: 'POST',
         body: JSON.stringify(meeting),
     });
 };
 
-const updateMeetingAsync = async (id: number, updateDto: UpdateMeetingDto) => {
+const updateMeetingAsync = async (
+    id: number,
+    updateDto: UpdateMeetingDto,
+): Promise<Meeting> => {
     return await authorizeFetch(`${meetingsApiPrefix}/${id}`, {
         method: 'PUT',
         body: JSON.stringify(updateDto),
     });
 };
 
-const deleteMeetingAsync = async (id: number) => {
+const deleteMeetingAsync = async (id: number): Promise<number> => {
     return await authorizeFetch(`${meetingsApiPrefix}/${id}`, {
         method: 'DELETE',
     });
