@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
@@ -23,11 +23,14 @@ type ManagersScreenProps = ManagersStackNavigationProps<ManagersRoutes.Managers>
 export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
     const dispatch = useAppDispatch();
     const currentUser = useAppSelector(selectCurrentUser);
-    const [expandedCardIndex, setExpandedCardIndex] = useState(-1);
-
     return (
         <ListScreen
-            renderCard={(user: User, index) => (
+            renderCard={(
+                user: User,
+                index,
+                expandedCardIndex,
+                setExpandedCardIndex,
+            ) => (
                 <ManagerCard
                     user={user}
                     key={index}
