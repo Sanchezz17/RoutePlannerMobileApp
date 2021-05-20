@@ -1,8 +1,6 @@
 import { prefix } from '../../common/constants';
 import { authorizeFetch } from '../../common/utils/autorizeFetch';
-import { Meeting } from '../meetings/types';
-import { UpdateUserDto } from '../users/api';
-import { Coordinate, User } from '../users/types';
+import { Coordinate } from '../users/types';
 import { ManagerSchedule } from './types';
 
 const scheduleApiPrefix = `${prefix}/schedule`;
