@@ -15,7 +15,7 @@ export interface UpdateClientDto {
 
 const createClientAsync = async (client: Client): Promise<number> => {
     return await authorizeFetch(`${clientsApiPrefix}`, {
-        method: 'PUT',
+        method: 'POST',
         body: JSON.stringify(client),
     });
 };

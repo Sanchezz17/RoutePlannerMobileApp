@@ -38,39 +38,38 @@ export const AddClientScreen = ({
     navigation,
 }: AddClientScreenProps) => {
     const isNewClient = route.params?.client === undefined;
-    const client: Client = route.params?.client ?? {
-        id: 0,
-        name: '',
-        coordinate: defaultCoordinate,
-        email: '',
-        telegram: '',
-        mobilePhone: '',
-    };
+    const client = route.params?.client;
     const dispatch = useAppDispatch();
 
     const [coordinate, setCoordinate] = useState<Coordinate>(
         client?.coordinate ?? defaultCoordinate,
     );
+    const [id, setId] = useState(client?.id ?? undefined);
+    const [name, setName] = useState(client?.name ?? '');
+    const [email, setEmail] = useState(client?.email ?? '');
+    const [telegram, setTelegram] = useState(client?.telegram ?? '');
+    const [mobilePhone, setMobilePhone] = useState(client?.mobilePhone ?? '');
 
     const { register, handleSubmit, setValue } = useForm();
     const onSubmit = useCallback(
         async (formData) => {
             console.log('submit');
             if (isNewClient) {
-                console.log(`${client} created`);
-                dispatch(createClientThunk({ client: client }));
-            } else if (
-                !deepEqual(coordinate, client.coordinate) ||
-                (formData.telegram && client.telegram !== formData.telegram) ||
-                (formData.mobilePhone &&
-                    client.mobilePhone !== formData.mobilePhone) ||
-                (formData.email && client.email !== formData.email) ||
-                (formData.name && client.name !== formData.name)
-            ) {
-                console.log(`${client} updated`);
+                console.log(`${name} created`);
+                dispatch(
+                    createClientThunk({
+                        id: id,
+                        name: name,
+                        email: email,
+                        telegram: telegram,
+                        mobilePhone: mobilePhone,
+                        coordinate: coordinate,
+                    }),
+                );
+            } else {
                 dispatch(
                     updateClientThunk({
-                        id: client.id,
+                        id: id,
                         updateClientDto: {
                             name: formData.name,
                             email: formData.email,
@@ -83,14 +82,17 @@ export const AddClientScreen = ({
             }
             navigation.goBack();
         },
-        [isNewClient, coordinate, client, navigation, dispatch],
-    );
-
-    const onChangeField = useCallback(
-        (name) => (text: string) => {
-            setValue(name, text);
-        },
-        [setValue],
+        [
+            isNewClient,
+            navigation,
+            name,
+            dispatch,
+            id,
+            email,
+            telegram,
+            mobilePhone,
+            coordinate,
+        ],
     );
 
     useEffect(() => {
@@ -98,12 +100,12 @@ export const AddClientScreen = ({
         register(EMAIL_FIELD);
         register(MOBILE_PHONE_FIELD);
         register(TELEGRAM_FIELD);
-        setValue(NAME_FIELD, client.name);
-        setValue(EMAIL_FIELD, client.email);
-        setValue(MOBILE_PHONE_FIELD, client.mobilePhone);
-        setValue(TELEGRAM_FIELD, client.telegram);
+        setValue(NAME_FIELD, name);
+        setValue(EMAIL_FIELD, email);
+        setValue(MOBILE_PHONE_FIELD, mobilePhone);
+        setValue(TELEGRAM_FIELD, telegram);
         setCoordinate(client?.coordinate ?? defaultCoordinate);
-    }, [register, setValue, client]);
+    }, [register, setValue, client, name, email, mobilePhone, telegram]);
 
     return (
         <SafeAreaView style={styles.view}>
@@ -116,9 +118,9 @@ export const AddClientScreen = ({
                         label={'Имя'}
                         mode={'flat'}
                         style={styles.input}
-                        defaultValue={client.name}
+                        defaultValue={name}
                         textContentType={'name'}
-                        onChangeText={onChangeField(NAME_FIELD)}
+                        onChangeText={setName}
                         leftIcon={<MailIcon />}
                     />
                     <GooglePlacesInput
@@ -133,20 +135,20 @@ export const AddClientScreen = ({
                         label={'Email'}
                         mode={'flat'}
                         style={styles.input}
-                        defaultValue={client.email}
-                        onChangeText={onChangeField(EMAIL_FIELD)}
+                        defaultValue={email}
+                        onChangeText={setEmail}
                         leftIcon={<MailIcon />}
                     />
                     <TextInput
                         label={'Телефон'}
                         mode={'flat'}
                         style={styles.input}
-                        defaultValue={client.mobilePhone}
+                        defaultValue={mobilePhone}
                         autoCompleteType="tel"
                         keyboardType="numeric"
                         textContentType="telephoneNumber"
                         maxLength={11}
-                        onChangeText={onChangeField(MOBILE_PHONE_FIELD)}
+                        onChangeText={setMobilePhone}
                         leftIcon={<PhoneIcon />}
                     />
                     <TextInput
@@ -154,8 +156,8 @@ export const AddClientScreen = ({
                         mode={'flat'}
                         style={styles.input}
                         autoCorrect={false}
-                        defaultValue={client.telegram}
-                        onChangeText={onChangeField(TELEGRAM_FIELD)}
+                        defaultValue={telegram}
+                        onChangeText={setTelegram}
                         leftIcon={<TelegramIcon />}
                     />
                 </View>
