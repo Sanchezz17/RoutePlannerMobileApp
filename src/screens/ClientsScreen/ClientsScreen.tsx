@@ -22,7 +22,7 @@ type ClientsScreenProps = ClientsStackNavigationProps<ClientsRoutes.Clients>;
 
 export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
     const dispatch = useAppDispatch();
-    return [
+    return (
         <ListScreen
             key={'clientsScreen.ListScreen'}
             renderCard={(
@@ -65,14 +65,14 @@ export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
             dataSelector={selectClients}
             loadingSelector={selectLoadingClients}
             loadDataThunk={getClientsThunk}
-            loadMoreDataThunk={getMoreClientsThunk}
-        />,
-        <FAB
-            key={'clientsScreen.FAB'}
-            style={styles.fab}
-            icon={'plus'}
-            color={'black'}
-            onPress={() => navigation.navigate(ClientsRoutes.AddClient, {})}
-        />,
-    ];
+            loadMoreDataThunk={getMoreClientsThunk}>
+            <FAB
+                key={'clientsScreen.FAB'}
+                style={styles.fab}
+                icon={'plus'}
+                color={'black'}
+                onPress={() => navigation.navigate(ClientsRoutes.AddClient, {})}
+            />
+        </ListScreen>
+    );
 };

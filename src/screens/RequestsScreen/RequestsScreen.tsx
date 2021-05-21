@@ -23,7 +23,7 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
     const dispatch = useAppDispatch();
     const toast = useRef<Toast>(null);
 
-    return [
+    return (
         <ListScreen
             loadDataThunk={getRequestsThunk}
             loadMoreDataThunk={getMoreRequestsThunk}
@@ -49,8 +49,8 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
                     }}
                 />
             )}
-            cardKeyExtractor={(user: User) => `${user.id}${user.email}`}
-        />,
-        <Toast ref={toast} position={'center'} />,
-    ];
+            cardKeyExtractor={(user: User) => `${user.id}${user.email}`}>
+            <Toast ref={toast} position={'center'} />
+        </ListScreen>
+    );
 };

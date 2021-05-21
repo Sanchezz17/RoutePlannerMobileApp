@@ -27,6 +27,7 @@ export interface ListWithSearchProps<T> {
     loadMoreDataThunk: (
         parameters: UsersSearchParameters,
     ) => AsyncThunkAction<T[], UsersSearchParameters, {}>;
+    children?: Element;
 }
 
 export const ListScreen = <T,>({
@@ -36,6 +37,7 @@ export const ListScreen = <T,>({
     loadingSelector,
     loadDataThunk,
     loadMoreDataThunk,
+    children,
 }: ListWithSearchProps<T>) => {
     const dispatch = useAppDispatch();
     const data = useAppSelector(dataSelector);
@@ -90,6 +92,7 @@ export const ListScreen = <T,>({
                 }
                 keyExtractor={cardKeyExtractor}
             />
+            {children}
         </ScreenContainer>
     );
 };
