@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { clientsAPI, UpdateClientDto } from './api';
-import { Client } from './types';
 
 export const createClientThunk = createAsyncThunk(
     'clients/createClientThunkStatus',
-    async (client: Client) => {
+    async (client: UpdateClientDto) => {
         return await clientsAPI.createClientAsync(client);
     },
 );

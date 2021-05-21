@@ -1,4 +1,3 @@
-import deepEqual from 'deep-equal';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, View } from 'react-native';
@@ -13,7 +12,6 @@ import {
     createClientThunk,
     updateClientThunk,
 } from '../../redux/clients/thunks';
-import { Client } from '../../redux/clients/types';
 import { useAppDispatch } from '../../redux/hooks';
 import { Coordinate } from '../../redux/users/types';
 import { ClientsRoutes } from '../../routing/clients/routes';
@@ -37,7 +35,6 @@ export const AddClientScreen = ({
     route,
     navigation,
 }: AddClientScreenProps) => {
-    const isNewClient = route.params?.client === undefined;
     const client = route.params?.client;
     const dispatch = useAppDispatch();
 
@@ -53,12 +50,9 @@ export const AddClientScreen = ({
     const { register, handleSubmit, setValue } = useForm();
     const onSubmit = useCallback(
         async (formData) => {
-            console.log('submit');
-            if (isNewClient) {
-                console.log(`${name} created`);
+            if (id === undefined) {
                 dispatch(
                     createClientThunk({
-                        id: id,
                         name: name,
                         email: email,
                         telegram: telegram,
@@ -83,7 +77,6 @@ export const AddClientScreen = ({
             navigation.goBack();
         },
         [
-            isNewClient,
             navigation,
             name,
             dispatch,
