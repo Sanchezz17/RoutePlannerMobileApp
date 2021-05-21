@@ -1,4 +1,5 @@
 import React from 'react';
+import { FAB } from 'react-native-paper';
 
 import { ClientCard } from '../../components/ClientCard/ClientCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
@@ -7,16 +8,23 @@ import {
     selectLoadingClients,
 } from '../../redux/clients/selectors';
 import {
+    deleteClientThunk,
     getClientsThunk,
     getMoreClientsThunk,
 } from '../../redux/clients/thunks';
 import { Client } from '../../redux/clients/types';
 import { useAppDispatch } from '../../redux/hooks';
+import { ClientsRoutes } from '../../routing/clients/routes';
+import { ClientsStackNavigationProps } from '../../routing/clients/types';
+import styles from './ClientsScreen.styles';
 
-export const ClientsScreen = () => {
+type ClientsScreenProps = ClientsStackNavigationProps<ClientsRoutes.Clients>;
+
+export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
     const dispatch = useAppDispatch();
-    return (
+    return [
         <ListScreen
+            key={'clientsScreen.ListScreen'}
             renderCard={(
                 client: Client,
                 index,
@@ -34,7 +42,11 @@ export const ClientsScreen = () => {
                     menuItems={[
                         {
                             name: 'Редактировать',
-                            action: () => {},
+                            action: () => {
+                                navigation.navigate(ClientsRoutes.AddClient, {
+                                    client,
+                                });
+                            },
                         },
                         {
                             name: 'Назначить встречу',
@@ -42,7 +54,9 @@ export const ClientsScreen = () => {
                         },
                         {
                             name: 'Удалить',
-                            action: () => {},
+                            action: () => {
+                                dispatch(deleteClientThunk(client.id));
+                            },
                         },
                     ]}
                 />
@@ -52,6 +66,13 @@ export const ClientsScreen = () => {
             loadingSelector={selectLoadingClients}
             loadDataThunk={getClientsThunk}
             loadMoreDataThunk={getMoreClientsThunk}
-        />
-    );
+        />,
+        <FAB
+            key={'clientsScreen.FAB'}
+            style={styles.fab}
+            icon={'plus'}
+            color={'black'}
+            onPress={() => navigation.navigate(ClientsRoutes.AddClient, {})}
+        />,
+    ];
 };

@@ -44,10 +44,9 @@ export default StyleSheet.create({
         backgroundColor: palette.SystemUIStroke,
     },
     fab: {
-        width: '40%',
-        height: 40,
-        marginVertical: 20,
-        alignSelf: 'flex-end',
+        position: 'absolute',
+        right: 30,
+        bottom: 30,
         backgroundColor: palette.Secondary,
     },
     saveButtonLabel: {

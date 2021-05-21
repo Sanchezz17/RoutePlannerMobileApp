@@ -143,7 +143,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 </View>
 
                 <Button
-                    style={styles.saveButton}
+                    style={styles.fab}
                     labelStyle={styles.saveButtonLabel}
                     mode={'contained'}
                     onPress={handleSubmit(onSubmit)}

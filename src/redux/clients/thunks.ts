@@ -5,9 +5,9 @@ import { Client } from './types';
 
 export const createClientThunk = createAsyncThunk(
     'clients/createClientThunkStatus',
-    async (createClientParameters: { id: number; client: Client }) => {
-        const { id, client } = createClientParameters;
-        return await clientsAPI.updateClientAsync(id, client);
+    async (createClientParameters: { client: Client }) => {
+        const { client } = createClientParameters;
+        return await clientsAPI.createClientAsync(client);
     },
 );
 

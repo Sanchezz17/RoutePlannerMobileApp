@@ -18,6 +18,7 @@ import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { MeetingsScreen } from '../../screens/MeetingsScreen/MeetingsScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
+import ClientsNavigation from '../clients/ClientsNavigation';
 import ManagersNavigation from '../managers/ManagersNavigation';
 import { DrawerRoutes } from './routes';
 
@@ -77,7 +78,7 @@ const DrawerNavigation = () => {
                 )}
                 <Drawer.Screen
                     name={DrawerRoutes.Clients}
-                    component={ClientsScreen}
+                    component={ClientsNavigation}
                     options={{
                         title: 'Клиенты',
                         drawerIcon: ({ focused }) => (
