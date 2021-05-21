@@ -3,6 +3,7 @@ import { AnyAction, combineReducers, Reducer } from '@reduxjs/toolkit';
 import clientsReducer from './clients/reducer';
 import meetingsReducer from './meetings/reducer';
 import requestsReducer from './requests/reducer';
+import routesReducer from './routes/reducer';
 import scheduleReducer from './schedule/reducer';
 import usersReducer, { logout } from './users/reducer';
 
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
     meetingsSlice: meetingsReducer,
     clientsSlice: clientsReducer,
     scheduleSlice: scheduleReducer,
+    routesSlice: routesReducer,
 });
 
 type RootState = ReturnType<typeof appReducer>;
