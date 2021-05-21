@@ -114,6 +114,8 @@ export const AddClientScreen = ({
                 <View style={styles.form}>
                     <TextInput
                         label={'Имя'}
+                        mode={'flat'}
+                        style={styles.input}
                         defaultValue={client.name}
                         textContentType={'name'}
                         onChangeText={onChangeField(NAME_FIELD)}
@@ -124,15 +126,21 @@ export const AddClientScreen = ({
                         onChangeCoordinate={(newCoordinate) => {
                             setCoordinate(newCoordinate);
                         }}
+                        mode={'flat'}
+                        style={styles.input}
                     />
                     <TextInput
                         label={'Email'}
+                        mode={'flat'}
+                        style={styles.input}
                         defaultValue={client.email}
                         onChangeText={onChangeField(EMAIL_FIELD)}
                         leftIcon={<MailIcon />}
                     />
                     <TextInput
                         label={'Телефон'}
+                        mode={'flat'}
+                        style={styles.input}
                         defaultValue={client.mobilePhone}
                         autoCompleteType="tel"
                         keyboardType="numeric"
@@ -143,6 +151,8 @@ export const AddClientScreen = ({
                     />
                     <TextInput
                         label={'Telegram'}
+                        mode={'flat'}
+                        style={styles.input}
                         autoCorrect={false}
                         defaultValue={client.telegram}
                         onChangeText={onChangeField(TELEGRAM_FIELD)}

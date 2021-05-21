@@ -1,4 +1,4 @@
-import { LogBox } from 'react-native';
+import { LogBox, StyleProp, ViewStyle } from 'react-native';
 
 LogBox.ignoreLogs([
     /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
@@ -18,11 +18,15 @@ import AddressIcon from '../icons/AddressIcon';
 export interface GooglePlacesInputProps {
     address: string;
     onChangeCoordinate: (newCoordinate: Coordinate) => void;
+    mode?: 'flat' | 'outlined' | undefined;
+    style?: StyleProp<ViewStyle>;
 }
 
 export const GooglePlacesInput = ({
     address,
     onChangeCoordinate,
+    mode,
+    style,
 }: GooglePlacesInputProps) => {
     const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
@@ -58,6 +62,8 @@ export const GooglePlacesInput = ({
                 InputComp: TextInput,
                 label: 'Адрес',
                 leftIcon: <AddressIcon />,
+                mode: mode,
+                style: style,
             }}
         />
     );

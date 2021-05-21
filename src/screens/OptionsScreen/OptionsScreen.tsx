@@ -113,12 +113,14 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 <View style={styles.form}>
                     <TextInput
                         label={'Email'}
+                        mode={'outlined'}
                         defaultValue={user.email}
                         active={false}
                         leftIcon={<MailIcon />}
                     />
                     <TextInput
                         label={'Телефон'}
+                        mode={'outlined'}
                         defaultValue={user.mobilePhone}
                         autoCompleteType="tel"
                         keyboardType="numeric"
@@ -129,6 +131,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                     />
                     <TextInput
                         label={'Telegram'}
+                        mode={'outlined'}
                         autoCorrect={false}
                         defaultValue={user.telegram}
                         onChangeText={onChangeField(TELEGRAM_FIELD)}
@@ -139,6 +142,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         onChangeCoordinate={(newCoordinate) => {
                             setCoordinate(newCoordinate);
                         }}
+                        mode={'outlined'}
                     />
                 </View>
 

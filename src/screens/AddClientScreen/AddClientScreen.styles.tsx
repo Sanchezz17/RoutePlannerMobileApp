@@ -36,6 +36,7 @@ export default StyleSheet.create({
     input: {
         flex: 1,
         marginVertical: 10,
+        backgroundColor: palette.SystemUIStroke,
     },
     activeInput: {
         backgroundColor: palette.Background,
