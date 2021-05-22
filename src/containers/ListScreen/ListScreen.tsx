@@ -1,5 +1,6 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { FlatList } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
@@ -53,9 +54,11 @@ export const ListScreen = <T,>({
         [dispatch, query, loadDataThunk],
     );
 
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
+    useFocusEffect(
+        useCallback(() => {
+            loadData();
+        }, [loadData]),
+    );
 
     return (
         <ScreenContainer style={styles.container}>
