@@ -2,6 +2,8 @@ import {
     GoogleSignin,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { Mutex, Semaphore, TimedMutex } from 'tstl';
+
 import { Config } from './config';
 
 GoogleSignin.configure(Config);
@@ -53,8 +55,12 @@ export const signOut = async () => {
     }
 };
 
+const mutex = new TimedMutex();
+
 export const getTokens = async () => {
+    await mutex.try_lock_for(2000);
     const tokens = await GoogleSignin.getTokens();
+    await mutex.unlock();
     console.log(tokens);
     return tokens;
 };
