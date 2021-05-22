@@ -13,7 +13,7 @@ export interface UpdateClientDto {
     coordinate: Coordinate;
 }
 
-const createClientAsync = async (client: UpdateClientDto): Promise<number> => {
+const createClientAsync = async (client: UpdateClientDto): Promise<Client> => {
     return await authorizeFetch(`${clientsApiPrefix}`, {
         method: 'POST',
         body: JSON.stringify(client),

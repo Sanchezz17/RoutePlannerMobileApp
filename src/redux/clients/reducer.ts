@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import createMap from '../../common/utils/createMap';
 import {
+    createClientThunk,
     deleteClientThunk,
     getClientsThunk,
     getMoreClientsThunk,
@@ -24,6 +25,13 @@ const clientsSlice = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: {
+        [createClientThunk.fulfilled.type]: (
+            state: ClientsState,
+            action: PayloadAction<Client>,
+        ) => {
+            const client = action.payload;
+            state.clients[client.id] = client;
+        },
         [updateClientThunk.fulfilled.type]: (
             state: ClientsState,
             action: PayloadAction<Client>,
