@@ -14,7 +14,7 @@ import TextInput from '../../components/TextInput/TextInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { updateUserThunk } from '../../redux/users/thunks';
-import { Coordinate, Right } from '../../redux/users/types';
+import { Coordinate, defaultCoordinate, Right } from '../../redux/users/types';
 import { DrawerRoutes } from '../../routing/main/routes';
 import { DrawerNavigationProps } from '../../routing/main/types';
 import { ManagersRoutes } from '../../routing/managers/routes';
@@ -27,12 +27,6 @@ LogBox.ignoreLogs([
 
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
-
-const defaultCoordinate: Coordinate = {
-    latitude: 56.8519,
-    longitude: 60.6122,
-    address: '',
-};
 
 type OptionsScreenProps =
     | DrawerNavigationProps<DrawerRoutes.Options>

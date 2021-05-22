@@ -1,4 +1,4 @@
-import { Coordinate } from '../users/types';
+import { Coordinate, defaultCoordinate } from '../users/types';
 
 export interface Client {
     id: number;
@@ -8,3 +8,12 @@ export interface Client {
     telegram: string;
     coordinate: Coordinate;
 }
+
+export const defaultClient: Client = {
+    id: 0,
+    name: '',
+    email: '',
+    telegram: '',
+    mobilePhone: '',
+    coordinate: defaultCoordinate,
+};

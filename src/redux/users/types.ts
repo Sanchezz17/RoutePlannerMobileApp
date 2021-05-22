@@ -21,6 +21,12 @@ export interface Coordinate {
     longitude: number;
 }
 
+export const defaultCoordinate: Coordinate = {
+    latitude: 56.8430993,
+    longitude: 60.64540859999999,
+    address: '',
+};
+
 export enum Right {
     Manager,
     Admin,
