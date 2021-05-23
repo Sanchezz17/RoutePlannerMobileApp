@@ -7,4 +7,19 @@ export default StyleSheet.create({
         flex: 1,
         height,
     },
+    searchbar: {
+        elevation: 0,
+    },
+    button: {
+        display: 'flex',
+        height: 56,
+        width: 56,
+        justifyContent: 'center',
+    },
+    title: {
+        fontSize: 20,
+    },
+    icon: {
+        alignSelf: 'center',
+    },
 });

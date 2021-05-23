@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { FAB } from 'react-native-paper';
 
 import { ClientCard } from '../../components/ClientCard/ClientCard';
+import RouteIcon from '../../components/icons/RouteIcon';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import {
     selectClients,
@@ -65,7 +66,8 @@ export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
             dataSelector={selectClients}
             loadingSelector={selectLoadingClients}
             loadDataThunk={getClientsThunk}
-            loadMoreDataThunk={getMoreClientsThunk}>
+            loadMoreDataThunk={getMoreClientsThunk}
+            navigation={navigation.dangerouslyGetParent()}>
             <FAB
                 key={'clientsScreen.FAB'}
                 style={styles.fab}
