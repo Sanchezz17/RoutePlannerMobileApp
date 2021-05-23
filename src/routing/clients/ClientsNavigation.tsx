@@ -19,9 +19,15 @@ const ClientsNavigation = () => (
         <Stack.Screen
             name={ClientsRoutes.AddClient}
             component={AddClientScreen}
-            options={{
-                title: 'Добавление клиента',
-                headerShown: true,
+            options={({ route }) => {
+                const title =
+                    (route?.params as any).client === undefined
+                        ? 'Добавление клиента'
+                        : 'Редактирование клиента';
+                return {
+                    title: title,
+                    headerShown: true,
+                };
             }}
         />
     </Stack.Navigator>
