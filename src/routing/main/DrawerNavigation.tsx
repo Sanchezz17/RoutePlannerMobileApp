@@ -1,5 +1,9 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import {
+    DefaultTheme,
+    getFocusedRouteNameFromRoute,
+    NavigationContainer,
+} from '@react-navigation/native';
 import React from 'react';
 
 import ClientsIcon from '../../components/icons/ClientsIcon';
@@ -13,20 +17,31 @@ import { DrawerContent } from '../../containers/DrawerContent/DrawerContent';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { Right } from '../../redux/users/types';
-import { ClientsScreen } from '../../screens/ClientsScreen/ClientsScreen';
 import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { MeetingsScreen } from '../../screens/MeetingsScreen/MeetingsScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
 import ClientsNavigation from '../clients/ClientsNavigation';
+import { ClientsRoutes } from '../clients/routes';
 import ManagersNavigation from '../managers/ManagersNavigation';
+import { ManagersRoutes } from '../managers/routes';
 import { DrawerRoutes } from './routes';
 
 const Drawer = createDrawerNavigator();
-
+const ScreensWithHiddenHeader: string[] = [
+    ClientsRoutes.AddClient,
+    ManagersRoutes.Options,
+    ManagersRoutes.CurrentUserOptions,
+];
 const DrawerNavigation = () => {
     const currentUser = useAppSelector(selectCurrentUser);
     const currentUserIsAdmin = currentUser?.rights.includes(Right.Admin);
+
+    // @ts-ignore
+    const shouldShowHeader = (route) => {
+        const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+        return !ScreensWithHiddenHeader.includes(routeName);
+    };
 
     return (
         <NavigationContainer theme={DefaultTheme}>
@@ -67,25 +82,25 @@ const DrawerNavigation = () => {
                     <Drawer.Screen
                         name={DrawerRoutes.Managers}
                         component={ManagersNavigation}
-                        options={{
+                        options={({ route }) => ({
                             title: 'Менеджеры',
                             drawerIcon: ({ focused }) => (
                                 <ManagersIcon focused={focused} />
                             ),
-                            headerShown: true,
-                        }}
+                            headerShown: shouldShowHeader(route),
+                        })}
                     />
                 )}
                 <Drawer.Screen
                     name={DrawerRoutes.Clients}
                     component={ClientsNavigation}
-                    options={{
+                    options={({ route }) => ({
                         title: 'Клиенты',
                         drawerIcon: ({ focused }) => (
                             <ClientsIcon focused={focused} />
                         ),
-                        headerShown: true,
-                    }}
+                        headerShown: shouldShowHeader(route),
+                    })}
                 />
                 <Drawer.Screen
                     name={DrawerRoutes.Meetings}
