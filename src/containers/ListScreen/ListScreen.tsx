@@ -13,7 +13,7 @@ import { ScreenContainer } from 'react-native-screens';
 
 import BackIcon from '../../components/icons/BackIcon';
 import HamburgerMenuIcon from '../../components/icons/HamburgerMenuIcon';
-import SeacrhIcon from '../../components/icons/SearchIcon';
+import SearchIcon from '../../components/icons/SearchIcon';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { UsersSearchParameters } from '../../redux/users/thunks';
@@ -66,9 +66,9 @@ export const ListScreen = <T,>({
         [dispatch, query, loadDataThunk],
     );
     const searchButton = () => (
-        <TouchableNativeFeedback onPress={onSearchButtonPress}>
+        <TouchableNativeFeedback onPress={() => setSearchOpened(true)}>
             <View style={styles.button}>
-                <SeacrhIcon style={styles.icon} />
+                <SearchIcon style={styles.icon} />
             </View>
         </TouchableNativeFeedback>
     );
@@ -83,44 +83,33 @@ export const ListScreen = <T,>({
     );
 
     const returnButton = () => (
-        <TouchableNativeFeedback onPress={onReturnButtonPress}>
+        <TouchableNativeFeedback onPress={() => setSearchOpened(false)}>
             <View style={styles.button}>
                 <BackIcon style={styles.icon} />
             </View>
         </TouchableNativeFeedback>
     );
 
-    const onSearchButtonPress = () => {
-        navigation?.setOptions({
-            headerLeft: returnButton,
-            headerTitle: () => (
-                <Searchbar
-                    placeholder="Поиск"
-                    onChangeText={setQuery}
-                    value={query}
-                    style={styles.searchbar}
-                    autoFocus={true}
-                />
-            ),
-            headerRight: () => '',
-        });
-        setSearchOpened(true);
-    };
-
-    const onReturnButtonPress = () => {
-        navigation?.setOptions({
-            headerLeft: hamburgerButton,
-            headerTitle: () => (
-                <Text style={styles.title}>{navigation.sc}</Text>
-            ),
-            headerRight: searchButton,
-        });
-    };
-
     useLayoutEffect(() => {
         if (!searchOpened) {
             navigation?.setOptions({
+                headerLeft: hamburgerButton,
+                headerTitle: () => <Text style={styles.title}>Клиенты</Text>,
                 headerRight: searchButton,
+            });
+        } else {
+            navigation?.setOptions({
+                headerLeft: returnButton,
+                headerTitle: () => (
+                    <Searchbar
+                        placeholder="Поиск"
+                        onChangeText={setQuery}
+                        value={query}
+                        style={styles.searchbar}
+                        autoFocus={true}
+                    />
+                ),
+                headerRight: () => '',
             });
         }
     }, [navigation, query, searchOpened]);
