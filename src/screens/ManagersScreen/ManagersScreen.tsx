@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ManagerCard } from '../../components/ManagerCard/ManagerCard';
+import { ManagerCard } from '../../components/Cards/ManagerCard/ManagerCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {

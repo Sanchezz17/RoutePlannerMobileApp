@@ -1,8 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { FAB } from 'react-native-paper';
 
-import { ClientCard } from '../../components/ClientCard/ClientCard';
-import RouteIcon from '../../components/icons/RouteIcon';
+import { ClientCard } from '../../components/Cards/ClientCard/ClientCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import {
     selectClients,

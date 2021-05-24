@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { User } from '../../redux/users/types';
+import { Client } from '../../../redux/clients/types';
 import { ExpandableCard } from '../ExpandableCard/ExpandableCard';
 
 interface MenuItem {
@@ -8,31 +8,30 @@ interface MenuItem {
     action: () => void;
 }
 
-export interface ManagerCardProps {
-    user: User;
+export interface ClientCardProps {
+    client: Client;
     cardNumber: number;
     expandedCardNumber: number;
     setExpandedCardNumber: Function;
     menuItems: MenuItem[];
 }
 
-export const ManagerCard = ({
-    user,
+export const ClientCard = ({
+    client,
     cardNumber,
     expandedCardNumber,
     setExpandedCardNumber,
     menuItems,
-}: ManagerCardProps) => {
+}: ClientCardProps) => {
     return (
         <ExpandableCard
-            name={user.name}
-            additionalInfos={[user.position]}
-            hasPicture={true}
-            picture={user.picture}
+            name={client.name}
+            additionalInfos={[`Адрес: ${client.coordinate?.address}`]}
+            hasPicture={false}
             contacts={{
-                email: user.email,
-                mobilePhone: user.mobilePhone,
-                telegram: user.telegram,
+                email: client.email,
+                mobilePhone: client.mobilePhone,
+                telegram: client.telegram,
             }}
             cardNumber={cardNumber}
             expandedCardNumber={expandedCardNumber}

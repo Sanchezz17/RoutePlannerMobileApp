@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MeetingCard } from '../../components/MeetingCard/MeetingCard';
+import { MeetingCard } from '../../components/Cards/MeetingCard/MeetingCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import { useAppDispatch } from '../../redux/hooks';
 import {

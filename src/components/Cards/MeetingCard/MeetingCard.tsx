@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Meeting } from '../../redux/meetings/types';
+import { Meeting } from '../../../redux/meetings/types';
 import { ExpandableCard } from '../ExpandableCard/ExpandableCard';
 
 interface MenuItem {

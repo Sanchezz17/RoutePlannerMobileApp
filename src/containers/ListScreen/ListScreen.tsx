@@ -17,9 +17,7 @@ import BackIcon from '../../components/icons/BackIcon';
 import HamburgerMenuIcon from '../../components/icons/HamburgerMenuIcon';
 import SearchIcon from '../../components/icons/SearchIcon';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { MeetingsSearchParameters } from '../../redux/meetings/thunks';
 import { RootState } from '../../redux/store';
-import { UsersSearchParameters } from '../../redux/users/thunks';
 import styles from './ListScreen.styles';
 const LIMIT = 10;
 
@@ -81,7 +79,7 @@ export const ListScreen = <T,>({
                 }),
             );
         },
-        [dispatch, loadDataThunk, query, getDate],
+        [dispatch, loadDataThunk, query],
     );
     const searchButton = () => (
         <TouchableNativeFeedback onPress={() => setSearchOpened(true)}>

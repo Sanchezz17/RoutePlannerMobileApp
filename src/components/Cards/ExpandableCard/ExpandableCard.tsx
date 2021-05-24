@@ -5,7 +5,6 @@ import {
     Text,
     TouchableOpacity,
     View,
-    ViewProps,
     ViewStyle,
 } from 'react-native';
 import { Divider } from 'react-native-paper';
@@ -17,11 +16,10 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 
-import { User } from '../../redux/users/types';
-import { Contacts } from '../Contacts/Contacts';
-import AccountIcon from '../icons/AccountIcon';
-import ExpandCardIcon from '../icons/ExpandCardIcon';
-import Menu from '../Menu/Menu';
+import { Contacts } from '../../Contacts/Contacts';
+import AccountIcon from '../../icons/AccountIcon';
+import ExpandCardIcon from '../../icons/ExpandCardIcon';
+import Menu from '../../Menu/Menu';
 import styles from './ExpandableCard.styles';
 
 interface MenuItem {

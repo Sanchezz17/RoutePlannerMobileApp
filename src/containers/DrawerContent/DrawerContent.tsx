@@ -8,8 +8,8 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { signOut } from '../../common/authorization/google/authStateManager';
+import { UserCard } from '../../components/Cards/UserCard/UserCard';
 import { PaletteStorage } from '../../components/palette/PaletteStorage';
-import { UserCard } from '../../components/UserCard/UserCard';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logout } from '../../redux/users/reducer';
 import { selectCurrentUser } from '../../redux/users/selectors';

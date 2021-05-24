@@ -2,7 +2,7 @@ import {
     GoogleSignin,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { Mutex, Semaphore, TimedMutex } from 'tstl';
+import { TimedMutex } from 'tstl';
 
 import { Config } from './config';
 
