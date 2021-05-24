@@ -16,7 +16,7 @@ const getMeetingsAsync = async (
     offset: number,
     limit: number,
     query: string,
-    date: Date,
+    date?: Date,
 ): Promise<Meeting[]> => {
     return await authorizeFetch(
         `${meetingsApiPrefix}?offset=${offset}&limit=${limit}&query=${query}&date=${date}`,

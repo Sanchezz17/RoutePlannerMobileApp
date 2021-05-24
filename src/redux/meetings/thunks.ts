@@ -7,7 +7,7 @@ export interface MeetingsSearchParameters {
     offset: number;
     limit: number;
     query: string;
-    date: Date;
+    date?: Date;
 }
 
 const getMeetingsPayloadCreator = async ({

@@ -8,7 +8,7 @@ import React, {
     useLayoutEffect,
     useState,
 } from 'react';
-import { FlatList, Text, TouchableNativeFeedback, View } from 'react-native';
+import { FlatList, TouchableNativeFeedback, View } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { Title } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
@@ -17,10 +17,18 @@ import BackIcon from '../../components/icons/BackIcon';
 import HamburgerMenuIcon from '../../components/icons/HamburgerMenuIcon';
 import SearchIcon from '../../components/icons/SearchIcon';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { MeetingsSearchParameters } from '../../redux/meetings/thunks';
 import { RootState } from '../../redux/store';
 import { UsersSearchParameters } from '../../redux/users/thunks';
 import styles from './ListScreen.styles';
 const LIMIT = 10;
+
+interface SearchParameters {
+    offset: number;
+    limit: number;
+    query: string;
+    date?: Date;
+}
 
 export interface ListWithSearchProps<T> {
     renderCard: (
@@ -33,14 +41,15 @@ export interface ListWithSearchProps<T> {
     dataSelector: (state: RootState) => T[];
     loadingSelector: (state: RootState) => boolean;
     loadDataThunk: (
-        parameters: UsersSearchParameters,
-    ) => AsyncThunkAction<T[], UsersSearchParameters, {}>;
+        parameters: SearchParameters,
+    ) => AsyncThunkAction<T[], SearchParameters, {}>;
     loadMoreDataThunk: (
-        parameters: UsersSearchParameters,
-    ) => AsyncThunkAction<T[], UsersSearchParameters, {}>;
+        parameters: SearchParameters,
+    ) => AsyncThunkAction<T[], SearchParameters, {}>;
     children?: Element;
     navigation?: StackNavigationProp<any, any> | DrawerNavigationProp<any, any>;
     screenTitle?: string;
+    getDate?: () => Date | undefined;
 }
 
 export const ListScreen = <T,>({
@@ -53,6 +62,7 @@ export const ListScreen = <T,>({
     children,
     navigation,
     screenTitle,
+    getDate = () => undefined,
 }: ListWithSearchProps<T>) => {
     const dispatch = useAppDispatch();
     const data = useAppSelector(dataSelector);
@@ -63,10 +73,15 @@ export const ListScreen = <T,>({
     const loadData = useCallback(
         (offset: number = 0) => {
             dispatch(
-                loadDataThunk({ offset: offset, limit: LIMIT, query: query }),
+                loadDataThunk({
+                    offset: offset,
+                    limit: LIMIT,
+                    query: query,
+                    date: getDate(),
+                }),
             );
         },
-        [dispatch, query, loadDataThunk],
+        [dispatch, loadDataThunk, query, getDate],
     );
     const searchButton = () => (
         <TouchableNativeFeedback onPress={() => setSearchOpened(true)}>

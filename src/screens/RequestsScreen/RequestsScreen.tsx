@@ -50,6 +50,7 @@ export const RequestsScreen = ({ navigation }: RequestsScreenProps) => {
                 />
             )}
             cardKeyExtractor={(user: User) => `${user.id}${user.email}`}
+            //@ts-ignore
             navigation={navigation}
             screenTitle={'Заявки'}>
             <Toast ref={toast} position={'center'} />
