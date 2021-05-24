@@ -92,6 +92,8 @@ export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
             loadingSelector={selectLoadingManagers}
             loadDataThunk={getManagersThunk}
             loadMoreDataThunk={getMoreManagersThunk}
+            navigation={navigation.dangerouslyGetParent()}
+            screenTitle={'Менеджеры'}
         />
     );
 };

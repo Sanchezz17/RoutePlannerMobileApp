@@ -19,7 +19,7 @@ import { DrawerRoutes } from '../../routing/main/routes';
 import { DrawerNavigationProps } from '../../routing/main/types';
 
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
-export const RequestsScreen = (_: RequestsScreenProps) => {
+export const RequestsScreen = ({ navigation }: RequestsScreenProps) => {
     const dispatch = useAppDispatch();
     const toast = useRef<Toast>(null);
 
@@ -49,7 +49,9 @@ export const RequestsScreen = (_: RequestsScreenProps) => {
                     }}
                 />
             )}
-            cardKeyExtractor={(user: User) => `${user.id}${user.email}`}>
+            cardKeyExtractor={(user: User) => `${user.id}${user.email}`}
+            navigation={navigation}
+            screenTitle={'Заявки'}>
             <Toast ref={toast} position={'center'} />
         </ListScreen>
     );

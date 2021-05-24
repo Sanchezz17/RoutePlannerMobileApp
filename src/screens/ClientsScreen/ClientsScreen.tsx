@@ -67,7 +67,8 @@ export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
             loadingSelector={selectLoadingClients}
             loadDataThunk={getClientsThunk}
             loadMoreDataThunk={getMoreClientsThunk}
-            navigation={navigation.dangerouslyGetParent()}>
+            navigation={navigation.dangerouslyGetParent()}
+            screenTitle={'Клиенты'}>
             <FAB
                 key={'clientsScreen.FAB'}
                 style={styles.fab}
