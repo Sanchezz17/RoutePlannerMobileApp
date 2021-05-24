@@ -1,3 +1,4 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { DrawerActions, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
@@ -9,6 +10,7 @@ import React, {
 } from 'react';
 import { FlatList, Text, TouchableNativeFeedback, View } from 'react-native';
 import { Searchbar } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
 
 import BackIcon from '../../components/icons/BackIcon';
@@ -18,7 +20,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { UsersSearchParameters } from '../../redux/users/thunks';
 import styles from './ListScreen.styles';
-
 const LIMIT = 10;
 
 export interface ListWithSearchProps<T> {
@@ -38,7 +39,8 @@ export interface ListWithSearchProps<T> {
         parameters: UsersSearchParameters,
     ) => AsyncThunkAction<T[], UsersSearchParameters, {}>;
     children?: Element;
-    navigation?: StackNavigationProp<any>;
+    navigation?: StackNavigationProp<any, any> | DrawerNavigationProp<any, any>;
+    screenTitle?: string;
 }
 
 export const ListScreen = <T,>({
@@ -50,6 +52,7 @@ export const ListScreen = <T,>({
     loadMoreDataThunk,
     children,
     navigation,
+    screenTitle,
 }: ListWithSearchProps<T>) => {
     const dispatch = useAppDispatch();
     const data = useAppSelector(dataSelector);
@@ -94,9 +97,12 @@ export const ListScreen = <T,>({
         if (!searchOpened) {
             navigation?.setOptions({
                 headerLeft: hamburgerButton,
-                headerTitle: () => <Text style={styles.title}>Клиенты</Text>,
+                headerTitle: () => (
+                    <Title style={styles.title}>{screenTitle}</Title>
+                ),
                 headerRight: searchButton,
             });
+            setQuery('');
         } else {
             navigation?.setOptions({
                 headerLeft: returnButton,
@@ -112,7 +118,7 @@ export const ListScreen = <T,>({
                 headerRight: () => '',
             });
         }
-    }, [navigation, query, searchOpened]);
+    }, [navigation, query, screenTitle, searchOpened]);
     useFocusEffect(
         useCallback(() => {
             loadData();
