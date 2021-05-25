@@ -62,7 +62,7 @@ export const MeetingsScreen = ({ navigation }: MeetingsScreenProps) => {
                 `${meeting.id}${meeting.name}`
             }
             //@ts-ignore
-            navigation={navigation}
+            navigation={navigation.dangerouslyGetParent()}
             screenTitle={'Встречи'}
             getDate={() => new Date()}
         />
