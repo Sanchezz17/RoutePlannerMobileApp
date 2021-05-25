@@ -18,18 +18,20 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { Right } from '../../redux/users/types';
 import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
-import { MeetingsScreen } from '../../screens/MeetingsScreen/MeetingsScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
 import ClientsNavigation from '../clients/ClientsNavigation';
 import { ClientsRoutes } from '../clients/routes';
 import ManagersNavigation from '../managers/ManagersNavigation';
 import { ManagersRoutes } from '../managers/routes';
+import MeetingsNavigation from '../meetings/MeetingsNavigation';
+import { MeetingsRoutes } from '../meetings/routes';
 import { DrawerRoutes } from './routes';
 
 const Drawer = createDrawerNavigator();
 const ScreensWithHiddenHeader: string[] = [
     ClientsRoutes.AddClient,
+    MeetingsRoutes.AddMeeting,
     ManagersRoutes.Options,
     ManagersRoutes.CurrentUserOptions,
 ];
@@ -104,14 +106,14 @@ const DrawerNavigation = () => {
                 />
                 <Drawer.Screen
                     name={DrawerRoutes.Meetings}
-                    component={MeetingsScreen}
-                    options={{
+                    component={MeetingsNavigation}
+                    options={({ route }) => ({
                         title: 'Встречи',
                         drawerIcon: ({ focused }) => (
                             <MeetingsIcon focused={focused} />
                         ),
-                        headerShown: true,
-                    }}
+                        headerShown: shouldShowHeader(route),
+                    })}
                 />
                 {currentUserIsAdmin && (
                     <Drawer.Screen

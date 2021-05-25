@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { meetingsApi, UpdateMeetingDto } from './api';
+import { CreateMeetingDto, meetingsApi, UpdateMeetingDto } from './api';
 import { Meeting } from './types';
 
 export interface MeetingsSearchParameters {
@@ -31,7 +31,7 @@ export const getMoreMeetingsThunk = createAsyncThunk(
 
 export const createMeetingThunk = createAsyncThunk(
     'meetings/createMeetingThunkStatus',
-    async (meeting: Meeting) => {
+    async (meeting: CreateMeetingDto) => {
         return await meetingsApi.createMeetingAsync(meeting);
     },
 );

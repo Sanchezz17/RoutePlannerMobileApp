@@ -1,5 +1,6 @@
 import { prefix } from '../../common/constants';
 import { authorizeFetch } from '../../common/utils/autorizeFetch';
+import { Client } from '../clients/types';
 import { Coordinate } from '../users/types';
 import { Meeting } from './types';
 
@@ -10,6 +11,15 @@ export interface UpdateMeetingDto {
     startTime: Date;
     endTime: Date;
     coordinate: Coordinate;
+}
+
+export interface CreateMeetingDto {
+    clientId: number;
+    name: string;
+    startTime: Date;
+    endTime: Date;
+    coordinate: Coordinate;
+    client: Client;
 }
 
 const getMeetingsAsync = async (
@@ -23,7 +33,9 @@ const getMeetingsAsync = async (
     );
 };
 
-const createMeetingAsync = async (meeting: Meeting): Promise<Meeting> => {
+const createMeetingAsync = async (
+    meeting: CreateMeetingDto,
+): Promise<Meeting> => {
     return await authorizeFetch(`${meetingsApiPrefix}`, {
         method: 'POST',
         body: JSON.stringify(meeting),

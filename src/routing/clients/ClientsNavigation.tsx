@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 import { AddClientScreen } from '../../screens/AddClientScreen/AddClientScreen';
+import { AddMeetingScreen } from '../../screens/AddMeetingScreen/AddMeetingScreen';
 import { ClientsScreen } from '../../screens/ClientsScreen/ClientsScreen';
 import { ClientsRoutes } from './routes';
 
@@ -28,6 +29,14 @@ const ClientsNavigation = () => (
                     title: title,
                     headerShown: true,
                 };
+            }}
+        />
+        <Stack.Screen
+            name={ClientsRoutes.AddMeeting}
+            component={AddMeetingScreen}
+            options={{
+                title: 'Назначение встречи',
+                headerShown: true,
             }}
         />
     </Stack.Navigator>

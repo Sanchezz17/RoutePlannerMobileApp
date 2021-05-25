@@ -8,14 +8,15 @@ import {
     selectMeetings,
 } from '../../redux/meetings/selectors';
 import {
+    deleteMeetingThunk,
     getMeetingsThunk,
     getMoreMeetingsThunk,
 } from '../../redux/meetings/thunks';
 import { Meeting } from '../../redux/meetings/types';
-import { DrawerRoutes } from '../../routing/main/routes';
-import { DrawerNavigationProps } from '../../routing/main/types';
+import { MeetingsRoutes } from '../../routing/meetings/routes';
+import { MeetingsStackNavigationProps } from '../../routing/meetings/types';
 
-type MeetingsScreenProps = DrawerNavigationProps<DrawerRoutes.Meetings>;
+type MeetingsScreenProps = MeetingsStackNavigationProps<MeetingsRoutes.Meetings>;
 
 export const MeetingsScreen = ({ navigation }: MeetingsScreenProps) => {
     const dispatch = useAppDispatch();
@@ -40,8 +41,20 @@ export const MeetingsScreen = ({ navigation }: MeetingsScreenProps) => {
                         setExpandedCardIndex(cardNumber)
                     }
                     menuItems={[
-                        { name: 'Редактировать', action: () => {} },
-                        { name: 'Удалить', action: () => {} },
+                        {
+                            name: 'Редактировать',
+                            action: () => {
+                                navigation.navigate(MeetingsRoutes.AddMeeting, {
+                                    meeting: meeting,
+                                });
+                            },
+                        },
+                        {
+                            name: 'Удалить',
+                            action: () => {
+                                dispatch(deleteMeetingThunk(meeting.id));
+                            },
+                        },
                     ]}
                 />
             )}

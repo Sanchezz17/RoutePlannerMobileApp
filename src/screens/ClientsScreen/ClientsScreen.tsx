@@ -50,7 +50,11 @@ export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
                         },
                         {
                             name: 'Назначить встречу',
-                            action: () => {},
+                            action: () => {
+                                navigation.navigate(ClientsRoutes.AddMeeting, {
+                                    client,
+                                });
+                            },
                         },
                         {
                             name: 'Удалить',
