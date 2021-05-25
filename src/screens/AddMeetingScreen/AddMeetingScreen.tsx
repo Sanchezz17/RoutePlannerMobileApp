@@ -57,7 +57,8 @@ export const AddMeetingScreen = ({
     };
 
     const [coordinate, setCoordinate] = useState<Coordinate>(
-        meeting?.coordinate ?? { address: '', latitude: 0, longitude: 0 },
+        meeting?.coordinate ??
+            client?.coordinate ?? { address: '', latitude: 0, longitude: 0 },
     );
     const onSubmit = useCallback(async () => {
         if (startTime === undefined || endTime === undefined) {
@@ -66,7 +67,6 @@ export const AddMeetingScreen = ({
         if (client !== undefined) {
             dispatch(
                 createMeetingThunk({
-                    client: client,
                     clientId: client.id,
                     name: client.name,
                     coordinate: coordinate,
@@ -112,7 +112,7 @@ export const AddMeetingScreen = ({
                     <DatePicker
                         onChange={onChangeDate}
                         value={startTime}
-                        message={'Место встречи:'}
+                        message={'Дата встречи:'}
                     />
                     <TimePicker
                         onChange={onChangeStartTime}

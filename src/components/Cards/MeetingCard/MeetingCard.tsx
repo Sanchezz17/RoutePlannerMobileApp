@@ -32,9 +32,9 @@ export const MeetingCard = ({
             ]}
             hasPicture={false}
             contacts={{
-                email: meeting.client.email,
-                mobilePhone: meeting.client.mobilePhone,
-                telegram: meeting.client.telegram,
+                email: meeting?.client?.email,
+                mobilePhone: meeting?.client?.mobilePhone,
+                telegram: meeting?.client?.telegram,
             }}
             cardNumber={cardNumber}
             expandedCardNumber={expandedCardNumber}

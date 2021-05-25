@@ -19,7 +19,6 @@ export interface CreateMeetingDto {
     startTime: Date;
     endTime: Date;
     coordinate: Coordinate;
-    client: Client;
 }
 
 const getMeetingsAsync = async (
