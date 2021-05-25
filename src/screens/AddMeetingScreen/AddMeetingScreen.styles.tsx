@@ -24,8 +24,9 @@ export default StyleSheet.create({
         borderRadius: 50,
         margin: 10,
     },
-    userName: {
+    clientName: {
         fontSize: 20,
+        margin: 20,
     },
     form: {
         width: '100%',
@@ -58,10 +59,11 @@ export default StyleSheet.create({
         width: '100%',
     },
     divider: {
-        width: '100%',
+        width: '90%',
         alignSelf: 'center',
         borderWidth: 0.5,
         borderColor: palette.SystemUIStroke,
         marginBottom: 10,
+        marginHorizontal: 20,
     },
 });

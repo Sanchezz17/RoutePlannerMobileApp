@@ -28,7 +28,7 @@ export const MeetingCard = ({
             name={meeting.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
-                `Время встречи: ${meeting.startTime}`,
+                `Время встречи: ${new Date(meeting.startTime)}`,
             ]}
             hasPicture={false}
             contacts={{
