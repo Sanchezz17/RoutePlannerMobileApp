@@ -149,7 +149,9 @@ export const ExpandableCard = ({
                     </Animated.View>
                     <View style={styles.additionalInfosContainer}>
                         {additionalInfos.map((info) => (
-                            <Text style={styles.additionalInfo} key={name}>
+                            <Text
+                                style={styles.additionalInfo}
+                                key={`${name}${info}`}>
                                 {info}
                             </Text>
                         ))}

@@ -19,7 +19,7 @@ const getMeetingsAsync = async (
     date?: Date,
 ): Promise<Meeting[]> => {
     return await authorizeFetch(
-        `${meetingsApiPrefix}?offset=${offset}&limit=${limit}&query=${query}&date=${date}`,
+        `${meetingsApiPrefix}?offset=${offset}&limit=${limit}&query=${query}&date=${date?.toJSON()}`,
     );
 };
 
