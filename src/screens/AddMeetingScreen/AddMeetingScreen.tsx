@@ -3,7 +3,9 @@ import { SafeAreaView, ScrollView, View } from 'react-native';
 import { Divider, FAB, Text } from 'react-native-paper';
 
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
+import LocationIcon from '../../components/icons/LocationIcon';
 import { DatePicker } from '../../components/Pickers/DatePicker';
+import { LocationPicker } from '../../components/Pickers/LocationPicker';
 import { TimePicker } from '../../components/Pickers/TimePicker';
 import { useAppDispatch } from '../../redux/hooks';
 import {
@@ -101,28 +103,27 @@ export const AddMeetingScreen = ({
                 </Text>
                 <Divider style={styles.divider} />
                 <View style={styles.form}>
-                    <View>
-                        <GooglePlacesInput
-                            address={coordinate?.address}
-                            onChangeCoordinate={(newCoordinate) =>
-                                setCoordinate(newCoordinate)
-                            }
-                        />
-                    </View>
+                    <LocationPicker
+                        address={coordinate?.address}
+                        onChange={(newCoordinate) =>
+                            setCoordinate(newCoordinate)
+                        }
+                        label={'Место встречи'}
+                    />
                     <DatePicker
                         onChange={onChangeDate}
                         value={startTime}
-                        message={'Дата встречи:'}
+                        title={'Дата встречи:'}
                     />
                     <TimePicker
                         onChange={onChangeStartTime}
                         value={startTime}
-                        message={'Начало встречи:'}
+                        title={'Начало встречи:'}
                     />
                     <TimePicker
                         onChange={onChangeEndTime}
                         value={endTime}
-                        message={'Конец встречи:'}
+                        title={'Конец встречи:'}
                     />
                 </View>
             </ScrollView>

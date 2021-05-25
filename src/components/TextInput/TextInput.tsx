@@ -8,12 +8,16 @@ type PaperTextInputProps = React.ComponentProps<typeof PaperTextInput>;
 type TextInputProps = PaperTextInputProps & {
     active?: boolean;
     leftIcon?: Element;
+    rightIcon?: Element;
     mode?: 'flat' | 'outlined' | undefined;
     style?: StyleProp<ViewStyle>;
 };
 
 const TextInput = React.forwardRef(
-    ({ active, leftIcon, mode, style, ...props }: TextInputProps, _) => {
+    (
+        { active, leftIcon, rightIcon, mode, style, ...props }: TextInputProps,
+        _,
+    ) => {
         return (
             <PaperTextInput
                 {...props}
@@ -22,6 +26,16 @@ const TextInput = React.forwardRef(
                 editable={active}
                 {...(leftIcon
                     ? { left: <PaperTextInput.Icon name={() => leftIcon} /> }
+                    : {})}
+                {...(rightIcon
+                    ? {
+                          right: (
+                              <PaperTextInput.Icon
+                                  name={() => rightIcon}
+                                  style={styles.rightIcon}
+                              />
+                          ),
+                      }
                     : {})}
                 style={[
                     styles.input,

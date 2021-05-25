@@ -34,25 +34,11 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'column',
     },
-    input: {
-        flex: 1,
-        marginVertical: 10,
-        backgroundColor: palette.SystemUIStroke,
-    },
-    activeInput: {
-        backgroundColor: palette.Background,
-    },
-    inactiveInput: {
-        backgroundColor: palette.SystemUIStroke,
-    },
     fab: {
         position: 'absolute',
         right: 30,
         bottom: 30,
         backgroundColor: palette.Secondary,
-    },
-    saveButtonLabel: {
-        textAlignVertical: 'center',
     },
     map: {
         height: 350,
@@ -64,6 +50,6 @@ export default StyleSheet.create({
         borderWidth: 0.5,
         borderColor: palette.SystemUIStroke,
         marginBottom: 10,
-        marginHorizontal: 20,
+        marginHorizontal: '5%',
     },
 });

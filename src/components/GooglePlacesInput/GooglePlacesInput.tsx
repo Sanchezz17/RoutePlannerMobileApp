@@ -14,12 +14,16 @@ import { GoogleMapsApiKey } from '../../common/secrets';
 import TextInput from '../../components/TextInput/TextInput';
 import { Coordinate } from '../../redux/users/types';
 import AddressIcon from '../icons/AddressIcon';
+import LocationIcon from '../icons/LocationIcon';
 
 export interface GooglePlacesInputProps {
     address: string;
     onChangeCoordinate: (newCoordinate: Coordinate) => void;
     mode?: 'flat' | 'outlined' | undefined;
     style?: StyleProp<ViewStyle>;
+    label?: string;
+    showLeftIcon?: boolean;
+    showRightIcon?: boolean;
 }
 
 export const GooglePlacesInput = ({
@@ -27,6 +31,9 @@ export const GooglePlacesInput = ({
     onChangeCoordinate,
     mode,
     style,
+    label,
+    showLeftIcon = true,
+    showRightIcon = false,
 }: GooglePlacesInputProps) => {
     const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
@@ -60,8 +67,9 @@ export const GooglePlacesInput = ({
             }}
             textInputProps={{
                 InputComp: TextInput,
-                label: 'Адрес',
-                leftIcon: <AddressIcon />,
+                label: label ?? 'Адрес',
+                leftIcon: showLeftIcon ? <AddressIcon /> : '',
+                rightIcon: showRightIcon ? <LocationIcon /> : '',
                 mode: mode,
                 style: style,
             }}

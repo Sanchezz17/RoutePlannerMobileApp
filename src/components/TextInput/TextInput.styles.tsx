@@ -21,4 +21,7 @@ export default StyleSheet.create({
     inactiveInput: {
         backgroundColor: palette.SystemUIStroke,
     },
+    rightIcon: {
+        marginRight: 20,
+    },
 });
