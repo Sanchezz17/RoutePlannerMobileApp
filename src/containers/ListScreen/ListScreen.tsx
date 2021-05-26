@@ -149,7 +149,6 @@ export const ListScreen = <T,>({
                     if (distanceFromEnd < -1) {
                         return;
                     }
-                    console.log(distanceFromEnd);
                     dispatch(
                         loadMoreDataThunk({
                             offset: data.length,

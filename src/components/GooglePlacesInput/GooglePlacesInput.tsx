@@ -48,14 +48,12 @@ export const GooglePlacesInput = ({
             fetchDetails={true}
             onPress={(data, detail) => {
                 const location = detail?.geometry?.location;
-                console.log(`Location: ${JSON.stringify(location)}`);
                 if (location) {
                     const newCoordinate: Coordinate = {
                         latitude: location.lat,
                         longitude: location.lng,
                         address: data.description,
                     };
-                    console.log(newCoordinate);
                     onChangeCoordinate(newCoordinate);
                     ref.current?.setAddressText(data.description);
                 }
