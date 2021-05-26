@@ -1,6 +1,8 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import { MeetingCard } from '../../components/Cards/MeetingCard/MeetingCard';
+import BackIcon from '../../components/icons/Header/BackIcon';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import { useAppDispatch } from '../../redux/hooks';
 import {
@@ -64,7 +66,7 @@ export const MeetingsScreen = ({ navigation }: MeetingsScreenProps) => {
             //@ts-ignore
             navigation={navigation.dangerouslyGetParent()}
             screenTitle={'Встречи'}
-            getDate={() => new Date()}
+            useDateSelector={true}
         />
     );
 };

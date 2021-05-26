@@ -8,14 +8,22 @@ import React, {
     useLayoutEffect,
     useState,
 } from 'react';
-import { FlatList, TouchableNativeFeedback, View } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import {
+    FlatList,
+    StyleProp,
+    TouchableNativeFeedback,
+    TouchableOpacity,
+    View,
+    ViewStyle,
+} from 'react-native';
+import { Searchbar, Text } from 'react-native-paper';
 import { Title } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
 
-import BackIcon from '../../components/icons/BackIcon';
-import HamburgerMenuIcon from '../../components/icons/HamburgerMenuIcon';
-import SearchIcon from '../../components/icons/SearchIcon';
+import BackIcon from '../../components/icons/Header/BackIcon';
+import ForwardIcon from '../../components/icons/Header/ForwardIcon';
+import HamburgerMenuIcon from '../../components/icons/Header/HamburgerMenuIcon';
+import SearchIcon from '../../components/icons/Header/SearchIcon';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import styles from './ListScreen.styles';
@@ -47,7 +55,7 @@ export interface ListWithSearchProps<T> {
     children?: Element;
     navigation?: StackNavigationProp<any, any> | DrawerNavigationProp<any, any>;
     screenTitle?: string;
-    getDate?: () => Date | undefined;
+    useDateSelector?: boolean;
 }
 
 export const ListScreen = <T,>({
@@ -60,11 +68,12 @@ export const ListScreen = <T,>({
     children,
     navigation,
     screenTitle,
-    getDate = () => undefined,
+    useDateSelector = false,
 }: ListWithSearchProps<T>) => {
     const dispatch = useAppDispatch();
     const data = useAppSelector(dataSelector);
     const loadingData = useAppSelector(loadingSelector);
+    const [date, setDate] = useState(new Date());
     const [query, setQuery] = useState('');
     const [searchOpened, setSearchOpened] = useState(false);
     const [expandedCardIndex, setExpandedCardIndex] = useState(-1);
@@ -75,7 +84,7 @@ export const ListScreen = <T,>({
                     offset: offset,
                     limit: LIMIT,
                     query: query,
-                    date: getDate(),
+                    date: date,
                 }),
             );
         },
@@ -105,7 +114,6 @@ export const ListScreen = <T,>({
             </View>
         </TouchableNativeFeedback>
     );
-
     useLayoutEffect(() => {
         if (!searchOpened) {
             navigation?.setOptions({
@@ -140,6 +148,17 @@ export const ListScreen = <T,>({
 
     return (
         <ScreenContainer style={styles.container}>
+            {useDateSelector && (
+                <View style={styles.dateSelector}>
+                    <TouchableOpacity style={styles.iconContainer}>
+                        <BackIcon style={styles.icon} />
+                    </TouchableOpacity>
+                    <Text style={styles.date}>{date.toLocaleDateString()}</Text>
+                    <TouchableOpacity style={styles.iconContainer}>
+                        <ForwardIcon style={styles.icon} />
+                    </TouchableOpacity>
+                </View>
+            )}
             <FlatList
                 data={data}
                 refreshing={loadingData}
