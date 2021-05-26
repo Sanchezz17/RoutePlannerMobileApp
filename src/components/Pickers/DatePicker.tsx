@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import DateIcon from '../icons/Inputs/DateIcon';
+import DateIcon from '../icons/Inputs/Pickers/DateIcon';
 import Picker from './Picker';
 import styles from './Picker.styles';
 interface DatePickerProps {

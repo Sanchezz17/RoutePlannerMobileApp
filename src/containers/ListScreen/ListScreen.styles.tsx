@@ -11,6 +11,7 @@ export default StyleSheet.create({
     },
     searchbar: {
         elevation: 0,
+        borderWidth: 1,
     },
     button: {
         display: 'flex',

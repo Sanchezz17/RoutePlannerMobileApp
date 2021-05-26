@@ -4,10 +4,10 @@ import { SafeAreaView, ScrollView, View } from 'react-native';
 import { FAB } from 'react-native-paper';
 
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import MailIcon from '../../components/icons/Contacts/MailIcon';
-import PhoneIcon from '../../components/icons/Contacts/PhoneIcon';
-import TelegramIcon from '../../components/icons/Contacts/TelegramIcon';
-import ClientsIcon from '../../components/icons/Drawer/ClientsIcon';
+import MailIcon from '../../components/icons/Inputs/Text/MailIcon';
+import NameIcon from '../../components/icons/Inputs/Text/NameIcon';
+import PhoneIcon from '../../components/icons/Inputs/Text/PhoneIcon';
+import TelegramIcon from '../../components/icons/Inputs/Text/TelegramIcon';
 import TextInput from '../../components/TextInput/TextInput';
 import {
     createClientThunk,
@@ -100,7 +100,7 @@ export const AddClientScreen = ({
                         defaultValue={client.name}
                         textContentType={'name'}
                         onChangeText={onChangeField(NAME_FIELD)}
-                        leftIcon={<ClientsIcon focused />}
+                        leftIcon={<NameIcon />}
                     />
                     <GooglePlacesInput
                         address={coordinate.address}

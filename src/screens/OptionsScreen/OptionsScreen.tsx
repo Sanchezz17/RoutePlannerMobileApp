@@ -7,9 +7,9 @@ import { Button, Divider } from 'react-native-paper';
 
 import { SettingsCard } from '../../components/Cards/SettingsCard/SettingsCard';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import MailIcon from '../../components/icons/Contacts/MailIcon';
-import PhoneIcon from '../../components/icons/Contacts/PhoneIcon';
-import TelegramIcon from '../../components/icons/Contacts/TelegramIcon';
+import MailIcon from '../../components/icons/Inputs/Text/MailIcon';
+import PhoneIcon from '../../components/icons/Inputs/Text/PhoneIcon';
+import TelegramIcon from '../../components/icons/Inputs/Text/TelegramIcon';
 import TextInput from '../../components/TextInput/TextInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
@@ -110,7 +110,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         mode={'outlined'}
                         defaultValue={user.email}
                         active={false}
-                        leftIcon={<MailIcon />}
+                        leftIcon={<MailIcon focused={false} />}
                     />
                     <TextInput
                         label={'Телефон'}

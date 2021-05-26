@@ -13,8 +13,8 @@ import {
 import { GoogleMapsApiKey } from '../../common/secrets';
 import TextInput from '../../components/TextInput/TextInput';
 import { Coordinate } from '../../redux/users/types';
-import AddressIcon from '../icons/Inputs/AddressIcon';
-import LocationIcon from '../icons/Inputs/LocationIcon';
+import LocationIcon from '../icons/Inputs/Pickers/LocationIcon';
+import AddressIcon from '../icons/Inputs/Text/AddressIcon';
 
 export interface GooglePlacesInputProps {
     address: string;

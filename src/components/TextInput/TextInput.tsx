@@ -11,7 +11,7 @@ type TextInputProps = PaperTextInputProps & {
     rightIcon?: Element;
     mode?: 'flat' | 'outlined' | undefined;
     style?: StyleProp<ViewStyle>;
-    showUnderline: boolean;
+    showUnderline?: boolean;
 };
 
 const TextInput = React.forwardRef(

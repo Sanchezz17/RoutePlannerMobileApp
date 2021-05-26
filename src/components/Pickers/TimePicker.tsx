@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 
-import TimeIcon from '../icons/Inputs/TimeIcon';
+import TimeIcon from '../icons/Inputs/Pickers/TimeIcon';
 import Picker from './Picker';
 import styles from './Picker.styles';
 interface TimePickerProps {
