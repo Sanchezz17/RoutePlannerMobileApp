@@ -2,8 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { Divider, FAB, Text } from 'react-native-paper';
 
-import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import LocationIcon from '../../components/icons/LocationIcon';
 import { DatePicker } from '../../components/Pickers/DatePicker';
 import { LocationPicker } from '../../components/Pickers/LocationPicker';
 import { TimePicker } from '../../components/Pickers/TimePicker';
@@ -104,7 +102,7 @@ export const AddMeetingScreen = ({
                 <Divider style={styles.divider} />
                 <View style={styles.form}>
                     <LocationPicker
-                        address={coordinate?.address}
+                        initialCoordinate={coordinate}
                         onChange={(newCoordinate) =>
                             setCoordinate(newCoordinate)
                         }

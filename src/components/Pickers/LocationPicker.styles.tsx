@@ -9,8 +9,7 @@ export default StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         width: '96%',
-        marginLeft: '1%',
-        height: 70,
+        alignSelf: 'center',
         marginBottom: 20,
     },
     input: {

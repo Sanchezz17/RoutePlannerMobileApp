@@ -11,11 +11,20 @@ type TextInputProps = PaperTextInputProps & {
     rightIcon?: Element;
     mode?: 'flat' | 'outlined' | undefined;
     style?: StyleProp<ViewStyle>;
+    showUnderline: boolean;
 };
 
 const TextInput = React.forwardRef(
     (
-        { active, leftIcon, rightIcon, mode, style, ...props }: TextInputProps,
+        {
+            active,
+            leftIcon,
+            rightIcon,
+            mode,
+            style,
+            showUnderline = true,
+            ...props
+        }: TextInputProps,
         _,
     ) => {
         return (
@@ -42,6 +51,7 @@ const TextInput = React.forwardRef(
                     active ? styles.activeInput : styles.inactiveInput,
                     style,
                 ]}
+                underlineColor={showUnderline ? '' : 'transparent'}
             />
         );
     },

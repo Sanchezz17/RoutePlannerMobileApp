@@ -24,6 +24,7 @@ export interface GooglePlacesInputProps {
     label?: string;
     showLeftIcon?: boolean;
     showRightIcon?: boolean;
+    showUnderline?: boolean;
 }
 
 export const GooglePlacesInput = ({
@@ -34,6 +35,7 @@ export const GooglePlacesInput = ({
     label,
     showLeftIcon = true,
     showRightIcon = false,
+    showUnderline = true,
 }: GooglePlacesInputProps) => {
     const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
@@ -70,6 +72,7 @@ export const GooglePlacesInput = ({
                 rightIcon: showRightIcon ? <LocationIcon /> : '',
                 mode: mode,
                 style: style,
+                showUnderline: showUnderline,
             }}
         />
     );

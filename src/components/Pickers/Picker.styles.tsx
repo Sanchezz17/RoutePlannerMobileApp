@@ -7,26 +7,28 @@ const palette = PaletteStorage.getPalette();
 export default StyleSheet.create({
     view: {
         display: 'flex',
-        width: '92%',
-        marginHorizontal: '4%',
+        width: '96%',
+        alignSelf: 'center',
         marginBottom: 20,
     },
     touchableContainer: {
         flexDirection: 'row',
         width: '100%',
         height: 70,
+        justifyContent: 'space-between',
     },
     info: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        width: '80%',
         height: '100%',
+        marginLeft: 12,
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
+        color: palette.SystemUISecondary,
     },
-    subtitle: { fontSize: 16 },
+    subtitle: { fontSize: 20 },
     iconContainer: {
         alignContent: 'center',
         justifyContent: 'center',

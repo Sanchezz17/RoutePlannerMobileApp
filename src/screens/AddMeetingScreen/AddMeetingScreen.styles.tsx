@@ -40,16 +40,12 @@ export default StyleSheet.create({
         bottom: 30,
         backgroundColor: palette.Secondary,
     },
-    map: {
-        height: 350,
-        width: '100%',
-    },
     divider: {
         width: '90%',
         alignSelf: 'center',
         borderWidth: 0.5,
-        borderColor: palette.SystemUIStroke,
-        marginBottom: 10,
+        borderColor: palette.SystemUITransparent,
+        marginBottom: 30,
         marginHorizontal: '5%',
     },
 });
