@@ -2,9 +2,9 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { User } from '../../redux/users/types';
-import AcceptRequestIcon from '../icons/AcceptRequestIcon';
-import AccountIcon from '../icons/AccountIcon';
-import RejectRequestIcon from '../icons/RejectRequestIcon';
+import AcceptRequestIcon from '../icons/Cards/AcceptRequestIcon';
+import AccountIcon from '../icons/Cards/AccountIcon';
+import RejectRequestIcon from '../icons/Cards/RejectRequestIcon';
 import styles from './Request.styles';
 
 export interface RequestProps {

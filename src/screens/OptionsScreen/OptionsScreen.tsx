@@ -6,10 +6,10 @@ import Toast from 'react-native-easy-toast';
 import { Button, Divider } from 'react-native-paper';
 
 import { SettingsCard } from '../../components/Cards/SettingsCard/SettingsCard';
-import MailIcon from '../../components/Contacts/MailIcon';
-import PhoneIcon from '../../components/Contacts/PhoneIcon';
-import TelegramIcon from '../../components/Contacts/TelegramIcon';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
+import MailIcon from '../../components/icons/Contacts/MailIcon';
+import PhoneIcon from '../../components/icons/Contacts/PhoneIcon';
+import TelegramIcon from '../../components/icons/Contacts/TelegramIcon';
 import TextInput from '../../components/TextInput/TextInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';

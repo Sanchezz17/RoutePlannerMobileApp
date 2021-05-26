@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { FAB } from 'react-native-paper';
 
-import MailIcon from '../../components/Contacts/MailIcon';
-import PhoneIcon from '../../components/Contacts/PhoneIcon';
-import TelegramIcon from '../../components/Contacts/TelegramIcon';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import ClientsIcon from '../../components/icons/ClientsIcon';
+import MailIcon from '../../components/icons/Contacts/MailIcon';
+import PhoneIcon from '../../components/icons/Contacts/PhoneIcon';
+import TelegramIcon from '../../components/icons/Contacts/TelegramIcon';
+import ClientsIcon from '../../components/icons/Drawer/ClientsIcon';
 import TextInput from '../../components/TextInput/TextInput';
 import {
     createClientThunk,

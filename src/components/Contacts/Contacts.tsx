@@ -8,10 +8,10 @@ import {
     ViewStyle,
 } from 'react-native';
 
+import MailIcon from '../icons/Contacts/MailIcon';
+import PhoneIcon from '../icons/Contacts/PhoneIcon';
+import TelegramIcon from '../icons/Contacts/TelegramIcon';
 import styles from './Contacts.styles';
-import MailIcon from './MailIcon';
-import PhoneIcon from './PhoneIcon';
-import TelegramIcon from './TelegramIcon';
 
 export interface ContactsProps {
     email?: string;

@@ -6,13 +6,13 @@ import {
 } from '@react-navigation/native';
 import React from 'react';
 
-import ClientsIcon from '../../components/icons/ClientsIcon';
-import ManagersIcon from '../../components/icons/ManagersIcon';
-import MeetingsIcon from '../../components/icons/MeetingsIcon';
-import RequestsIcon from '../../components/icons/RequestsIcon';
-import RouteIcon from '../../components/icons/RouteIcon';
-import ScheduleIcon from '../../components/icons/ScheduleIcon';
-import SettingsIcon from '../../components/icons/SettingsIcon';
+import ClientsIcon from '../../components/icons/Drawer/ClientsIcon';
+import ManagersIcon from '../../components/icons/Drawer/ManagersIcon';
+import MeetingsIcon from '../../components/icons/Drawer/MeetingsIcon';
+import RequestsIcon from '../../components/icons/Drawer/RequestsIcon';
+import RouteIcon from '../../components/icons/Drawer/RouteIcon';
+import ScheduleIcon from '../../components/icons/Drawer/ScheduleIcon';
+import SettingsIcon from '../../components/icons/Drawer/SettingsIcon';
 import { DrawerContent } from '../../containers/DrawerContent/DrawerContent';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';

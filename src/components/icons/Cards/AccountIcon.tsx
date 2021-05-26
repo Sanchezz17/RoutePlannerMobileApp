@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import { PaletteStorage } from '../palette/PaletteStorage';
+import { PaletteStorage } from '../../palette/PaletteStorage';
 
 interface IconProps {
     size: String;

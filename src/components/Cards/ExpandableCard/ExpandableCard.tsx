@@ -17,8 +17,8 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Contacts } from '../../Contacts/Contacts';
-import AccountIcon from '../../icons/AccountIcon';
-import ExpandCardIcon from '../../icons/ExpandCardIcon';
+import AccountIcon from '../../icons/Cards/AccountIcon';
+import ExpandCardIcon from '../../icons/Cards/ExpandCardIcon';
 import Menu from '../../Menu/Menu';
 import styles from './ExpandableCard.styles';
 

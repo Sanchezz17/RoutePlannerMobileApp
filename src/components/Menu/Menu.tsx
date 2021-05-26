@@ -2,7 +2,7 @@ import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Menu as PaperMenu } from 'react-native-paper';
 
-import KebabMenuIcon from '../icons/KebabMenuIcon';
+import KebabMenuIcon from '../icons/Cards/KebabMenuIcon';
 import styles from './Menu.styles';
 
 interface MenuProps {
