@@ -1,3 +1,4 @@
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { DrawerActions, useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -10,11 +11,10 @@ import React, {
 } from 'react';
 import {
     FlatList,
-    StyleProp,
+    Platform,
     TouchableNativeFeedback,
     TouchableOpacity,
     View,
-    ViewStyle,
 } from 'react-native';
 import { Searchbar, Text } from 'react-native-paper';
 import { Title } from 'react-native-paper';
@@ -28,7 +28,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import styles from './ListScreen.styles';
 const LIMIT = 10;
-
+const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
 interface SearchParameters {
     offset: number;
     limit: number;
@@ -74,6 +74,7 @@ export const ListScreen = <T,>({
     const data = useAppSelector(dataSelector);
     const loadingData = useAppSelector(loadingSelector);
     const [date, setDate] = useState(new Date());
+    const [showPicker, setShowPicker] = useState(false);
     const [query, setQuery] = useState('');
     const [searchOpened, setSearchOpened] = useState(false);
     const [expandedCardIndex, setExpandedCardIndex] = useState(-1);
@@ -88,7 +89,7 @@ export const ListScreen = <T,>({
                 }),
             );
         },
-        [dispatch, loadDataThunk, query],
+        [dispatch, loadDataThunk, query, date],
     );
     const searchButton = () => (
         <TouchableNativeFeedback onPress={() => setSearchOpened(true)}>
@@ -150,14 +151,39 @@ export const ListScreen = <T,>({
         <ScreenContainer style={styles.container}>
             {useDateSelector && (
                 <View style={styles.dateSelector}>
-                    <TouchableOpacity style={styles.iconContainer}>
+                    <TouchableOpacity
+                        style={styles.iconContainer}
+                        onPress={() =>
+                            setDate(new Date(date.getTime() - DAY_MILLISECONDS))
+                        }>
                         <BackIcon style={styles.icon} />
                     </TouchableOpacity>
-                    <Text style={styles.date}>{date.toLocaleDateString()}</Text>
-                    <TouchableOpacity style={styles.iconContainer}>
+                    <TouchableOpacity
+                        style={styles.dateContainer}
+                        onPress={() => setShowPicker(true)}>
+                        <Text style={styles.date}>
+                            {date.toLocaleDateString()}
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.iconContainer}
+                        onPress={() =>
+                            setDate(new Date(date.getTime() + DAY_MILLISECONDS))
+                        }>
                         <ForwardIcon style={styles.icon} />
                     </TouchableOpacity>
                 </View>
+            )}
+            {showPicker && (
+                <DateTimePicker
+                    value={date}
+                    mode={'date'}
+                    display="default"
+                    onChange={(event: any, selectedDate: Date | undefined) => {
+                        setShowPicker(Platform.OS === 'ios');
+                        setDate(selectedDate ?? date);
+                    }}
+                />
             )}
             <FlatList
                 data={data}

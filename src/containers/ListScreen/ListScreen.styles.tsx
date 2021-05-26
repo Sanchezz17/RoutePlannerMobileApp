@@ -31,8 +31,10 @@ export default StyleSheet.create({
         width: 60,
         justifyContent: 'center',
     },
-    date: {
+    dateContainer: {
         alignSelf: 'center',
+    },
+    date: {
         fontSize: 18,
     },
     dateSelector: {
