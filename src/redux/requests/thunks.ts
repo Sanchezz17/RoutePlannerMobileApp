@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { requestsAPI } from './api';
 
 interface UsersSearchParameters {
-    offset: number;
-    limit: number;
-    query: string;
+    offset?: number;
+    limit?: number;
+    query?: string;
 }
 
 const getRequestsPayloadCreator = async ({

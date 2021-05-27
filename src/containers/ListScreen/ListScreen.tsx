@@ -26,13 +26,15 @@ import HamburgerMenuIcon from '../../components/icons/Header/HamburgerMenuIcon';
 import SearchIcon from '../../components/icons/Header/SearchIcon';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
+import { selectCurrentUser } from '../../redux/users/selectors';
 import styles from './ListScreen.styles';
 const LIMIT = 10;
 const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
 interface SearchParameters {
-    offset: number;
-    limit: number;
-    query: string;
+    managerId?: number;
+    offset?: number;
+    limit?: number;
+    query?: string;
     date?: Date;
 }
 
@@ -73,6 +75,7 @@ export const ListScreen = <T,>({
     const dispatch = useAppDispatch();
     const data = useAppSelector(dataSelector);
     const loadingData = useAppSelector(loadingSelector);
+    const currentUser = useAppSelector(selectCurrentUser);
     const [date, setDate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
     const [query, setQuery] = useState('');
@@ -82,6 +85,7 @@ export const ListScreen = <T,>({
         (offset: number = 0) => {
             dispatch(
                 loadDataThunk({
+                    managerId: currentUser.id,
                     offset: offset,
                     limit: LIMIT,
                     query: query,
@@ -199,6 +203,8 @@ export const ListScreen = <T,>({
                             offset: data.length,
                             limit: LIMIT,
                             query: query,
+                            date: date,
+                            managerId: currentUser.id,
                         }),
                     );
                 }}

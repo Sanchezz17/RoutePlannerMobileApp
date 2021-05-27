@@ -22,9 +22,9 @@ export interface CreateMeetingDto {
 }
 
 const getMeetingsAsync = async (
-    offset: number,
-    limit: number,
-    query: string,
+    offset?: number,
+    limit?: number,
+    query?: string,
     date?: Date,
 ): Promise<Meeting[]> => {
     return await authorizeFetch(

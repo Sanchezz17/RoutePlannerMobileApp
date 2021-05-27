@@ -29,9 +29,9 @@ export const deleteUserThunk = createAsyncThunk(
 );
 
 export interface UsersSearchParameters {
-    offset: number;
-    limit: number;
-    query: string;
+    offset?: number;
+    limit?: number;
+    query?: string;
 }
 
 const getManagersPayloadCreator = async ({

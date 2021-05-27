@@ -1,12 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { CreateMeetingDto, meetingsApi, UpdateMeetingDto } from './api';
-import { Meeting } from './types';
 
 export interface MeetingsSearchParameters {
-    offset: number;
-    limit: number;
-    query: string;
+    offset?: number;
+    limit?: number;
+    query?: string;
     date?: Date;
 }
 

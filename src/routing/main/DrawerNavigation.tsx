@@ -20,6 +20,7 @@ import { Right } from '../../redux/users/types';
 import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
+import { RouteScreen } from '../../screens/RouteScreen/RouteScreen';
 import ClientsNavigation from '../clients/ClientsNavigation';
 import { ClientsRoutes } from '../clients/routes';
 import ManagersNavigation from '../managers/ManagersNavigation';
@@ -71,7 +72,7 @@ const DrawerNavigation = () => {
                 />
                 <Drawer.Screen
                     name={DrawerRoutes.Route}
-                    component={HomeScreen}
+                    component={RouteScreen}
                     options={{
                         title: 'Маршрут',
                         drawerIcon: ({ focused }) => (
