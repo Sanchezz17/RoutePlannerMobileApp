@@ -8,7 +8,9 @@ export default StyleSheet.create({
         flex: 1,
     },
     userCard: {
-        marginLeft: 12,
+        backgroundColor: palette.Background,
+        borderBottomWidth: 0.5,
+        borderColor: palette.SystemUIStroke,
     },
     exitButton: {
         backgroundColor: palette.SystemUIStroke,

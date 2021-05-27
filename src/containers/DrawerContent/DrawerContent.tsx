@@ -23,7 +23,10 @@ export const DrawerContent = (props: DrawerContentComponentProps) => {
 
     return (
         <View style={styles.drawerElements}>
-            <DrawerContentScrollView style={styles.drawerElements} {...props}>
+            <DrawerContentScrollView
+                nestedScrollEnabled={true}
+                style={styles.drawerElements}
+                {...props}>
                 <View style={styles.userCard}>
                     <UserCard user={currentUser} />
                 </View>

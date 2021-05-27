@@ -29,13 +29,14 @@ export default StyleSheet.create({
     },
     form: {
         width: '100%',
+        marginTop: 20,
         display: 'flex',
         justifyContent: 'flex-start',
         flexDirection: 'column',
     },
     input: {
         flex: 1,
-        marginVertical: 10,
+        marginTop: 10,
         backgroundColor: palette.SystemUIStroke,
     },
     activeInput: {

@@ -1,11 +1,18 @@
 import { StyleSheet } from 'react-native';
 
+import { PaletteStorage } from '../../palette/PaletteStorage';
+
+const palette = PaletteStorage.getPalette();
+
 export default StyleSheet.create({
-    cardInfo: {
+    card: {
+        minHeight: 120,
+    },
+    content: {
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
+        minHeight: 120,
         flexDirection: 'row',
-        margin: 10,
     },
     picture: {
         position: 'absolute',
@@ -23,18 +30,28 @@ export default StyleSheet.create({
         width: 84,
         height: 84,
         borderRadius: 50,
-        margin: 10,
+        marginRight: 20,
+        alignSelf: 'center',
     },
     info: {
         display: 'flex',
         justifyContent: 'center',
+        margin: 15,
+    },
+    nameContainer: {
+        flexGrow: 0,
+        minHeight: 20,
+        width: 150,
+        maxHeight: 160,
     },
     name: {
-        maxWidth: '77%',
+        minHeight: 20,
         fontSize: 18,
+        lineHeight: 20,
     },
     position: {
-        fontSize: 15,
-        color: 'grey',
+        marginTop: 2,
+        fontSize: 13,
+        color: palette.SystemUISecondary,
     },
 });
