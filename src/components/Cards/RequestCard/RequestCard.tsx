@@ -1,11 +1,11 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-import { User } from '../../redux/users/types';
-import AcceptRequestIcon from '../icons/Cards/AcceptRequestIcon';
-import AccountIcon from '../icons/Cards/AccountIcon';
-import RejectRequestIcon from '../icons/Cards/RejectRequestIcon';
-import styles from './Request.styles';
+import { User } from '../../../redux/users/types';
+import AcceptRequestIcon from '../../icons/Cards/AcceptRequestIcon';
+import AccountIcon from '../../icons/Cards/AccountIcon';
+import RejectRequestIcon from '../../icons/Cards/RejectRequestIcon';
+import styles from './RequestCard.styles';
 
 export interface RequestProps {
     user: User;
@@ -13,7 +13,7 @@ export interface RequestProps {
     onReject: () => void;
 }
 
-export const Request = ({ user, onAccept, onReject }: RequestProps) => {
+export const RequestCard = ({ user, onAccept, onReject }: RequestProps) => {
     return (
         <View style={styles.cardInfo}>
             <View style={styles.imageContainer}>

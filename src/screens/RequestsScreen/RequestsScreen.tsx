@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Toast from 'react-native-easy-toast';
 
-import { Request } from '../../components/Request/Request';
+import { RequestCard } from '../../components/Cards/RequestCard/RequestCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import { useAppDispatch } from '../../redux/hooks';
 import { acceptRequest } from '../../redux/requests/reducer';
@@ -30,7 +30,7 @@ export const RequestsScreen = ({ navigation }: RequestsScreenProps) => {
             dataSelector={selectRequests}
             loadingSelector={selectLoadingRequests}
             renderCard={(user: User) => (
-                <Request
+                <RequestCard
                     user={user}
                     onAccept={() => {
                         const userId = user.id;

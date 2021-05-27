@@ -1,13 +1,15 @@
+export const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
+
 export const getStartOfWeek = (date: Date): Date => {
     const currentDate = new Date(date);
-    const firstday = new Date(
+    const firstDay = new Date(
         currentDate.setDate(currentDate.getDate() - currentDate.getDay() + 1),
     );
-    firstday.setHours(0);
-    firstday.setMinutes(0);
-    firstday.setSeconds(0);
-    firstday.setMilliseconds(0);
-    return firstday;
+    firstDay.setHours(0);
+    firstDay.setMinutes(0);
+    firstDay.setSeconds(0);
+    firstDay.setMilliseconds(0);
+    return firstDay;
 };
 
 export const getStartOfNextWeek = (date: Date): Date => {

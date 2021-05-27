@@ -13,8 +13,8 @@ export interface UpdateManagerScheduleDto {
 }
 
 const getManagerScheduleForWeekAsync = async (
-    managerId: number,
-    weekDate: Date,
+    managerId?: number,
+    weekDate?: Date,
 ): Promise<ManagerSchedule[]> => {
     return await authorizeFetch(
         `${scheduleApiPrefix}?managerId=${managerId}&weekDate=${weekDate}`,

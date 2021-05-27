@@ -9,18 +9,14 @@ export interface GetManagerScheduleForWeekPayload {
 }
 
 const getManagerScheduleForWeekPayloadCreator = async (getManagerScheduleForWeekParameters: {
-    managerId: number;
-    weekDate: Date;
-}): Promise<GetManagerScheduleForWeekPayload> => {
+    managerId?: number;
+    weekDate?: Date;
+}): Promise<ManagerSchedule[]> => {
     const { managerId, weekDate } = getManagerScheduleForWeekParameters;
-    const scheduleForWeek = await scheduleApi.getManagerScheduleForWeekAsync(
+    return await scheduleApi.getManagerScheduleForWeekAsync(
         managerId,
         weekDate,
     );
-    return {
-        scheduleForWeek,
-        managerId,
-    };
 };
 
 export const getManagerScheduleForWeekThunk = createAsyncThunk(

@@ -20,6 +20,7 @@ import { Searchbar, Text } from 'react-native-paper';
 import { Title } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
 
+import { DAY_MILLISECONDS } from '../../common/utils/dateUtils';
 import BackIcon from '../../components/icons/Header/BackIcon';
 import ForwardIcon from '../../components/icons/Header/ForwardIcon';
 import HamburgerMenuIcon from '../../components/icons/Header/HamburgerMenuIcon';
@@ -29,13 +30,13 @@ import { RootState } from '../../redux/store';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import styles from './ListScreen.styles';
 const LIMIT = 10;
-const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
 interface SearchParameters {
     managerId?: number;
     offset?: number;
     limit?: number;
     query?: string;
     date?: Date;
+    weekDate?: Date;
 }
 
 export interface ListWithSearchProps<T> {
@@ -58,6 +59,9 @@ export interface ListWithSearchProps<T> {
     navigation?: StackNavigationProp<any, any> | DrawerNavigationProp<any, any>;
     screenTitle?: string;
     useDateSelector?: boolean;
+    dateSelectorStartDate?: Date;
+    dateSelectorStep?: number;
+    onDateChange?: (date: Date) => void;
 }
 
 export const ListScreen = <T,>({
@@ -71,12 +75,15 @@ export const ListScreen = <T,>({
     navigation,
     screenTitle,
     useDateSelector = false,
+    dateSelectorStartDate = new Date(),
+    dateSelectorStep = 1,
+    onDateChange = () => {},
 }: ListWithSearchProps<T>) => {
     const dispatch = useAppDispatch();
     const data = useAppSelector(dataSelector);
     const loadingData = useAppSelector(loadingSelector);
     const currentUser = useAppSelector(selectCurrentUser);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(dateSelectorStartDate);
     const [showPicker, setShowPicker] = useState(false);
     const [query, setQuery] = useState('');
     const [searchOpened, setSearchOpened] = useState(false);
@@ -157,9 +164,14 @@ export const ListScreen = <T,>({
                 <View style={styles.dateSelector}>
                     <TouchableOpacity
                         style={styles.iconContainer}
-                        onPress={() =>
-                            setDate(new Date(date.getTime() - DAY_MILLISECONDS))
-                        }>
+                        onPress={() => {
+                            const newDate = new Date(
+                                date.getTime() -
+                                    dateSelectorStep * DAY_MILLISECONDS,
+                            );
+                            setDate(newDate);
+                            onDateChange(date);
+                        }}>
                         <BackIcon style={styles.icon} />
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -171,9 +183,14 @@ export const ListScreen = <T,>({
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.iconContainer}
-                        onPress={() =>
-                            setDate(new Date(date.getTime() + DAY_MILLISECONDS))
-                        }>
+                        onPress={() => {
+                            const newDate = new Date(
+                                date.getTime() +
+                                    dateSelectorStep * DAY_MILLISECONDS,
+                            );
+                            setDate(newDate);
+                            onDateChange(date);
+                        }}>
                         <ForwardIcon style={styles.icon} />
                     </TouchableOpacity>
                 </View>
