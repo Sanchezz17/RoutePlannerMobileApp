@@ -13,7 +13,7 @@ import {
     getManagersThunk,
     getMoreManagersThunk,
 } from '../../redux/users/thunks';
-import { Right, User } from '../../redux/users/types';
+import { hasUserRight, Right, User } from '../../redux/users/types';
 import { DrawerRoutes } from '../../routing/main/routes';
 import { ManagersRoutes } from '../../routing/managers/routes';
 import { ManagersStackNavigationProps } from '../../routing/managers/types';
@@ -48,7 +48,7 @@ export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
                             name: 'Посмотреть маршрут',
                             action: () => {},
                         },
-                        ...(!user?.rights.includes(Right.Admin)
+                        ...(!hasUserRight(user, Right.Admin)
                             ? [
                                   {
                                       name: 'Назначить администратором',

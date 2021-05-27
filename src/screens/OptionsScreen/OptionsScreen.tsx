@@ -14,7 +14,7 @@ import TextInput from '../../components/TextInput/TextInput';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { updateUserThunk } from '../../redux/users/thunks';
-import { Coordinate, defaultCoordinate, Right } from '../../redux/users/types';
+import { Coordinate, defaultCoordinate } from '../../redux/users/types';
 import { DrawerRoutes } from '../../routing/main/routes';
 import { DrawerNavigationProps } from '../../routing/main/types';
 import { ManagersRoutes } from '../../routing/managers/routes';
@@ -47,14 +47,6 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
 
     const onSubmit = useCallback(
         async (formData) => {
-            // Пользователь может обновлять только себя, если он не админ
-            if (
-                !currentUser.rights.includes(Right.Admin) &&
-                currentUser.id !== user.id
-            ) {
-                return;
-            }
-
             if (
                 !deepEqual(coordinate, user.coordinate) ||
                 (formData.telegram && user.telegram !== formData.telegram) ||
@@ -77,7 +69,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 console.log(`updated user ${JSON.stringify(updatedUser)}`);
             }
         },
-        [currentUser, dispatch, coordinate, user],
+        [dispatch, coordinate, user],
     );
 
     const onChangeField = useCallback(
