@@ -30,4 +30,10 @@ export const defaultCoordinate: Coordinate = {
 export enum Right {
     Manager,
     Admin,
+    Superuser,
 }
+
+export const hasUserRight = (user: User | undefined, right: Right): boolean =>
+    user
+        ? user.rights.includes(Right.Superuser) || user.rights.includes(right)
+        : false;

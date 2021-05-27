@@ -16,7 +16,7 @@ import SettingsIcon from '../../components/icons/Drawer/SettingsIcon';
 import { DrawerContent } from '../../containers/DrawerContent/DrawerContent';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
-import { Right } from '../../redux/users/types';
+import { hasUserRight, Right } from '../../redux/users/types';
 import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
@@ -38,8 +38,8 @@ const ScreensWithHiddenHeader: string[] = [
 ];
 const DrawerNavigation = () => {
     const currentUser = useAppSelector(selectCurrentUser);
-    const currentUserIsAdmin = currentUser?.rights.includes(Right.Admin);
-
+    const currentUserIsAdmin = hasUserRight(currentUser, Right.Admin);
+    const currentUserIsManager = hasUserRight(currentUser, Right.Manager);
     // @ts-ignore
     const shouldShowHeader = (route) => {
         const routeName = getFocusedRouteNameFromRoute(route) ?? '';
@@ -59,28 +59,32 @@ const DrawerNavigation = () => {
                         headerShown: true,
                     }}
                 />
-                <Drawer.Screen
-                    name={DrawerRoutes.Schedule}
-                    component={HomeScreen}
-                    options={{
-                        title: 'График',
-                        drawerIcon: ({ focused }) => (
-                            <ScheduleIcon focused={focused} />
-                        ),
-                        headerShown: true,
-                    }}
-                />
-                <Drawer.Screen
-                    name={DrawerRoutes.Route}
-                    component={RouteScreen}
-                    options={{
-                        title: 'Маршрут',
-                        drawerIcon: ({ focused }) => (
-                            <RouteIcon focused={focused} />
-                        ),
-                        headerShown: true,
-                    }}
-                />
+                {currentUserIsManager && (
+                    <Drawer.Screen
+                        name={DrawerRoutes.Schedule}
+                        component={HomeScreen}
+                        options={{
+                            title: 'График',
+                            drawerIcon: ({ focused }) => (
+                                <ScheduleIcon focused={focused} />
+                            ),
+                            headerShown: true,
+                        }}
+                    />
+                )}
+                {currentUserIsManager && (
+                    <Drawer.Screen
+                        name={DrawerRoutes.Route}
+                        component={RouteScreen}
+                        options={{
+                            title: 'Маршрут',
+                            drawerIcon: ({ focused }) => (
+                                <RouteIcon focused={focused} />
+                            ),
+                            headerShown: true,
+                        }}
+                    />
+                )}
                 {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Managers}
@@ -94,28 +98,32 @@ const DrawerNavigation = () => {
                         })}
                     />
                 )}
-                <Drawer.Screen
-                    name={DrawerRoutes.Clients}
-                    component={ClientsNavigation}
-                    options={({ route }) => ({
-                        title: 'Клиенты',
-                        drawerIcon: ({ focused }) => (
-                            <ClientsIcon focused={focused} />
-                        ),
-                        headerShown: shouldShowHeader(route),
-                    })}
-                />
-                <Drawer.Screen
-                    name={DrawerRoutes.Meetings}
-                    component={MeetingsNavigation}
-                    options={({ route }) => ({
-                        title: 'Встречи',
-                        drawerIcon: ({ focused }) => (
-                            <MeetingsIcon focused={focused} />
-                        ),
-                        headerShown: shouldShowHeader(route),
-                    })}
-                />
+                {currentUserIsManager && (
+                    <Drawer.Screen
+                        name={DrawerRoutes.Clients}
+                        component={ClientsNavigation}
+                        options={({ route }) => ({
+                            title: 'Клиенты',
+                            drawerIcon: ({ focused }) => (
+                                <ClientsIcon focused={focused} />
+                            ),
+                            headerShown: shouldShowHeader(route),
+                        })}
+                    />
+                )}
+                {currentUserIsAdmin && (
+                    <Drawer.Screen
+                        name={DrawerRoutes.Meetings}
+                        component={MeetingsNavigation}
+                        options={({ route }) => ({
+                            title: 'Встречи',
+                            drawerIcon: ({ focused }) => (
+                                <MeetingsIcon focused={focused} />
+                            ),
+                            headerShown: shouldShowHeader(route),
+                        })}
+                    />
+                )}
                 {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Requests}
@@ -129,17 +137,19 @@ const DrawerNavigation = () => {
                         }}
                     />
                 )}
-                <Drawer.Screen
-                    name={DrawerRoutes.Options}
-                    component={OptionsScreen}
-                    options={{
-                        title: 'Настройки',
-                        drawerIcon: ({ focused }) => (
-                            <SettingsIcon focused={focused} />
-                        ),
-                        headerShown: true,
-                    }}
-                />
+                {currentUserIsManager && (
+                    <Drawer.Screen
+                        name={DrawerRoutes.Options}
+                        component={OptionsScreen}
+                        options={{
+                            title: 'Настройки',
+                            drawerIcon: ({ focused }) => (
+                                <SettingsIcon focused={focused} />
+                            ),
+                            headerShown: true,
+                        }}
+                    />
+                )}
             </Drawer.Navigator>
         </NavigationContainer>
     );
