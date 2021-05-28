@@ -16,13 +16,28 @@ export const selectManagerSchedule = (
     const allManagerSchedule: ManagerSchedule[] = Object.values(
         state.scheduleSlice.schedule[managerId] ?? {},
     );
+    const result: ManagerSchedule[] = [];
+    for (let day = 0; day < 5; day++) {
+        result.push({
+            endCoordinate: { address: '', longitude: 0, latitude: 0 },
+            endTime: new Date(),
+            id: 0,
+            startCoordinate: { address: '', longitude: 0, latitude: 0 },
+            startTime: new Date(),
+            userId: managerId,
+        });
+    }
     const startOfWeek = getStartOfWeek(weekDate);
     const startOfNextWeek = getStartOfNextWeek(weekDate);
-    return allManagerSchedule
-        .filter(
-            (managerSchedule) =>
-                managerSchedule.startTime >= startOfWeek &&
-                managerSchedule.startTime < startOfNextWeek,
-        )
-        .sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
+    const fetchedSchedules = allManagerSchedule.filter(
+        (managerSchedule) =>
+            managerSchedule.startTime >= startOfWeek &&
+            managerSchedule.startTime < startOfNextWeek,
+    );
+
+    for (let schedule of fetchedSchedules) {
+        const day = schedule.startTime.getDay();
+        result[day - 1] = schedule;
+    }
+    return result;
 };

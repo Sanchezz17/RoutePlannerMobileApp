@@ -4,6 +4,7 @@ import { Text, Title } from 'react-native-paper';
 
 import { DAY_MILLISECONDS } from '../../../common/utils/dateUtils';
 import { ManagerSchedule } from '../../../redux/schedule/types';
+import styles from './ScheduleDayCard.styles';
 
 export interface ScheduleDayCardProps {
     managerSchedule: ManagerSchedule;
@@ -19,12 +20,11 @@ export const ScheduleDayCard = ({
     weekStart,
 }: ScheduleDayCardProps) => {
     return (
-        <View style={[style]}>
+        <View style={[style, styles.card]}>
             <TouchableOpacity>
                 <Title>
                     {new Date(
-                        weekStart.getTime() +
-                            (dayOfWeek - 1) * DAY_MILLISECONDS,
+                        weekStart.getTime() + dayOfWeek * DAY_MILLISECONDS,
                     ).toLocaleDateString()}
                 </Title>
                 <View>

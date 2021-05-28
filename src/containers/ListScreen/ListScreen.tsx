@@ -47,13 +47,15 @@ export interface ListWithSearchProps<T> {
         expandedCardIndex: number,
         setExpandedCardIndex: React.Dispatch<React.SetStateAction<number>>,
     ) => ReactElement;
-    cardKeyExtractor: (item: T) => string;
+    cardKeyExtractor:
+        | ((item: T) => string)
+        | ((item: T, index: number) => string);
     dataSelector: (state: RootState) => T[];
     loadingSelector: (state: RootState) => boolean;
     loadDataThunk: (
         parameters: SearchParameters,
     ) => AsyncThunkAction<any, SearchParameters, {}>;
-    loadMoreDataThunk: (
+    loadMoreDataThunk?: (
         parameters: SearchParameters,
     ) => AsyncThunkAction<any, SearchParameters, {}>;
     children?: Element;
@@ -171,8 +173,8 @@ export const ListScreen = <T,>({
                                 date.getTime() -
                                     dateSelectorStep * DAY_MILLISECONDS,
                             );
+                            onDateChange(newDate);
                             setDate(newDate);
-                            onDateChange(date);
                         }}>
                         <BackIcon style={styles.icon} />
                     </TouchableOpacity>
@@ -190,8 +192,8 @@ export const ListScreen = <T,>({
                                 date.getTime() +
                                     dateSelectorStep * DAY_MILLISECONDS,
                             );
+                            onDateChange(newDate);
                             setDate(newDate);
-                            onDateChange(date);
                         }}>
                         <ForwardIcon style={styles.icon} />
                     </TouchableOpacity>
@@ -214,6 +216,9 @@ export const ListScreen = <T,>({
                 onRefresh={loadData}
                 onEndReachedThreshold={0.01}
                 onEndReached={({ distanceFromEnd }) => {
+                    if (loadMoreDataThunk === undefined) {
+                        return;
+                    }
                     if (distanceFromEnd < -1) {
                         return;
                     }

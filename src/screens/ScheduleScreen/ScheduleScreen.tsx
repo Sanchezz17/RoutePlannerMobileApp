@@ -23,7 +23,6 @@ export const ScheduleScreen = ({ navigation }: MeetingsScreenProps) => {
     return (
         <ListScreen
             loadDataThunk={getManagerScheduleForWeekThunk}
-            loadMoreDataThunk={getManagerScheduleForWeekThunk}
             dataSelector={(state) =>
                 selectManagerSchedule(state, currentUser.id, date)
             }
@@ -35,9 +34,10 @@ export const ScheduleScreen = ({ navigation }: MeetingsScreenProps) => {
                     weekStart={date}
                 />
             )}
-            cardKeyExtractor={(managerSchedule: ManagerSchedule) =>
-                `${managerSchedule.id}_${managerSchedule.userId}`
-            }
+            cardKeyExtractor={(
+                managerSchedule: ManagerSchedule,
+                index: number,
+            ) => `${managerSchedule.id}_${managerSchedule.userId}_${index}`}
             useDateSelector={true}
             dateSelectorStartDate={getStartOfWeek(new Date())}
             dateSelectorStep={7}
