@@ -61,29 +61,30 @@ export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
                                           );
                                       },
                                   },
+                                  {
+                                      name: 'Изменить данные',
+                                      action: () => {
+                                          if (currentUser.id === user.id) {
+                                              navigation.navigate(
+                                                  ManagersRoutes.CurrentUserOptions,
+                                                  {
+                                                      screen:
+                                                          DrawerRoutes.Options,
+                                                      params: { user },
+                                                  },
+                                              );
+                                          } else {
+                                              navigation.navigate(
+                                                  ManagersRoutes.Options,
+                                                  {
+                                                      user,
+                                                  },
+                                              );
+                                          }
+                                      },
+                                  },
                               ]
                             : []),
-                        {
-                            name: 'Изменить данные',
-                            action: () => {
-                                if (currentUser.id === user.id) {
-                                    navigation.navigate(
-                                        ManagersRoutes.CurrentUserOptions,
-                                        {
-                                            screen: DrawerRoutes.Options,
-                                            params: { user },
-                                        },
-                                    );
-                                } else {
-                                    navigation.navigate(
-                                        ManagersRoutes.Options,
-                                        {
-                                            user,
-                                        },
-                                    );
-                                }
-                            },
-                        },
                     ]}
                 />
             )}
