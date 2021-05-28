@@ -13,7 +13,9 @@ import {
     getMoreClientsThunk,
 } from '../../redux/clients/thunks';
 import { Client } from '../../redux/clients/types';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { selectCurrentUser } from '../../redux/users/selectors';
+import { hasUserRight, Right } from '../../redux/users/types';
 import { ClientsRoutes } from '../../routing/clients/routes';
 import { ClientsStackNavigationProps } from '../../routing/clients/types';
 import styles from './ClientsScreen.styles';
@@ -22,6 +24,7 @@ type ClientsScreenProps = ClientsStackNavigationProps<ClientsRoutes.Clients>;
 
 export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
     const dispatch = useAppDispatch();
+    const currentUser = useAppSelector(selectCurrentUser);
     return (
         <ListScreen
             key={'clientsScreen.ListScreen'}
@@ -39,30 +42,42 @@ export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
                     }
                     cardNumber={index}
                     expandedCardNumber={expandedCardIndex}
-                    menuItems={[
-                        {
-                            name: 'Редактировать',
-                            action: () => {
-                                navigation.navigate(ClientsRoutes.AddClient, {
-                                    client,
-                                });
-                            },
-                        },
-                        {
-                            name: 'Назначить встречу',
-                            action: () => {
-                                navigation.navigate(ClientsRoutes.AddMeeting, {
-                                    client,
-                                });
-                            },
-                        },
-                        {
-                            name: 'Удалить',
-                            action: () => {
-                                dispatch(deleteClientThunk(client.id));
-                            },
-                        },
-                    ]}
+                    menuItems={
+                        hasUserRight(currentUser, Right.Admin)
+                            ? [
+                                  {
+                                      name: 'Редактировать',
+                                      action: () => {
+                                          navigation.navigate(
+                                              ClientsRoutes.AddClient,
+                                              {
+                                                  client,
+                                              },
+                                          );
+                                      },
+                                  },
+                                  {
+                                      name: 'Назначить встречу',
+                                      action: () => {
+                                          navigation.navigate(
+                                              ClientsRoutes.AddMeeting,
+                                              {
+                                                  client,
+                                              },
+                                          );
+                                      },
+                                  },
+                                  {
+                                      name: 'Удалить',
+                                      action: () => {
+                                          dispatch(
+                                              deleteClientThunk(client.id),
+                                          );
+                                      },
+                                  },
+                              ]
+                            : []
+                    }
                 />
             )}
             cardKeyExtractor={(item: Client) => `${item.id}${item.email}`}
