@@ -20,6 +20,7 @@ import { Searchbar, Text } from 'react-native-paper';
 import { Title } from 'react-native-paper';
 import { ScreenContainer } from 'react-native-screens';
 
+import { DEFAULT_LIMIT } from '../../common/constants';
 import BackIcon from '../../components/icons/Header/BackIcon';
 import ForwardIcon from '../../components/icons/Header/ForwardIcon';
 import HamburgerMenuIcon from '../../components/icons/Header/HamburgerMenuIcon';
@@ -28,7 +29,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import styles from './ListScreen.styles';
-const LIMIT = 10;
+
 const DAY_MILLISECONDS = 1000 * 60 * 60 * 24;
 interface SearchParameters {
     managerId?: number;
@@ -87,7 +88,7 @@ export const ListScreen = <T,>({
                 loadDataThunk({
                     managerId: currentUser.id,
                     offset: offset,
-                    limit: LIMIT,
+                    limit: DEFAULT_LIMIT,
                     query: query,
                     date: date,
                 }),
@@ -201,7 +202,7 @@ export const ListScreen = <T,>({
                     dispatch(
                         loadMoreDataThunk({
                             offset: data.length,
-                            limit: LIMIT,
+                            limit: DEFAULT_LIMIT,
                             query: query,
                             date: date,
                             managerId: currentUser.id,

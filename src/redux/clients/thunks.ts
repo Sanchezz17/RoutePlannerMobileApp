@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { DEFAULT_LIMIT } from '../../common/constants';
 import { clientsAPI, UpdateClientDto } from './api';
 
 export const createClientThunk = createAsyncThunk(
@@ -28,9 +29,9 @@ export const deleteClientThunk = createAsyncThunk(
 );
 
 export interface ClientsSearchParameters {
-    offset: number;
-    limit: number;
-    query: string;
+    offset?: number;
+    limit?: number;
+    query?: string;
 }
 
 const getClientsPayloadCreator = async ({
@@ -38,7 +39,11 @@ const getClientsPayloadCreator = async ({
     limit,
     query,
 }: ClientsSearchParameters) => {
-    return await clientsAPI.getClients(offset, limit, query);
+    return await clientsAPI.getClients(
+        offset ?? 0,
+        limit ?? DEFAULT_LIMIT,
+        query ?? '',
+    );
 };
 
 export const getClientsThunk = createAsyncThunk(

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { DEFAULT_LIMIT } from '../../common/constants';
 import { UpdateUserDto, userAPI } from './api';
 import { Right } from './types';
 
@@ -39,7 +40,11 @@ const getManagersPayloadCreator = async ({
     limit,
     query,
 }: UsersSearchParameters) => {
-    return await userAPI.getManagers(offset, limit, query);
+    return await userAPI.getManagers(
+        offset ?? 0,
+        limit ?? DEFAULT_LIMIT,
+        query ?? '',
+    );
 };
 
 export const getManagersThunk = createAsyncThunk(
