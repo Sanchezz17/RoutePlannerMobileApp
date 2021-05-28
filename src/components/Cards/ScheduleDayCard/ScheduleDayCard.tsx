@@ -4,6 +4,7 @@ import { Text, Title } from 'react-native-paper';
 
 import { DAY_MILLISECONDS } from '../../../common/utils/dateUtils';
 import { ManagerSchedule } from '../../../redux/schedule/types';
+import AlertIcon from '../../icons/Cards/AlertIcon';
 import styles from './ScheduleDayCard.styles';
 
 export interface ScheduleDayCardProps {
@@ -21,25 +22,40 @@ export const ScheduleDayCard = ({
 }: ScheduleDayCardProps) => {
     return (
         <View style={[style, styles.card]}>
-            <TouchableOpacity>
-                <Title>
+            <TouchableOpacity style={styles.touchable}>
+                <AlertIcon
+                    style={
+                        managerSchedule.id === 0
+                            ? styles.iconVisible
+                            : styles.iconInvisible
+                    }
+                />
+                <Title style={styles.title}>
                     {new Date(
                         weekStart.getTime() + dayOfWeek * DAY_MILLISECONDS,
                     ).toLocaleDateString()}
                 </Title>
-                <View>
-                    <View>
-                        <Text>Начало:</Text>
-                        <Text>{managerSchedule.startCoordinate.address}</Text>
+                {managerSchedule.id === 0 ? (
+                    <View style={styles.info}>
+                        <Text>Не заполнен</Text>
                     </View>
-                    <View>
-                        <Text>Часы работы:</Text>
-                        <Text>
-                            {managerSchedule.startTime.toLocaleTimeString()} -{' '}
-                            {managerSchedule.endTime.toLocaleTimeString()}
-                        </Text>
+                ) : (
+                    <View style={styles.info}>
+                        <View>
+                            <Text>Начало:</Text>
+                            <Text>
+                                {managerSchedule.startCoordinate.address}
+                            </Text>
+                        </View>
+                        <View>
+                            <Text>Часы работы:</Text>
+                            <Text>
+                                {managerSchedule.startTime.toLocaleTimeString()}{' '}
+                                - {managerSchedule.endTime.toLocaleTimeString()}
+                            </Text>
+                        </View>
                     </View>
-                </View>
+                )}
             </TouchableOpacity>
         </View>
     );
