@@ -1,5 +1,7 @@
 import React from 'react';
+import { Linking } from 'react-native';
 
+import createGoogleMapsRouteUrl from '../../common/utils/createGoogleMapsRouteUrl';
 import { RoutePointCard } from '../../components/Cards/RoutePointCard/RoutePointCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -38,7 +40,18 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                         },
                         {
                             name: 'Проложить маршрут',
-                            action: () => {},
+                            action: () => {
+                                const url = createGoogleMapsRouteUrl(
+                                    routePoint.coordinate,
+                                );
+                                try {
+                                    Linking.openURL(url);
+                                } catch (ex) {
+                                    console.log(
+                                        `error while open google maps route url ${ex}`,
+                                    );
+                                }
+                            },
                         },
                     ]}
                 />
