@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { Divider, FAB, Text } from 'react-native-paper';
 
-import BackIcon from '../../components/icons/Header/BackIcon';
 import { DatePicker } from '../../components/Pickers/DatePicker';
 import { LocationPicker } from '../../components/Pickers/LocationPicker';
 import { TimePicker } from '../../components/Pickers/TimePicker';

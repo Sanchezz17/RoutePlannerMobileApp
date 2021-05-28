@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { DEFAULT_LIMIT } from '../../common/constants';
 import { CreateMeetingDto, meetingsApi, UpdateMeetingDto } from './api';
 
 export interface MeetingsSearchParameters {
@@ -15,7 +16,12 @@ const getMeetingsPayloadCreator = async ({
     query,
     date,
 }: MeetingsSearchParameters) => {
-    return await meetingsApi.getMeetingsAsync(offset, limit, query, date);
+    return await meetingsApi.getMeetingsAsync(
+        offset ?? 0,
+        limit ?? DEFAULT_LIMIT,
+        query ?? '',
+        date ?? new Date(),
+    );
 };
 
 export const getMeetingsThunk = createAsyncThunk(

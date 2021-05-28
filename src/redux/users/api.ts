@@ -31,9 +31,9 @@ const deleteUserAsync = async (id: number): Promise<number> => {
 };
 
 const getUsersAsync = async (
-    offset?: number,
-    limit?: number,
-    query?: string,
+    offset: number,
+    limit: number,
+    query: string,
 ): Promise<User[]> => {
     return await authorizeFetch(
         `${usersApiPrefix}/with-rights?offset=${offset}&limit=${limit}&query=${query}`,

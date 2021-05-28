@@ -61,6 +61,8 @@ const fetchJsonAsync = async (
             if (retryOnUnauthorized) {
                 return fetchJsonAsync(url, options);
             }
+        } else if (response.status === 403) {
+            console.log('403 Forbidden');
         }
     }
 };

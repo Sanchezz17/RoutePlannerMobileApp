@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { DEFAULT_LIMIT } from '../../common/constants';
 import { requestsAPI } from './api';
 
 interface UsersSearchParameters {
@@ -13,7 +14,11 @@ const getRequestsPayloadCreator = async ({
     limit,
     query,
 }: UsersSearchParameters) => {
-    return await requestsAPI.getRequestsAsync(offset, limit, query);
+    return await requestsAPI.getRequestsAsync(
+        offset ?? 0,
+        limit ?? DEFAULT_LIMIT,
+        query ?? '',
+    );
 };
 
 export const getRequestsThunk = createAsyncThunk(

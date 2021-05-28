@@ -58,7 +58,7 @@ export const signOut = async () => {
 const mutex = new TimedMutex();
 
 export const getTokens = async () => {
-    await mutex.try_lock_for(2000);
+    await mutex.try_lock_for(3000);
     const tokens = await GoogleSignin.getTokens();
     await mutex.unlock();
     console.log(tokens);
