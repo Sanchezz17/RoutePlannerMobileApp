@@ -40,12 +40,12 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                         },
                         {
                             name: 'Проложить маршрут',
-                            action: () => {
+                            action: async () => {
                                 const url = createGoogleMapsRouteUrl(
                                     routePoint.coordinate,
                                 );
                                 try {
-                                    Linking.openURL(url);
+                                    await Linking.openURL(url);
                                 } catch (ex) {
                                     console.log(
                                         `error while open google maps route url ${ex}`,
