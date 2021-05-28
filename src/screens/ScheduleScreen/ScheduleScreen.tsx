@@ -38,9 +38,6 @@ export const ScheduleScreen = ({ navigation }: MeetingsScreenProps) => {
             cardKeyExtractor={(managerSchedule: ManagerSchedule) =>
                 `${managerSchedule.id}_${managerSchedule.userId}`
             }
-            //@ts-ignore
-            navigation={navigation.dangerouslyGetParent()}
-            screenTitle={'Встречи'}
             useDateSelector={true}
             dateSelectorStartDate={getStartOfWeek(new Date())}
             dateSelectorStep={7}

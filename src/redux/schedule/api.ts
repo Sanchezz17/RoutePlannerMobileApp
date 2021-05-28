@@ -17,7 +17,7 @@ const getManagerScheduleForWeekAsync = async (
     weekDate?: Date,
 ): Promise<ManagerSchedule[]> => {
     return await authorizeFetch(
-        `${scheduleApiPrefix}?managerId=${managerId}&weekDate=${weekDate}`,
+        `${scheduleApiPrefix}?managerId=${managerId}&weekDate=${weekDate?.toJSON()}`,
     );
 };
 

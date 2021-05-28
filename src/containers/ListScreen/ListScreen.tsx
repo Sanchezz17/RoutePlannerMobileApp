@@ -52,10 +52,10 @@ export interface ListWithSearchProps<T> {
     loadingSelector: (state: RootState) => boolean;
     loadDataThunk: (
         parameters: SearchParameters,
-    ) => AsyncThunkAction<T[], SearchParameters, {}>;
+    ) => AsyncThunkAction<any, SearchParameters, {}>;
     loadMoreDataThunk: (
         parameters: SearchParameters,
-    ) => AsyncThunkAction<T[], SearchParameters, {}>;
+    ) => AsyncThunkAction<any, SearchParameters, {}>;
     children?: Element;
     navigation?: StackNavigationProp<any, any> | DrawerNavigationProp<any, any>;
     screenTitle?: string;
@@ -98,6 +98,7 @@ export const ListScreen = <T,>({
                     limit: DEFAULT_LIMIT,
                     query: query,
                     date: date,
+                    weekDate: date,
                 }),
             );
         },
@@ -223,6 +224,7 @@ export const ListScreen = <T,>({
                             query: query,
                             date: date,
                             managerId: currentUser.id,
+                            weekDate: date,
                         }),
                     );
                 }}

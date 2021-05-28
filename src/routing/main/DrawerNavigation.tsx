@@ -21,6 +21,7 @@ import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
 import { RouteScreen } from '../../screens/RouteScreen/RouteScreen';
+import { ScheduleScreen } from '../../screens/ScheduleScreen/ScheduleScreen';
 import ClientsNavigation from '../clients/ClientsNavigation';
 import { ClientsRoutes } from '../clients/routes';
 import ManagersNavigation from '../managers/ManagersNavigation';
@@ -62,7 +63,7 @@ const DrawerNavigation = () => {
                 {currentUserIsManager && (
                     <Drawer.Screen
                         name={DrawerRoutes.Schedule}
-                        component={HomeScreen}
+                        component={ScheduleScreen}
                         options={{
                             title: 'График',
                             drawerIcon: ({ focused }) => (
