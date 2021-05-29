@@ -2,7 +2,10 @@ import React from 'react';
 import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Text, Title } from 'react-native-paper';
 
-import { DAY_MILLISECONDS } from '../../../common/utils/dateUtils';
+import {
+    DAY_MILLISECONDS,
+    getTimeString,
+} from '../../../common/utils/dateUtils';
 import { ManagerSchedule } from '../../../redux/schedule/types';
 import AlertIcon from '../../icons/Cards/AlertIcon';
 import styles from './ScheduleDayCard.styles';
@@ -38,22 +41,22 @@ export const ScheduleDayCard = ({
                     ).toLocaleDateString()}
                 </Title>
                 {managerSchedule.id === 0 ? (
-                    <View style={styles.info}>
+                    <View style={styles.infos}>
                         <Text style={styles.notFilledText}>Не заполнен</Text>
                     </View>
                 ) : (
-                    <View style={styles.info}>
-                        <View>
-                            <Text>Начало:</Text>
+                    <View style={styles.infos}>
+                        <View style={styles.info}>
+                            <Text style={styles.infoHeader}>Начало:</Text>
                             <Text>
                                 {managerSchedule.startCoordinate.address}
                             </Text>
                         </View>
-                        <View>
-                            <Text>Часы работы:</Text>
-                            <Text>
-                                {managerSchedule.startTime.toLocaleTimeString()}{' '}
-                                - {managerSchedule.endTime.toLocaleTimeString()}
+                        <View style={styles.info}>
+                            <Text style={styles.infoHeader}>Часы работы:</Text>
+                            <Text style={styles.time}>
+                                {getTimeString(managerSchedule.startTime)} -{' '}
+                                {getTimeString(managerSchedule.endTime)}
                             </Text>
                         </View>
                     </View>

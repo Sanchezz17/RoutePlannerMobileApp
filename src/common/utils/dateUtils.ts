@@ -18,3 +18,7 @@ export const getStartOfNextWeek = (date: Date): Date => {
     startOfNextWeek.setDate(startOfWeek.getDate() + 7);
     return startOfNextWeek;
 };
+
+export const getTimeString = (date: Date): string => {
+    return `${date.getHours()}:${date.getMinutes()}`;
+};

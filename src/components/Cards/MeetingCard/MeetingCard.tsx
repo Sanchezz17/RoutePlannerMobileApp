@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getTimeString } from '../../../common/utils/dateUtils';
 import { Meeting } from '../../../redux/meetings/types';
 import { ExpandableCard } from '../ExpandableCard/ExpandableCard';
 
@@ -28,11 +29,9 @@ export const MeetingCard = ({
             name={meeting.client.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
-                `Свободное время: ${new Date(
-                    meeting.availableTimeStart,
-                ).toLocaleTimeString()} - ${new Date(
-                    meeting.availableTimeEnd,
-                ).toLocaleTimeString()}`,
+                `Свободное время: ${getTimeString(
+                    new Date(meeting.availableTimeStart),
+                )} - ${getTimeString(new Date(meeting.availableTimeEnd))}`,
                 `Продолжительность встречи: ${meeting.durationInMinutes} мин`,
             ]}
             hasPicture={false}

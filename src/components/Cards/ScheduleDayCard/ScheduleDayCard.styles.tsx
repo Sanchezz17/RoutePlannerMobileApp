@@ -22,8 +22,19 @@ export default StyleSheet.create({
         height: 100,
         maxHeight: 100,
     },
-    info: {
+    infos: {
+        flexDirection: 'row',
         marginLeft: 30,
+    },
+    info: {
+        flexDirection: 'column',
+        width: '50%',
+    },
+    infoHeader: {
+        color: palette.SystemUISecondary,
+    },
+    time: {
+        fontSize: 18,
     },
     iconVisible: {
         position: 'absolute',
