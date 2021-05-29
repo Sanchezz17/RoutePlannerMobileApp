@@ -37,22 +37,37 @@ export const AddScheduleScreen = ({
         currentSchedule.id !== 0 ? currentSchedule.endTime : undefined,
     );
     const [startCoordinate, setStartCoordinate] = useState(
-        currentSchedule.startCoordinate,
+        currentSchedule.id !== 0 ? currentSchedule.startCoordinate : undefined,
     );
     const [endCoordinate, setEndCoordinate] = useState(
-        currentSchedule.endCoordinate,
+        currentSchedule.id !== 0 ? currentSchedule.endCoordinate : undefined,
     );
 
+    const getDateTime = (time: Date) => {
+        return new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            time.getHours(),
+            time.getMinutes(),
+        );
+    };
+
     const onChangeStartTime = (event: any, selectedDate: Date | undefined) => {
-        setStartTime(selectedDate ?? currentSchedule.startTime);
+        setStartTime(getDateTime(selectedDate ?? currentSchedule.startTime));
     };
 
     const onChangeEndTime = (event: any, selectedDate: Date | undefined) => {
-        setEndTime(selectedDate ?? currentSchedule.startTime);
+        setEndTime(getDateTime(selectedDate ?? currentSchedule.startTime));
     };
 
     const onSubmit = useCallback(async () => {
-        if (endTime === undefined || startTime === undefined) {
+        if (
+            endTime === undefined ||
+            startTime === undefined ||
+            startCoordinate === undefined ||
+            endCoordinate === undefined
+        ) {
             return;
         }
         if (currentSchedule.id === 0) {
@@ -80,7 +95,16 @@ export const AddScheduleScreen = ({
             );
         }
         navigation.goBack();
-    }, [navigation]);
+    }, [
+        currentSchedule.id,
+        currentSchedule.userId,
+        dispatch,
+        endCoordinate,
+        endTime,
+        navigation,
+        startCoordinate,
+        startTime,
+    ]);
 
     return (
         <SafeAreaView style={styles.view}>
