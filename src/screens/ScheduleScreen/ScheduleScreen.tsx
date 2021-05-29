@@ -43,8 +43,12 @@ export const ScheduleScreen = ({ navigation }: ScheduleScreenProps) => {
                             schedule: {
                                 id: managerSchedule.id,
                                 userId: managerSchedule.userId,
-                                startTimeJson: managerSchedule.startTime.toJSON(),
-                                endTimeJson: managerSchedule.endTime.toJSON(),
+                                startTimeJson: new Date(
+                                    managerSchedule.startTime,
+                                ).toJSON(),
+                                endTimeJson: new Date(
+                                    managerSchedule.endTime,
+                                ).toJSON(),
                                 startCoordinate:
                                     managerSchedule.startCoordinate,
                                 endCoordinate: managerSchedule.endCoordinate,
