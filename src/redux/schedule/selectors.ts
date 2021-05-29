@@ -31,12 +31,14 @@ export const selectManagerSchedule = (
     const startOfNextWeek = getStartOfNextWeek(weekDate);
     const fetchedSchedules = allManagerSchedule.filter(
         (managerSchedule) =>
-            managerSchedule.startTime >= startOfWeek &&
-            managerSchedule.startTime < startOfNextWeek,
+            new Date(managerSchedule.startTime).getTime() >=
+                startOfWeek.getTime() &&
+            new Date(managerSchedule.startTime).getTime() <
+                startOfNextWeek.getTime(),
     );
 
     for (let schedule of fetchedSchedules) {
-        const day = schedule.startTime.getDay();
+        const day = new Date(schedule.startTime).getDay();
         result[day - 1] = schedule;
     }
     return result;

@@ -17,11 +17,3 @@ export interface ManagerScheduleSerializableDto {
     startCoordinate: Coordinate;
     endCoordinate: Coordinate;
 }
-
-export interface CreateManagerScheduleDto {
-    userId: number;
-    startTime: Date;
-    endTime: Date;
-    startCoordinate: Coordinate;
-    endCoordinate: Coordinate;
-}

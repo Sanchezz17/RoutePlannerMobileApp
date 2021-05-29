@@ -11,7 +11,6 @@ import {
 import { getManagerScheduleForWeekThunk } from '../../redux/schedule/thunks';
 import { ManagerSchedule } from '../../redux/schedule/types';
 import { selectCurrentUser } from '../../redux/users/selectors';
-import { Coordinate } from '../../redux/users/types';
 import { ScheduleRoutes } from '../../routing/schedule/routes';
 import { ScheduleStackNavigationProps } from '../../routing/schedule/types';
 
@@ -29,7 +28,14 @@ export const ScheduleScreen = ({ navigation }: ScheduleScreenProps) => {
             loadingSelector={selectLoadingSchedule}
             renderCard={(managerSchedule: ManagerSchedule, index) => (
                 <ScheduleDayCard
-                    managerSchedule={managerSchedule}
+                    managerSchedule={{
+                        id: managerSchedule.id,
+                        userId: managerSchedule.userId,
+                        startTime: new Date(managerSchedule.startTime),
+                        endTime: new Date(managerSchedule.endTime),
+                        startCoordinate: managerSchedule.startCoordinate,
+                        endCoordinate: managerSchedule.endCoordinate,
+                    }}
                     dayOfWeek={index}
                     weekStart={date}
                     onPress={() => {
