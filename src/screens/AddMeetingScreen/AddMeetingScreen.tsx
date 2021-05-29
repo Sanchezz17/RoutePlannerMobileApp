@@ -116,9 +116,7 @@ export const AddMeetingScreen = ({
                 contentInsetAdjustmentBehavior="automatic"
                 keyboardShouldPersistTaps={'handled'}
                 contentContainerStyle={styles.container}>
-                <Text style={styles.clientName}>
-                    Клиент: {meeting?.name ?? client?.name}
-                </Text>
+                <Text style={styles.clientName}>Клиент: {client?.name}</Text>
                 <Divider style={styles.divider} />
                 <View style={styles.form}>
                     <LocationPicker

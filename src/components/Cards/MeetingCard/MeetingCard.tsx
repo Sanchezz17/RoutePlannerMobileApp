@@ -25,7 +25,7 @@ export const MeetingCard = ({
 }: MeetingCardProps) => {
     return (
         <ExpandableCard
-            name={meeting.name}
+            name={meeting.client.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
                 `Начало свободного времени: ${new Date(
@@ -34,6 +34,7 @@ export const MeetingCard = ({
                 `Конец свободного времени: ${new Date(
                     meeting.availableTimeEnd,
                 ).toLocaleTimeString()}`,
+                `Продолжительность встречи в минутах: ${meeting.durationInMinutes}`,
             ]}
             hasPicture={false}
             contacts={{

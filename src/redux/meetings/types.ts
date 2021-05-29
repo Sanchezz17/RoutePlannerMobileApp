@@ -4,7 +4,6 @@ import { Coordinate } from '../users/types';
 export interface Meeting {
     id: number;
     clientId: number;
-    name: string;
     availableTimeStart: Date;
     availableTimeEnd: Date;
     startTime: Date;
