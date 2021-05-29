@@ -9,6 +9,7 @@ import {
     createManagerScheduleThunk,
     updateManagerScheduleThunk,
 } from '../../redux/schedule/thunks';
+import { ManagerSchedule } from '../../redux/schedule/types';
 import { ScheduleRoutes } from '../../routing/schedule/routes';
 import { ScheduleStackNavigationProps } from '../../routing/schedule/types';
 import styles, { theme } from './AddScheduleScreen.styles';
@@ -19,11 +20,22 @@ export const AddScheduleScreen = ({
     navigation,
 }: AddScheduleScreenProps) => {
     const dispatch = useAppDispatch();
-    const date = route.params.date;
-    const currentSchedule = route.params.schedule;
-    const userID = route.params.userId;
-    const [startTime, setStartTime] = useState(currentSchedule.startTime);
-    const [endTime, setEndTime] = useState(currentSchedule.endTime);
+    const date = new Date(route.params.dateJson);
+    const scheduleDto = route.params.schedule;
+    const currentSchedule: ManagerSchedule = {
+        id: scheduleDto.id,
+        userId: scheduleDto.userId,
+        startTime: new Date(scheduleDto.startTimeJson),
+        endTime: new Date(scheduleDto.endTimeJson),
+        startCoordinate: scheduleDto.startCoordinate,
+        endCoordinate: scheduleDto.endCoordinate,
+    };
+    const [startTime, setStartTime] = useState(
+        currentSchedule.id !== 0 ? currentSchedule.startTime : undefined,
+    );
+    const [endTime, setEndTime] = useState(
+        currentSchedule.id !== 0 ? currentSchedule.endTime : undefined,
+    );
     const [startCoordinate, setStartCoordinate] = useState(
         currentSchedule.startCoordinate,
     );
@@ -40,11 +52,14 @@ export const AddScheduleScreen = ({
     };
 
     const onSubmit = useCallback(async () => {
+        if (endTime === undefined || startTime === undefined) {
+            return;
+        }
         if (currentSchedule.id === 0) {
             dispatch(
                 createManagerScheduleThunk({
                     id: 0,
-                    userId: userID,
+                    userId: currentSchedule.userId,
                     endCoordinate: endCoordinate,
                     endTime: endTime,
                     startCoordinate: startCoordinate,
@@ -78,27 +93,27 @@ export const AddScheduleScreen = ({
                 <View style={styles.form}>
                     <TimePicker
                         onChange={onChangeStartTime}
-                        value={currentSchedule.startTime}
-                        title={'Начало свободного времени:'}
+                        value={startTime}
+                        title={'Начало смены:'}
                     />
                     <TimePicker
                         onChange={onChangeEndTime}
-                        value={currentSchedule.endTime}
-                        title={'Конец свободного времени:'}
+                        value={endTime}
+                        title={'Конец смены:'}
                     />
                     <LocationPicker
                         initialCoordinate={currentSchedule.startCoordinate}
                         onChange={(newCoordinate) =>
                             setStartCoordinate(newCoordinate)
                         }
-                        label={'Место встречи'}
+                        label={'Начало маршрута'}
                     />
                     <LocationPicker
                         initialCoordinate={currentSchedule.endCoordinate}
                         onChange={(newCoordinate) =>
                             setEndCoordinate(newCoordinate)
                         }
-                        label={'Место встречи'}
+                        label={'Конец маршрута'}
                     />
                 </View>
             </ScrollView>

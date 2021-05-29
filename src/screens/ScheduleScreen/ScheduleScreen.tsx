@@ -11,6 +11,7 @@ import {
 import { getManagerScheduleForWeekThunk } from '../../redux/schedule/thunks';
 import { ManagerSchedule } from '../../redux/schedule/types';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import { Coordinate } from '../../redux/users/types';
 import { ScheduleRoutes } from '../../routing/schedule/routes';
 import { ScheduleStackNavigationProps } from '../../routing/schedule/types';
 
@@ -33,11 +34,18 @@ export const ScheduleScreen = ({ navigation }: ScheduleScreenProps) => {
                     weekStart={date}
                     onPress={() => {
                         navigation.navigate(ScheduleRoutes.AddSchedule, {
-                            schedule: managerSchedule,
-                            date: new Date(
+                            schedule: {
+                                id: managerSchedule.id,
+                                userId: managerSchedule.userId,
+                                startTimeJson: managerSchedule.startTime.toJSON(),
+                                endTimeJson: managerSchedule.endTime.toJSON(),
+                                startCoordinate:
+                                    managerSchedule.startCoordinate,
+                                endCoordinate: managerSchedule.endCoordinate,
+                            },
+                            dateJson: new Date(
                                 date.getTime() + index * DAY_MILLISECONDS,
-                            ),
-                            userId: currentUser.id,
+                            ).toJSON(),
                         });
                     }}
                 />

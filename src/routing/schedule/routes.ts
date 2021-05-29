@@ -1,4 +1,4 @@
-import { ManagerSchedule } from '../../redux/schedule/types';
+import { ManagerScheduleSerializableDto } from '../../redux/schedule/types';
 
 export enum ScheduleRoutes {
     Schedule = 'ScheduleScreen',
@@ -8,8 +8,7 @@ export enum ScheduleRoutes {
 export type ScheduleStackParamList = {
     [ScheduleRoutes.Schedule]: undefined;
     [ScheduleRoutes.AddSchedule]: {
-        date: Date;
-        schedule: ManagerSchedule;
-        userId: number;
+        dateJson: string;
+        schedule: ManagerScheduleSerializableDto;
     };
 };

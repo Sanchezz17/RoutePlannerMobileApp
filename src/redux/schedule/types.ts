@@ -8,3 +8,12 @@ export interface ManagerSchedule {
     startCoordinate: Coordinate;
     endCoordinate: Coordinate;
 }
+
+export interface ManagerScheduleSerializableDto {
+    id: number;
+    userId: number;
+    startTimeJson: string;
+    endTimeJson: string;
+    startCoordinate: Coordinate;
+    endCoordinate: Coordinate;
+}
