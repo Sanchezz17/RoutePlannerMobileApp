@@ -28,7 +28,7 @@ export const Contacts = ({
 }: ContactsProps) => {
     return (
         <View style={[styles.contacts, style]}>
-            {email !== null && (
+            {email.length > 0 && (
                 <TouchableOpacity
                     style={styles.contact}
                     onPress={() => Linking.openURL(`mailto:${email}`)}>
@@ -36,7 +36,7 @@ export const Contacts = ({
                     <Text style={styles.text}>{email}</Text>
                 </TouchableOpacity>
             )}
-            {phone !== null && (
+            {phone.length > 0 && (
                 <TouchableOpacity
                     style={styles.contact}
                     onPress={() => Linking.openURL(`tel:${phone}`)}>
@@ -44,7 +44,7 @@ export const Contacts = ({
                     <Text style={styles.text}>{phone}</Text>
                 </TouchableOpacity>
             )}
-            {telegram !== null && (
+            {telegram.length > 0 && (
                 <TouchableOpacity
                     style={styles.contact}
                     onPress={() => Linking.openURL(`https://t.me/${telegram}`)}>
