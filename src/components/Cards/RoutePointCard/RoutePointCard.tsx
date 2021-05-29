@@ -25,7 +25,7 @@ export const RoutePointCard = ({
 }: MeetingCardProps) => {
     return (
         <ExpandableCard
-            name={meeting.name}
+            name={meeting?.client?.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
                 `Начало встречи: ${new Date(

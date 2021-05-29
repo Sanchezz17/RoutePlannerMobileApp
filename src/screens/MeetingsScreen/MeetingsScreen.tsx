@@ -59,7 +59,7 @@ export const MeetingsScreen = ({ navigation }: MeetingsScreenProps) => {
                 />
             )}
             cardKeyExtractor={(meeting: Meeting) =>
-                `${meeting.id}${meeting.name}`
+                `${meeting.id}${meeting?.client?.name}`
             }
             //@ts-ignore
             navigation={navigation.dangerouslyGetParent()}

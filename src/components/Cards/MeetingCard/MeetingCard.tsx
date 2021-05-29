@@ -28,13 +28,12 @@ export const MeetingCard = ({
             name={meeting.client.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
-                `Начало свободного времени: ${new Date(
+                `Свободное время: ${new Date(
                     meeting.availableTimeStart,
-                ).toLocaleTimeString()}`,
-                `Конец свободного времени: ${new Date(
+                ).toLocaleTimeString()} - ${new Date(
                     meeting.availableTimeEnd,
                 ).toLocaleTimeString()}`,
-                `Продолжительность встречи в минутах: ${meeting.durationInMinutes}`,
+                `Продолжительность встречи: ${meeting.durationInMinutes} мин`,
             ]}
             hasPicture={false}
             contacts={{
