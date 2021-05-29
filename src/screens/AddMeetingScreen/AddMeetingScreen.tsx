@@ -15,6 +15,9 @@ import { Coordinate } from '../../redux/users/types';
 import { MeetingsRoutes } from '../../routing/meetings/routes';
 import { MeetingsStackNavigationProps } from '../../routing/meetings/types';
 import styles, { theme } from './AddMeetingScreen.styles';
+
+const DEFAULT_DURATION_IN_MINUTES = 30;
+
 type AddMeetingScreenProps = MeetingsStackNavigationProps<MeetingsRoutes.AddMeeting>;
 
 export const AddMeetingScreen = ({
@@ -34,7 +37,7 @@ export const AddMeetingScreen = ({
     );
 
     const [durationInMinutes, setDurationInMinutes] = useState<number>(
-        meeting?.durationInMinutes ?? 30,
+        meeting?.durationInMinutes ?? DEFAULT_DURATION_IN_MINUTES,
     );
 
     const onChangeDate = (event: any, selectedDate: Date | undefined) => {
@@ -147,9 +150,17 @@ export const AddMeetingScreen = ({
                         style={styles.input}
                         keyboardType="numeric"
                         maxLength={3}
-                        onChangeText={(newValue) =>
-                            setDurationInMinutes(Number.parseInt(newValue, 10))
-                        }
+                        onChangeText={(newValue) => {
+                            let newDurationInMinutes = Number.parseInt(
+                                newValue,
+                                10,
+                            );
+                            if (Number.isNaN(newDurationInMinutes)) {
+                                newDurationInMinutes = DEFAULT_DURATION_IN_MINUTES;
+                            }
+                            console.log(newDurationInMinutes);
+                            setDurationInMinutes(newDurationInMinutes);
+                        }}
                     />
                 </View>
             </ScrollView>
