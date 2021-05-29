@@ -12,6 +12,7 @@ export interface ScheduleDayCardProps {
     style?: StyleProp<ViewStyle>;
     dayOfWeek: number;
     weekStart: Date;
+    onPress: () => void;
 }
 
 export const ScheduleDayCard = ({
@@ -19,10 +20,11 @@ export const ScheduleDayCard = ({
     style,
     dayOfWeek,
     weekStart,
+    onPress,
 }: ScheduleDayCardProps) => {
     return (
         <View style={[style, styles.card]}>
-            <TouchableOpacity style={styles.touchable}>
+            <TouchableOpacity style={styles.touchable} onPress={onPress}>
                 <AlertIcon
                     style={
                         managerSchedule.id === 0
@@ -37,7 +39,7 @@ export const ScheduleDayCard = ({
                 </Title>
                 {managerSchedule.id === 0 ? (
                     <View style={styles.info}>
-                        <Text>Не заполнен</Text>
+                        <Text style={styles.notFilledText}>Не заполнен</Text>
                     </View>
                 ) : (
                     <View style={styles.info}>

@@ -8,7 +8,7 @@ export default StyleSheet.create({
         fontSize: 16,
         lineHeight: 16,
         marginLeft: 30,
-        marginTop: 10,
+        marginTop: 13,
     },
     touchable: {
         width: '100%',
@@ -32,5 +32,9 @@ export default StyleSheet.create({
     },
     iconInvisible: {
         display: 'none',
+    },
+    notFilledText: {
+        fontSize: 18,
+        marginTop: 10,
     },
 });

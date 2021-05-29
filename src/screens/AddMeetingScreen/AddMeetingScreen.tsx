@@ -119,7 +119,7 @@ export const AddMeetingScreen = ({
                 contentInsetAdjustmentBehavior="automatic"
                 keyboardShouldPersistTaps={'handled'}
                 contentContainerStyle={styles.container}>
-                <Text style={styles.clientName}>
+                <Text style={styles.day}>
                     Клиент: {client?.name ?? meeting?.client?.name}
                 </Text>
                 <Divider style={styles.divider} />

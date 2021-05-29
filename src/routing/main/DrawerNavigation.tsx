@@ -21,13 +21,14 @@ import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
 import { RouteScreen } from '../../screens/RouteScreen/RouteScreen';
-import { ScheduleScreen } from '../../screens/ScheduleScreen/ScheduleScreen';
 import ClientsNavigation from '../clients/ClientsNavigation';
 import { ClientsRoutes } from '../clients/routes';
 import ManagersNavigation from '../managers/ManagersNavigation';
 import { ManagersRoutes } from '../managers/routes';
 import MeetingsNavigation from '../meetings/MeetingsNavigation';
 import { MeetingsRoutes } from '../meetings/routes';
+import { ScheduleRoutes } from '../schedule/routes';
+import ScheduleNavigation from '../schedule/ScheduleNavigation';
 import { DrawerRoutes } from './routes';
 
 const Drawer = createDrawerNavigator();
@@ -36,6 +37,7 @@ const ScreensWithHiddenHeader: string[] = [
     MeetingsRoutes.AddMeeting,
     ManagersRoutes.Options,
     ManagersRoutes.CurrentUserOptions,
+    ScheduleRoutes.AddSchedule,
 ];
 const DrawerNavigation = () => {
     const currentUser = useAppSelector(selectCurrentUser);
@@ -63,14 +65,14 @@ const DrawerNavigation = () => {
                 {currentUserIsManager && (
                     <Drawer.Screen
                         name={DrawerRoutes.Schedule}
-                        component={ScheduleScreen}
-                        options={{
+                        component={ScheduleNavigation}
+                        options={({ route }) => ({
                             title: 'График',
                             drawerIcon: ({ focused }) => (
                                 <ScheduleIcon focused={focused} />
                             ),
-                            headerShown: true,
-                        }}
+                            headerShown: shouldShowHeader(route),
+                        })}
                     />
                 )}
                 {currentUserIsManager && (

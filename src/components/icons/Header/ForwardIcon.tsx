@@ -9,7 +9,7 @@ interface IconProps {
 }
 
 const palette = PaletteStorage.getPalette();
-const BackIcon = ({ style }: IconProps) => (
+const ForwardIcon = ({ style }: IconProps) => (
     <Svg style={style} width="24" height="24" viewBox="0 0 24 24" fill="none">
         <Path
             d="M4 13H16.17L10.58 18.59L12 20L20 12L12 4L10.59 5.41L16.17 11H4V13Z"
@@ -18,4 +18,4 @@ const BackIcon = ({ style }: IconProps) => (
     </Svg>
 );
 
-export default BackIcon;
+export default ForwardIcon;
