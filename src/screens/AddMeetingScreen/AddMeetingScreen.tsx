@@ -5,6 +5,7 @@ import { Divider, FAB, Text } from 'react-native-paper';
 import { DatePicker } from '../../components/Pickers/DatePicker';
 import { LocationPicker } from '../../components/Pickers/LocationPicker';
 import { TimePicker } from '../../components/Pickers/TimePicker';
+import TextInput from '../../components/TextInput/TextInput';
 import { useAppDispatch } from '../../redux/hooks';
 import {
     createMeetingThunk,
@@ -24,54 +25,64 @@ export const AddMeetingScreen = ({
     const client = route.params?.client;
     const dispatch = useAppDispatch();
 
-    const [startTime, setStartTime] = useState<Date | undefined>(
-        meeting !== undefined ? new Date(meeting.startTime) : undefined,
+    const [availableTimeStart, setAvailableTimeStart] = useState<
+        Date | undefined
+    >(meeting !== undefined ? new Date(meeting.availableTimeStart) : undefined);
+
+    const [availableTimeEnd, setAvailableTimeEnd] = useState<Date | undefined>(
+        meeting !== undefined ? new Date(meeting.availableTimeEnd) : undefined,
     );
-    const [endTime, setEndTime] = useState<Date | undefined>(
-        meeting !== undefined ? new Date(meeting.endTime) : undefined,
+
+    const [durationInMinutes, setDurationInMinutes] = useState<number>(
+        meeting?.durationInMinutes ?? 30,
     );
 
     const onChangeDate = (event: any, selectedDate: Date | undefined) => {
-        const currentStartTime = selectedDate || startTime;
-        setStartTime(currentStartTime);
+        const currentStartTime = selectedDate || availableTimeStart;
+        setAvailableTimeStart(currentStartTime);
         if (currentStartTime !== undefined) {
             const currentEndTime = new Date(
                 currentStartTime.getFullYear(),
                 currentStartTime.getMonth(),
                 currentStartTime.getDay(),
-                endTime?.getHours() ?? currentStartTime.getHours(),
-                endTime?.getMinutes() ?? currentStartTime.getMinutes(),
+                availableTimeEnd?.getHours() ?? currentStartTime.getHours(),
+                availableTimeEnd?.getMinutes() ?? currentStartTime.getMinutes(),
             );
-            setEndTime(currentEndTime);
+            setAvailableTimeEnd(currentEndTime);
         }
     };
 
     const onChangeStartTime = (event: any, selectedDate: Date | undefined) => {
-        const currentStartTime = selectedDate || startTime;
-        setStartTime(currentStartTime);
+        const currentStartTime = selectedDate || availableTimeStart;
+        setAvailableTimeStart(currentStartTime);
     };
 
     const onChangeEndTime = (event: any, selectedDate: Date | undefined) => {
-        const currentEndTime = selectedDate || startTime;
-        setEndTime(currentEndTime);
+        const currentEndTime = selectedDate || availableTimeStart;
+        setAvailableTimeEnd(currentEndTime);
     };
 
     const [coordinate, setCoordinate] = useState<Coordinate>(
         meeting?.coordinate ??
             client?.coordinate ?? { address: '', latitude: 0, longitude: 0 },
     );
+
     const onSubmit = useCallback(async () => {
-        if (startTime === undefined || endTime === undefined) {
+        if (
+            availableTimeStart === undefined ||
+            availableTimeEnd === undefined ||
+            durationInMinutes === meeting?.durationInMinutes
+        ) {
             return;
         }
         if (client !== undefined) {
             dispatch(
                 createMeetingThunk({
                     clientId: client.id,
-                    name: client.name,
+                    durationInMinutes: durationInMinutes,
                     coordinate: coordinate,
-                    startTime: new Date(startTime),
-                    endTime: new Date(endTime),
+                    availableTimeStart: new Date(availableTimeStart),
+                    availableTimeEnd: new Date(availableTimeEnd),
                 }),
             );
         } else if (meeting !== undefined) {
@@ -79,16 +90,25 @@ export const AddMeetingScreen = ({
                 updateMeetingThunk({
                     id: meeting.id,
                     updateMeetingDto: {
-                        name: meeting.name,
+                        durationInMinutes: durationInMinutes,
                         coordinate: coordinate,
-                        startTime: new Date(startTime),
-                        endTime: new Date(endTime),
+                        availableTimeStart: new Date(availableTimeStart),
+                        availableTimeEnd: new Date(availableTimeEnd),
                     },
                 }),
             );
         }
         navigation.goBack();
-    }, [startTime, endTime, client, meeting, navigation, dispatch, coordinate]);
+    }, [
+        durationInMinutes,
+        availableTimeStart,
+        availableTimeEnd,
+        client,
+        meeting,
+        navigation,
+        dispatch,
+        coordinate,
+    ]);
 
     return (
         <SafeAreaView style={styles.view}>
@@ -110,18 +130,28 @@ export const AddMeetingScreen = ({
                     />
                     <DatePicker
                         onChange={onChangeDate}
-                        value={startTime}
+                        value={availableTimeStart}
                         title={'Дата встречи:'}
                     />
                     <TimePicker
                         onChange={onChangeStartTime}
-                        value={startTime}
-                        title={'Начало встречи:'}
+                        value={availableTimeStart}
+                        title={'Начало свободного времени:'}
                     />
                     <TimePicker
                         onChange={onChangeEndTime}
-                        value={endTime}
-                        title={'Конец встречи:'}
+                        value={availableTimeEnd}
+                        title={'Конец свободного времени:'}
+                    />
+                    <TextInput
+                        label={'Продолжительность встречи в минутах'}
+                        defaultValue={durationInMinutes.toString()}
+                        style={styles.input}
+                        keyboardType="numeric"
+                        maxLength={3}
+                        onChangeText={(newValue) =>
+                            setDurationInMinutes(Number.parseInt(newValue, 10))
+                        }
                     />
                 </View>
             </ScrollView>

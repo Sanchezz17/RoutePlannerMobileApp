@@ -28,9 +28,12 @@ export const RoutePointCard = ({
             name={meeting.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
-                `Время встречи: ${new Date(
+                `Начало встречи: ${new Date(
                     meeting.startTime,
-                ).toLocaleString()}`,
+                ).toLocaleTimeString()}`,
+                `Конец встречи: ${new Date(
+                    meeting.endTime,
+                ).toLocaleTimeString()}`,
             ]}
             hasPicture={false}
             contacts={{

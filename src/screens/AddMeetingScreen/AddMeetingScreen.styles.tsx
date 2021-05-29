@@ -48,4 +48,9 @@ export default StyleSheet.create({
         marginBottom: 30,
         marginHorizontal: '5%',
     },
+    input: {
+        display: 'flex',
+        alignSelf: 'center',
+        width: '96%',
+    },
 });

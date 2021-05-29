@@ -5,8 +5,11 @@ export interface Meeting {
     id: number;
     clientId: number;
     name: string;
+    availableTimeStart: Date;
+    availableTimeEnd: Date;
     startTime: Date;
     endTime: Date;
+    durationInMinutes: number;
     coordinate: Coordinate;
     client: Client;
 }

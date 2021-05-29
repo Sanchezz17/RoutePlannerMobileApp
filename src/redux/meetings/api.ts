@@ -6,17 +6,17 @@ import { Meeting } from './types';
 const meetingsApiPrefix = `${prefix}/meetings`;
 
 export interface UpdateMeetingDto {
-    name: string;
-    startTime: Date;
-    endTime: Date;
+    durationInMinutes: number;
+    availableTimeStart: Date;
+    availableTimeEnd: Date;
     coordinate: Coordinate;
 }
 
 export interface CreateMeetingDto {
     clientId: number;
-    name: string;
-    startTime: Date;
-    endTime: Date;
+    availableTimeStart: Date;
+    availableTimeEnd: Date;
+    durationInMinutes: number;
     coordinate: Coordinate;
 }
 
