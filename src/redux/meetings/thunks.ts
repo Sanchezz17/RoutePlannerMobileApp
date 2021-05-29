@@ -52,6 +52,14 @@ export const updateMeetingThunk = createAsyncThunk(
     },
 );
 
+export const updateMeetingEndTimeThunk = createAsyncThunk(
+    'meetings/updateMeetingEndTimeThunkStatus',
+    async (updateMeetingEndTimeParameters: { id: number; endTime: Date }) => {
+        const { id, endTime } = updateMeetingEndTimeParameters;
+        return await meetingsApi.updateMeetingEndTimeAsync(id, endTime);
+    },
+);
+
 export const deleteMeetingThunk = createAsyncThunk(
     'meeting/deleteMeetingThunkStatus',
     async (id: number) => {

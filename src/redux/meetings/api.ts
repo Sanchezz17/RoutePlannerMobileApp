@@ -50,6 +50,16 @@ const updateMeetingAsync = async (
     });
 };
 
+const updateMeetingEndTimeAsync = async (
+    id: number,
+    endTime: Date,
+): Promise<Meeting> => {
+    return await authorizeFetch(`${meetingsApiPrefix}/${id}/end-time`, {
+        method: 'PUT',
+        body: JSON.stringify(endTime),
+    });
+};
+
 const deleteMeetingAsync = async (id: number): Promise<number> => {
     return await authorizeFetch(`${meetingsApiPrefix}/${id}`, {
         method: 'DELETE',
@@ -60,5 +70,6 @@ export const meetingsApi = {
     getMeetingsAsync,
     createMeetingAsync,
     updateMeetingAsync,
+    updateMeetingEndTimeAsync,
     deleteMeetingAsync,
 };

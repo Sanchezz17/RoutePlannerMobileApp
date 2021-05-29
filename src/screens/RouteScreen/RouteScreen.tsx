@@ -5,6 +5,7 @@ import createGoogleMapsRouteUrl from '../../common/utils/createGoogleMapsRouteUr
 import { RoutePointCard } from '../../components/Cards/RoutePointCard/RoutePointCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { updateMeetingEndTimeThunk } from '../../redux/meetings/thunks';
 import { Meeting } from '../../redux/meetings/types';
 import { selectLoadingRoute, selectRoute } from '../../redux/routes/selectors';
 import { getCurrentRouteMeetingsThunk } from '../../redux/routes/thunks';
@@ -36,7 +37,14 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                     menuItems={[
                         {
                             name: 'Встреча окончена',
-                            action: () => {},
+                            action: () => {
+                                dispatch(
+                                    updateMeetingEndTimeThunk({
+                                        id: routePoint.id,
+                                        endTime: new Date(),
+                                    }),
+                                );
+                            },
                         },
                         {
                             name: 'Проложить маршрут',
@@ -56,7 +64,9 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                     ]}
                 />
             )}
-            cardKeyExtractor={(item: Meeting) => `${item.id}${item.name}`}
+            cardKeyExtractor={(item: Meeting) =>
+                `${item.id}${item.client.name}`
+            }
             dataSelector={(rootState) =>
                 selectRoute(rootState, currentUser.id)?.suitableMeetings ?? []
             }

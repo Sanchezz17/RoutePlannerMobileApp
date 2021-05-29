@@ -6,6 +6,7 @@ import {
     deleteMeetingThunk,
     getMeetingsThunk,
     getMoreMeetingsThunk,
+    updateMeetingEndTimeThunk,
     updateMeetingThunk,
 } from './thunks';
 import { Meeting } from './types';
@@ -54,6 +55,13 @@ const meetingsSlice = createSlice({
             state.meetings[createdMeeting.id] = createdMeeting;
         },
         [updateMeetingThunk.fulfilled.type]: (
+            state: MeetingsState,
+            action: PayloadAction<Meeting>,
+        ) => {
+            const updatedMeeting = action.payload;
+            state.meetings[updatedMeeting.id] = updatedMeeting;
+        },
+        [updateMeetingEndTimeThunk.fulfilled.type]: (
             state: MeetingsState,
             action: PayloadAction<Meeting>,
         ) => {
