@@ -8,6 +8,7 @@ import { Button, Divider } from 'react-native-paper';
 import { SettingsCard } from '../../components/Cards/SettingsCard/SettingsCard';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
 import MailIcon from '../../components/icons/Inputs/Text/MailIcon';
+import NameIcon from '../../components/icons/Inputs/Text/NameIcon';
 import PhoneIcon from '../../components/icons/Inputs/Text/PhoneIcon';
 import TelegramIcon from '../../components/icons/Inputs/Text/TelegramIcon';
 import TextInput from '../../components/TextInput/TextInput';
@@ -25,6 +26,7 @@ LogBox.ignoreLogs([
     /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
 ]);
 
+const NAME_FIELD = 'name';
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
 
@@ -49,6 +51,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
         async (formData) => {
             if (
                 !deepEqual(coordinate, user.coordinate) ||
+                (formData.name && user.name !== formData.name) ||
                 (formData.telegram && user.telegram !== formData.telegram) ||
                 (formData.mobilePhone &&
                     user.mobilePhone !== formData.mobilePhone)
@@ -57,6 +60,7 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                     updateUserThunk({
                         id: user.id,
                         updateUserDto: {
+                            name: formData.name,
                             mobilePhone: formData.mobilePhone,
                             telegram: formData.telegram,
                             coordinate: coordinate,
@@ -80,8 +84,10 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     );
 
     useEffect(() => {
+        register(NAME_FIELD);
         register(MOBILE_PHONE_FIELD);
         register(TELEGRAM_FIELD);
+        setValue(NAME_FIELD, user.name);
         setValue(MOBILE_PHONE_FIELD, user.mobilePhone);
         setValue(TELEGRAM_FIELD, user.telegram);
         setCoordinate(user?.coordinate ?? defaultCoordinate);
@@ -103,6 +109,14 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         defaultValue={user.email}
                         active={false}
                         leftIcon={<MailIcon focused={false} />}
+                    />
+                    <TextInput
+                        label={'Имя'}
+                        mode={'outlined'}
+                        autoCorrect={false}
+                        onChangeText={onChangeField(NAME_FIELD)}
+                        defaultValue={user.name}
+                        leftIcon={<NameIcon />}
                     />
                     <TextInput
                         label={'Телефон'}

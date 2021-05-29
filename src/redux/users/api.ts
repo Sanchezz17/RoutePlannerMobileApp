@@ -5,6 +5,7 @@ import { Coordinate, Right, User, UserRight } from './types';
 const usersApiPrefix = `${prefix}/users`;
 
 export interface UpdateUserDto {
+    name: string;
     mobilePhone: string;
     telegram: string;
     coordinate: Coordinate;
