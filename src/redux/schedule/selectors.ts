@@ -17,7 +17,7 @@ export const selectManagerSchedule = (
         state.scheduleSlice.schedule[managerId] ?? {},
     );
     const result: ManagerSchedule[] = [];
-    for (let day = 0; day < 5; day++) {
+    for (let day = 0; day < 7; day++) {
         result.push({
             endCoordinate: { address: '', longitude: 0, latitude: 0 },
             endTime: new Date(),
