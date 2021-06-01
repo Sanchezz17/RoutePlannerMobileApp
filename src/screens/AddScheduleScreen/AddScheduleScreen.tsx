@@ -4,12 +4,13 @@ import { Divider, FAB, Text } from 'react-native-paper';
 
 import { LocationPicker } from '../../components/Pickers/LocationPicker';
 import { TimePicker } from '../../components/Pickers/TimePicker';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
     createManagerScheduleThunk,
     updateManagerScheduleThunk,
 } from '../../redux/schedule/thunks';
 import { ManagerSchedule } from '../../redux/schedule/types';
+import { selectCurrentUser } from '../../redux/users/selectors';
 import { ScheduleRoutes } from '../../routing/schedule/routes';
 import { ScheduleStackNavigationProps } from '../../routing/schedule/types';
 import styles, { theme } from './AddScheduleScreen.styles';
@@ -20,6 +21,7 @@ export const AddScheduleScreen = ({
     navigation,
 }: AddScheduleScreenProps) => {
     const dispatch = useAppDispatch();
+    const currentUser = useAppSelector(selectCurrentUser);
     const date = new Date(route.params.dateJson);
     const scheduleDto = route.params.schedule;
     const currentSchedule: ManagerSchedule = {
@@ -37,10 +39,14 @@ export const AddScheduleScreen = ({
         currentSchedule.id !== 0 ? currentSchedule.endTime : undefined,
     );
     const [startCoordinate, setStartCoordinate] = useState(
-        currentSchedule.id !== 0 ? currentSchedule.startCoordinate : undefined,
+        currentSchedule.id !== 0
+            ? currentSchedule.startCoordinate
+            : currentUser.coordinate,
     );
     const [endCoordinate, setEndCoordinate] = useState(
-        currentSchedule.id !== 0 ? currentSchedule.endCoordinate : undefined,
+        currentSchedule.id !== 0
+            ? currentSchedule.endCoordinate
+            : currentUser.coordinate,
     );
 
     const getDateTime = (time: Date) => {
@@ -126,14 +132,14 @@ export const AddScheduleScreen = ({
                         title={'Конец смены:'}
                     />
                     <LocationPicker
-                        initialCoordinate={currentSchedule.startCoordinate}
+                        initialCoordinate={startCoordinate}
                         onChange={(newCoordinate) =>
                             setStartCoordinate(newCoordinate)
                         }
                         label={'Начало маршрута'}
                     />
                     <LocationPicker
-                        initialCoordinate={currentSchedule.endCoordinate}
+                        initialCoordinate={endCoordinate}
                         onChange={(newCoordinate) =>
                             setEndCoordinate(newCoordinate)
                         }
