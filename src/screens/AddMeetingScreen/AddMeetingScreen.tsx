@@ -29,7 +29,7 @@ export const AddMeetingScreen = ({
     const dispatch = useAppDispatch();
 
     const [meetingDate, setMeetingDate] = useState<Date | undefined>(
-        meeting ? meeting.availableTimeStart : undefined,
+        meeting ? new Date(meeting.availableTimeStart) : undefined,
     );
 
     const [availableTimeStart, setAvailableTimeStart] = useState<
