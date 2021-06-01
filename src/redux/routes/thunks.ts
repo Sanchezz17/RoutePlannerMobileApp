@@ -5,7 +5,7 @@ import { routesApi } from './api';
 import { Route } from './types';
 
 export interface GetCurrentRoutePayload {
-    managerId?: number;
+    managerId: number;
     route: Route;
 }
 export interface RouteSearchParameters {
@@ -18,7 +18,7 @@ export const getCurrentRouteThunk = createAsyncThunk(
     }: RouteSearchParameters): Promise<GetCurrentRoutePayload> => {
         const route = await routesApi.getCurrentRouteAsync(managerId);
         return {
-            managerId,
+            managerId: managerId ?? 0,
             route,
         };
     },

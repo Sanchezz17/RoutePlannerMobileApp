@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { updateMeetingEndTimeThunk } from '../../redux/meetings/thunks';
 import { Meeting } from '../../redux/meetings/types';
 import { selectLoadingRoute, selectRoute } from '../../redux/routes/selectors';
-import { getCurrentRouteMeetingsThunk } from '../../redux/routes/thunks';
+import { getCurrentRouteThunk } from '../../redux/routes/thunks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { ManagersRoutes } from '../../routing/managers/routes';
 import { ManagersStackNavigationProps } from '../../routing/managers/types';
@@ -71,8 +71,8 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                 selectRoute(rootState, currentUser.id)?.suitableMeetings ?? []
             }
             loadingSelector={selectLoadingRoute}
-            loadDataThunk={getCurrentRouteMeetingsThunk}
-            loadMoreDataThunk={getCurrentRouteMeetingsThunk}
+            loadDataThunk={getCurrentRouteThunk}
+            loadMoreDataThunk={getCurrentRouteThunk}
         />
     );
 };
