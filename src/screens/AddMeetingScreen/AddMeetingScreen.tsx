@@ -28,12 +28,16 @@ export const AddMeetingScreen = ({
     const client = route.params?.client;
     const dispatch = useAppDispatch();
 
+    const [meetingDate, setMeetingDate] = useState<Date | undefined>(
+        meeting ? meeting.availableTimeStart : undefined,
+    );
+
     const [availableTimeStart, setAvailableTimeStart] = useState<
         Date | undefined
-    >(meeting !== undefined ? new Date(meeting.availableTimeStart) : undefined);
+    >(meeting ? new Date(meeting.availableTimeStart) : undefined);
 
     const [availableTimeEnd, setAvailableTimeEnd] = useState<Date | undefined>(
-        meeting !== undefined ? new Date(meeting.availableTimeEnd) : undefined,
+        meeting ? new Date(meeting.availableTimeEnd) : undefined,
     );
 
     const [durationInMinutes, setDurationInMinutes] = useState<number>(
@@ -41,28 +45,31 @@ export const AddMeetingScreen = ({
     );
 
     const onChangeDate = (event: any, selectedDate: Date | undefined) => {
-        const currentStartTime = selectedDate || availableTimeStart;
-        setAvailableTimeStart(currentStartTime);
-        if (currentStartTime !== undefined) {
-            const currentEndTime = new Date(
-                currentStartTime.getFullYear(),
-                currentStartTime.getMonth(),
-                currentStartTime.getDay(),
-                availableTimeEnd?.getHours() ?? currentStartTime.getHours(),
-                availableTimeEnd?.getMinutes() ?? currentStartTime.getMinutes(),
+        setMeetingDate(selectedDate);
+    };
+
+    const onChangeStartTime = (event: any, selectedTime: Date | undefined) => {
+        if (meetingDate) {
+            selectedTime?.setFullYear(
+                meetingDate?.getFullYear() ?? new Date().getFullYear(),
+                meetingDate?.getMonth(),
+                meetingDate?.getDate(),
             );
-            setAvailableTimeEnd(currentEndTime);
         }
+        selectedTime?.setSeconds(0);
+        setAvailableTimeStart(selectedTime);
     };
 
-    const onChangeStartTime = (event: any, selectedDate: Date | undefined) => {
-        const currentStartTime = selectedDate || availableTimeStart;
-        setAvailableTimeStart(currentStartTime);
-    };
-
-    const onChangeEndTime = (event: any, selectedDate: Date | undefined) => {
-        const currentEndTime = selectedDate || availableTimeStart;
-        setAvailableTimeEnd(currentEndTime);
+    const onChangeEndTime = (event: any, selectedTime: Date | undefined) => {
+        if (meetingDate) {
+            selectedTime?.setFullYear(
+                meetingDate?.getFullYear() ?? new Date().getFullYear(),
+                meetingDate?.getMonth(),
+                meetingDate?.getDate(),
+            );
+        }
+        selectedTime?.setSeconds(0);
+        setAvailableTimeEnd(selectedTime);
     };
 
     const [coordinate, setCoordinate] = useState<Coordinate>(
@@ -74,13 +81,14 @@ export const AddMeetingScreen = ({
         if (
             availableTimeStart === undefined ||
             availableTimeEnd === undefined ||
-            durationInMinutes === meeting?.durationInMinutes
+            meetingDate === undefined
         ) {
             return;
         }
         if (client !== undefined) {
             dispatch(
                 createMeetingThunk({
+                    client: client,
                     clientId: client.id,
                     durationInMinutes: durationInMinutes,
                     coordinate: coordinate,
@@ -104,6 +112,7 @@ export const AddMeetingScreen = ({
         navigation.goBack();
     }, [
         durationInMinutes,
+        meetingDate,
         availableTimeStart,
         availableTimeEnd,
         client,
@@ -133,7 +142,7 @@ export const AddMeetingScreen = ({
                     />
                     <DatePicker
                         onChange={onChangeDate}
-                        value={availableTimeStart}
+                        value={meetingDate}
                         title={'Дата встречи:'}
                     />
                     <TimePicker

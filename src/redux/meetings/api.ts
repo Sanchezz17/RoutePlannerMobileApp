@@ -1,5 +1,6 @@
 import { prefix } from '../../common/constants';
 import { authorizeFetch } from '../../common/utils/autorizeFetch';
+import { Client } from '../clients/types';
 import { Coordinate } from '../users/types';
 import { Meeting } from './types';
 
@@ -13,6 +14,7 @@ export interface UpdateMeetingDto {
 }
 
 export interface CreateMeetingDto {
+    client: Client;
     clientId: number;
     availableTimeStart: Date;
     availableTimeEnd: Date;
