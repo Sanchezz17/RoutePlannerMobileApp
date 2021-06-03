@@ -68,7 +68,13 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                 `${item.id}${item.client.name}`
             }
             dataSelector={(rootState) =>
-                selectRoute(rootState, currentUser.id)?.suitableMeetings ?? []
+                selectRoute(rootState, currentUser.id)
+                    ?.suitableMeetings.slice()
+                    .sort(
+                        (first, second) =>
+                            new Date(first.startTime).getTime() -
+                            new Date(second.startTime).getTime(),
+                    ) ?? []
             }
             loadingSelector={selectLoadingRoute}
             loadDataThunk={getCurrentRouteThunk}
