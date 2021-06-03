@@ -72,6 +72,16 @@ export default StyleSheet.create({
         display: 'flex',
         justifyContent: 'flex-start',
         marginLeft: 20,
+        maxWidth: '80%',
+    },
+    infoShifted: {
+        marginLeft: 40,
+    },
+    children: {
+        width: 30,
+        borderWidth: 1,
+        position: 'absolute',
+        height: '100%',
     },
     name: {
         marginTop: 0,

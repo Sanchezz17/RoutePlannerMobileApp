@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Linking } from 'react-native';
 
 import createGoogleMapsRouteUrl from '../../common/utils/createGoogleMapsRouteUrl';
@@ -18,6 +18,8 @@ type ManagersScreenProps = ManagersStackNavigationProps<ManagersRoutes.Managers>
 export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
     const dispatch = useAppDispatch();
     const currentUser = useAppSelector(selectCurrentUser);
+    const [lastCardNumber, setLastCardNumber] = useState(0);
+    const [activeCardNumber, setActiveCardNumber] = useState(-1);
     return (
         <ListScreen
             renderCard={(
@@ -34,6 +36,10 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                     }
                     cardNumber={index}
                     expandedCardNumber={expandedCardIndex}
+                    lastCardNumber={lastCardNumber}
+                    setLastCardNumber={setLastCardNumber}
+                    activeCardNumber={activeCardNumber}
+                    setActiveCardNumber={setActiveCardNumber}
                     menuItems={[
                         {
                             name: 'Встреча окончена',

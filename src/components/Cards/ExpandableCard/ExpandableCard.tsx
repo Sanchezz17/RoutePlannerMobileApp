@@ -41,9 +41,10 @@ export interface ExpandableCardProps {
     contacts: Contacts;
     cardNumber: number;
     expandedCardNumber: number;
-    setExpandedCardNumber: Function;
+    setExpandedCardNumber: (number: number) => void;
     menuItems: MenuItem[];
     style?: StyleProp<ViewStyle>;
+    children?: Element;
 }
 
 export const ExpandableCard = ({
@@ -57,6 +58,7 @@ export const ExpandableCard = ({
     setExpandedCardNumber,
     menuItems,
     style,
+    children,
 }: ExpandableCardProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [menuOpened, setMenuOpened] = useState(false);
@@ -130,6 +132,7 @@ export const ExpandableCard = ({
 
     return (
         <View style={[styles.card, style]}>
+            {children && <View style={styles.children}>{children}</View>}
             <View style={styles.cardInfo}>
                 <View style={styles.kebabIconView}>
                     <Menu
@@ -139,7 +142,11 @@ export const ExpandableCard = ({
                         onDismiss={closeMenu}
                     />
                 </View>
-                <View style={styles.info}>
+                <View
+                    style={[
+                        styles.info,
+                        children === undefined ? undefined : styles.infoShifted,
+                    ]}>
                     <Animated.View
                         style={[
                             animatedNameExpansionStyle,

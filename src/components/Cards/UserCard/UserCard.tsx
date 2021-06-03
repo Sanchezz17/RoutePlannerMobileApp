@@ -13,7 +13,7 @@ export interface UserCardProps {
 export const UserCard = ({ user }: UserCardProps) => {
     return (
         <View style={styles.card}>
-            <View style={styles.content}>
+            <View style={styles.children}>
                 <View style={styles.info}>
                     <ScrollView
                         nestedScrollEnabled={true}

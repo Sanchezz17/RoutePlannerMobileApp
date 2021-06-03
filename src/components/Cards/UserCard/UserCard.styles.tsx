@@ -8,7 +8,7 @@ export default StyleSheet.create({
     card: {
         minHeight: 120,
     },
-    content: {
+    children: {
         display: 'flex',
         justifyContent: 'space-between',
         minHeight: 120,
