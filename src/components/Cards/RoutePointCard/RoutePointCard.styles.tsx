@@ -23,7 +23,6 @@ export default StyleSheet.create({
     stripeBottom: {
         position: 'absolute',
         bottom: '-3%',
-        backgroundColor: 'blue',
     },
     indicatorCircle: {
         position: 'absolute',
@@ -39,24 +38,24 @@ export default StyleSheet.create({
         backgroundColor: palette.Background,
     },
     indicatorStripeActive: {
-        borderColor: palette.Primary,
-        color: palette.Primary,
+        backgroundColor: palette.Primary,
     },
     indicatorStripeVisited: {
-        borderColor: palette.SystemUI,
-        color: palette.SystemUI,
-        backgroundColor: palette.SystemUI,
+        backgroundColor: palette.SystemUISecondary,
     },
     indicatorStripeWillVisit: {
-        borderColor: palette.Secondary,
-        color: palette.Secondary,
-        backgroundColor: palette.Secondary,
+        backgroundColor: palette.SecondaryTransparent,
     },
 
     indicatorCircleActive: {
         borderColor: palette.Primary,
+        borderWidth: 1,
+        width: 22,
+        height: 22,
+        lineHeight: 20,
+        marginTop: -12,
         color: palette.Primary,
-        backgroundColor: palette.PrimaryTransparent,
+        backgroundColor: palette.PrimaryFaint,
     },
     indicatorCircleVisited: {
         borderColor: palette.SystemUI,
@@ -64,7 +63,7 @@ export default StyleSheet.create({
         backgroundColor: palette.Background,
     },
     indicatorCircleWillVisit: {
-        borderColor: palette.Secondary,
+        borderColor: palette.SecondaryTransparent,
         color: palette.Secondary,
         backgroundColor: palette.Background,
     },

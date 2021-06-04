@@ -4,7 +4,7 @@ import { Text } from 'react-native-paper';
 
 import { Meeting } from '../../../redux/meetings/types';
 import { ExpandableCard } from '../ExpandableCard/ExpandableCard';
-import styles from './RequestCard.styles';
+import styles from './RoutePointCard.styles';
 
 interface MenuItem {
     name: string;
@@ -39,6 +39,14 @@ export const RoutePointCard = ({
             setLastCardNumber(cardNumber);
         }
     }, [cardNumber, lastCardNumber, setLastCardNumber]);
+    useEffect(() => {
+        if (
+            new Date().getTime() < new Date(meeting.endTime).getTime() &&
+            cardNumber < activeCardNumber
+        ) {
+            setActiveCardNumber(cardNumber);
+        }
+    }, [activeCardNumber, cardNumber, meeting.endTime, setActiveCardNumber]);
 
     const getIndicatorStyle = (indicatorType: 'stripe' | 'circle') => {
         if (cardNumber < activeCardNumber) {

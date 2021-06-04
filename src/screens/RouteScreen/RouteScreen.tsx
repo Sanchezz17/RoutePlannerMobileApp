@@ -19,7 +19,9 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
     const dispatch = useAppDispatch();
     const currentUser = useAppSelector(selectCurrentUser);
     const [lastCardNumber, setLastCardNumber] = useState(0);
-    const [activeCardNumber, setActiveCardNumber] = useState(-1);
+    const [activeCardNumber, setActiveCardNumber] = useState(
+        Number.MAX_SAFE_INTEGER,
+    );
     return (
         <ListScreen
             renderCard={(
