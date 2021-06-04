@@ -13,7 +13,7 @@ export interface MeetingCardProps {
     meeting: Meeting;
     cardNumber: number;
     expandedCardNumber: number;
-    setExpandedCardNumber: Function;
+    setExpandedCardNumber: (number: number) => void;
     menuItems: MenuItem[];
 }
 
@@ -30,8 +30,8 @@ export const MeetingCard = ({
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
                 `Свободное время: ${getTimeString(
-                    new Date(meeting.availableTimeStart),
-                )} - ${getTimeString(new Date(meeting.availableTimeEnd))}`,
+                    meeting.availableTimeStart,
+                )} - ${getTimeString(meeting.availableTimeEnd)}`,
                 `Продолжительность встречи: ${meeting.durationInMinutes} мин`,
             ]}
             hasPicture={false}

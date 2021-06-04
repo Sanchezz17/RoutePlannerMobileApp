@@ -12,7 +12,7 @@ export interface ManagerCardProps {
     user: User;
     cardNumber: number;
     expandedCardNumber: number;
-    setExpandedCardNumber: Function;
+    setExpandedCardNumber: (number: number) => void;
     menuItems: MenuItem[];
 }
 

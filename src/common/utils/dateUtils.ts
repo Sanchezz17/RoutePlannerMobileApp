@@ -20,5 +20,5 @@ export const getStartOfNextWeek = (date: Date): Date => {
 };
 
 export const getTimeString = (date: Date): string => {
-    return date.toLocaleTimeString().slice(0, -3);
+    return new Date(date).toLocaleTimeString().slice(0, -3);
 };

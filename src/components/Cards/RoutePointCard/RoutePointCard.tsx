@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 
+import { getTimeString } from '../../../common/utils/dateUtils';
 import { Meeting } from '../../../redux/meetings/types';
 import { ExpandableCard } from '../ExpandableCard/ExpandableCard';
 import styles from './RoutePointCard.styles';
@@ -71,12 +72,8 @@ export const RoutePointCard = ({
             name={meeting?.client?.name}
             additionalInfos={[
                 `Адрес: ${meeting.coordinate?.address}`,
-                `Начало встречи: ${new Date(
-                    meeting.startTime,
-                ).toLocaleTimeString()}`,
-                `Конец встречи: ${new Date(
-                    meeting.endTime,
-                ).toLocaleTimeString()}`,
+                `Начало встречи: ${getTimeString(meeting.startTime)}`,
+                `Конец встречи: ${getTimeString(meeting.startTime)}`,
             ]}
             hasPicture={false}
             contacts={{
