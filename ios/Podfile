@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'RoutePlannerMobileApp' do
+target 'RoutePlanner' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'RoutePlannerMobileAppTests' do
+  target 'RoutePlannerTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'RoutePlannerMobileApp' do
   end
 end
 
-target 'RoutePlannerMobileApp-tvOS' do
-  # Pods for RoutePlannerMobileApp-tvOS
+target 'RoutePlanner-tvOS' do
+  # Pods for RoutePlanner-tvOS
 
-  target 'RoutePlannerMobileApp-tvOSTests' do
+  target 'RoutePlanner-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
