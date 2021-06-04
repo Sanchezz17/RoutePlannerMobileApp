@@ -180,7 +180,11 @@ export const ExpandableCard = ({
                 </Animated.View>
             </View>
             <Animated.View
-                style={[styles.contactsContainer, animatedExpansionStyle]}>
+                style={[
+                    styles.contactsContainer,
+                    animatedExpansionStyle,
+                    children === undefined ? undefined : styles.contactsShifted,
+                ]}>
                 <Divider style={styles.divider} />
                 <Contacts
                     email={contacts.email}

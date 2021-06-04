@@ -39,6 +39,25 @@ export const RoutePointCard = ({
             setLastCardNumber(cardNumber);
         }
     }, [cardNumber, lastCardNumber, setLastCardNumber]);
+
+    const getIndicatorStyle = (indicatorType: 'stripe' | 'circle') => {
+        if (cardNumber < activeCardNumber) {
+            return indicatorType === 'stripe'
+                ? styles.indicatorStripeVisited
+                : styles.indicatorCircleVisited;
+        }
+        if (cardNumber === activeCardNumber) {
+            return indicatorType === 'stripe'
+                ? styles.indicatorStripeActive
+                : styles.indicatorCircleActive;
+        }
+        if (cardNumber > activeCardNumber) {
+            return indicatorType === 'stripe'
+                ? styles.indicatorStripeWillVisit
+                : styles.indicatorCircleWillVisit;
+        }
+        return undefined;
+    };
     return (
         <ExpandableCard
             name={meeting?.client?.name}
@@ -63,12 +82,28 @@ export const RoutePointCard = ({
             menuItems={menuItems}>
             <View style={[styles.indicatorContainer]}>
                 {cardNumber !== 0 && (
-                    <View style={[styles.indicatorStripe, styles.stripeTop]} />
+                    <View
+                        style={[
+                            styles.indicatorStripe,
+                            styles.stripeTop,
+                            getIndicatorStyle('stripe'),
+                        ]}
+                    />
                 )}
-                <Text style={[styles.indicatorCircle]}>{cardNumber + 1}</Text>
+                <Text
+                    style={[
+                        styles.indicatorCircle,
+                        getIndicatorStyle('circle'),
+                    ]}>
+                    {cardNumber + 1}
+                </Text>
                 {cardNumber !== lastCardNumber && (
                     <View
-                        style={[styles.indicatorStripe, styles.stripeBottom]}
+                        style={[
+                            styles.indicatorStripe,
+                            styles.stripeBottom,
+                            getIndicatorStyle('stripe'),
+                        ]}
                     />
                 )}
             </View>

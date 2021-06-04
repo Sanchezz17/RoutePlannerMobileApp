@@ -7,13 +7,11 @@ export default StyleSheet.create({
     indicatorContainer: {
         width: 20,
         height: '100%',
-        borderWidth: 1,
         alignSelf: 'center',
     },
     indicatorStripe: {
         height: '53%',
-        width: 5,
-        borderWidth: 1,
+        width: 3,
         borderColor: 'blue',
         alignSelf: 'center',
         zIndex: 1,
@@ -40,16 +38,34 @@ export default StyleSheet.create({
         zIndex: 2,
         backgroundColor: palette.Background,
     },
-    indicatorActive: {
+    indicatorStripeActive: {
         borderColor: palette.Primary,
         color: palette.Primary,
     },
-    indicatorVisited: {
+    indicatorStripeVisited: {
         borderColor: palette.SystemUI,
         color: palette.SystemUI,
+        backgroundColor: palette.SystemUI,
     },
-    indicatorWillVisit: {
-        borderColor: palette.SystemUISecondary,
-        color: palette.SystemUISecondary,
+    indicatorStripeWillVisit: {
+        borderColor: palette.Secondary,
+        color: palette.Secondary,
+        backgroundColor: palette.Secondary,
+    },
+
+    indicatorCircleActive: {
+        borderColor: palette.Primary,
+        color: palette.Primary,
+        backgroundColor: palette.PrimaryTransparent,
+    },
+    indicatorCircleVisited: {
+        borderColor: palette.SystemUI,
+        color: palette.SystemUI,
+        backgroundColor: palette.Background,
+    },
+    indicatorCircleWillVisit: {
+        borderColor: palette.Secondary,
+        color: palette.Secondary,
+        backgroundColor: palette.Background,
     },
 });

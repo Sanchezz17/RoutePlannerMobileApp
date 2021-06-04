@@ -77,9 +77,11 @@ export default StyleSheet.create({
     infoShifted: {
         marginLeft: 40,
     },
+    contactsShifted: {
+        marginLeft: 20,
+    },
     children: {
         width: 30,
-        borderWidth: 1,
         position: 'absolute',
         height: '100%',
     },
