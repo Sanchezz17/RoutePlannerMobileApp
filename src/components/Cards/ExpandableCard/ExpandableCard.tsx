@@ -138,7 +138,7 @@ export const ExpandableCard = ({
                     <Menu
                         items={menuItems}
                         visible={menuOpened}
-                        onPressIn={openMenu}
+                        onPress={openMenu}
                         onDismiss={closeMenu}
                     />
                 </View>
@@ -194,7 +194,7 @@ export const ExpandableCard = ({
                 />
             </Animated.View>
             <TouchableOpacity
-                onPressIn={() =>
+                onPress={() =>
                     isExpanded
                         ? setExpandedCardNumber(-1)
                         : setExpandedCardNumber(cardNumber)

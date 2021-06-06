@@ -8,7 +8,7 @@ import styles from './Menu.styles';
 interface MenuProps {
     items: MenuItem[];
     visible: boolean;
-    onPressIn: () => void;
+    onPress: () => void;
     onDismiss: () => void;
 }
 
@@ -17,15 +17,15 @@ export interface MenuItem {
     action: () => void;
 }
 
-const Menu = ({ items, visible, onPressIn, onDismiss }: MenuProps) => (
+const Menu = ({ items, visible, onPress, onDismiss }: MenuProps) => (
     <PaperMenu
         visible={visible}
         onDismiss={onDismiss}
         anchor={
             <TouchableOpacity
                 style={styles.icon}
-                onPressIn={() => {
-                    onPressIn();
+                onPress={() => {
+                    onPress();
                 }}>
                 <KebabMenuIcon />
             </TouchableOpacity>
