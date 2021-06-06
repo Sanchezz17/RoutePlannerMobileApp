@@ -16,14 +16,16 @@ import { ScheduleStackNavigationProps } from '../../routing/schedule/types';
 
 type ScheduleScreenProps = ScheduleStackNavigationProps<ScheduleRoutes.Schedule>;
 
-export const ScheduleScreen = ({ navigation }: ScheduleScreenProps) => {
+export const ScheduleScreen = ({ navigation, route }: ScheduleScreenProps) => {
     const [date, setDate] = useState(getStartOfWeek(new Date()));
     const currentUser = useAppSelector(selectCurrentUser);
+    const user = route.params?.user ?? currentUser;
+
     return (
         <ListScreen
             loadDataThunk={getManagerScheduleForWeekThunk}
             dataSelector={(state) =>
-                selectManagerSchedule(state, currentUser.id, date)
+                selectManagerSchedule(state, user.id, date)
             }
             loadingSelector={selectLoadingSchedule}
             renderCard={(managerSchedule: ManagerSchedule, index) => (

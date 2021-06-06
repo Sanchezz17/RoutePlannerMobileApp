@@ -10,14 +10,20 @@ import { Meeting } from '../../redux/meetings/types';
 import { selectLoadingRoute, selectRoute } from '../../redux/routes/selectors';
 import { getCurrentRouteThunk } from '../../redux/routes/thunks';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import { DrawerRoutes } from '../../routing/main/routes';
+import { DrawerNavigationProps } from '../../routing/main/types';
 import { ManagersRoutes } from '../../routing/managers/routes';
 import { ManagersStackNavigationProps } from '../../routing/managers/types';
 
-type ManagersScreenProps = ManagersStackNavigationProps<ManagersRoutes.Managers>;
+type RouteScreenProps =
+    | DrawerNavigationProps<DrawerRoutes.Route>
+    | ManagersStackNavigationProps<ManagersRoutes.Route>;
 
-export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
-    const dispatch = useAppDispatch();
+export const RouteScreen = ({ route }: RouteScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
+    const user = route.params?.user ?? currentUser;
+    const dispatch = useAppDispatch();
+
     const [lastCardNumber, setLastCardNumber] = useState(0);
     const [activeCardNumber, setActiveCardNumber] = useState(
         Number.MAX_SAFE_INTEGER,
@@ -76,7 +82,7 @@ export const RouteScreen = ({ navigation }: ManagersScreenProps) => {
                 `${item.id}${item.client.name}`
             }
             dataSelector={(rootState) =>
-                selectRoute(rootState, currentUser.id)
+                selectRoute(rootState, user.id)
                     ?.suitableMeetings.slice()
                     .sort(
                         (first, second) =>

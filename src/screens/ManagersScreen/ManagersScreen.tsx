@@ -46,7 +46,11 @@ export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
                         },
                         {
                             name: 'Посмотреть маршрут',
-                            action: () => {},
+                            action: () => {
+                                navigation.navigate(ManagersRoutes.Route, {
+                                    user,
+                                });
+                            },
                         },
                         ...(!hasUserRight(user, Right.Admin)
                             ? [
