@@ -19,7 +19,8 @@ type ScheduleScreenProps = ScheduleStackNavigationProps<ScheduleRoutes.Schedule>
 export const ScheduleScreen = ({ navigation, route }: ScheduleScreenProps) => {
     const [date, setDate] = useState(getStartOfWeek(new Date()));
     const currentUser = useAppSelector(selectCurrentUser);
-    const user = route.params?.user ?? currentUser;
+    const paramsUser = route.params?.user;
+    const user = paramsUser ?? currentUser;
 
     return (
         <ListScreen
@@ -41,24 +42,27 @@ export const ScheduleScreen = ({ navigation, route }: ScheduleScreenProps) => {
                     dayOfWeek={index}
                     weekStart={date}
                     onPress={() => {
-                        navigation.navigate(ScheduleRoutes.AddSchedule, {
-                            schedule: {
-                                id: managerSchedule.id,
-                                userId: managerSchedule.userId,
-                                startTimeJson: new Date(
-                                    managerSchedule.startTime,
+                        if (!paramsUser) {
+                            navigation.navigate(ScheduleRoutes.AddSchedule, {
+                                schedule: {
+                                    id: managerSchedule.id,
+                                    userId: managerSchedule.userId,
+                                    startTimeJson: new Date(
+                                        managerSchedule.startTime,
+                                    ).toJSON(),
+                                    endTimeJson: new Date(
+                                        managerSchedule.endTime,
+                                    ).toJSON(),
+                                    startCoordinate:
+                                        managerSchedule.startCoordinate,
+                                    endCoordinate:
+                                        managerSchedule.endCoordinate,
+                                },
+                                dateJson: new Date(
+                                    date.getTime() + index * DAY_MILLISECONDS,
                                 ).toJSON(),
-                                endTimeJson: new Date(
-                                    managerSchedule.endTime,
-                                ).toJSON(),
-                                startCoordinate:
-                                    managerSchedule.startCoordinate,
-                                endCoordinate: managerSchedule.endCoordinate,
-                            },
-                            dateJson: new Date(
-                                date.getTime() + index * DAY_MILLISECONDS,
-                            ).toJSON(),
-                        });
+                            });
+                        }
                     }}
                 />
             )}

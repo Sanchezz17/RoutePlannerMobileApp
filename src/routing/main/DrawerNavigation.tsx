@@ -38,6 +38,8 @@ const ScreensWithHiddenHeader: string[] = [
     ManagersRoutes.Options,
     ManagersRoutes.CurrentUserOptions,
     ScheduleRoutes.AddSchedule,
+    ManagersRoutes.Route,
+    ManagersRoutes.Schedule,
 ];
 const DrawerNavigation = () => {
     const currentUser = useAppSelector(selectCurrentUser);
@@ -79,13 +81,13 @@ const DrawerNavigation = () => {
                     <Drawer.Screen
                         name={DrawerRoutes.Route}
                         component={RouteScreen}
-                        options={{
+                        options={({ route }) => ({
                             title: 'Маршрут',
                             drawerIcon: ({ focused }) => (
                                 <RouteIcon focused={focused} />
                             ),
-                            headerShown: true,
-                        }}
+                            headerShown: shouldShowHeader(route),
+                        })}
                     />
                 )}
                 {currentUserIsAdmin && (

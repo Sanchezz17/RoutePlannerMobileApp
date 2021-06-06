@@ -42,7 +42,11 @@ export const ManagersScreen = ({ navigation }: ManagersScreenProps) => {
                     menuItems={[
                         {
                             name: 'Посмотреть график',
-                            action: () => {},
+                            action: () => {
+                                navigation.navigate(ManagersRoutes.Schedule, {
+                                    user,
+                                });
+                            },
                         },
                         {
                             name: 'Посмотреть маршрут',
