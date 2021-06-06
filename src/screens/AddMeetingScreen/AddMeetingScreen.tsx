@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { Divider, FAB, Text } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 import { DatePicker } from '../../components/Pickers/DatePicker';
 import { LocationPicker } from '../../components/Pickers/LocationPicker';
@@ -11,7 +12,6 @@ import {
     createMeetingThunk,
     updateMeetingThunk,
 } from '../../redux/meetings/thunks';
-import { Coordinate } from '../../redux/users/types';
 import { MeetingsRoutes } from '../../routing/meetings/routes';
 import { MeetingsStackNavigationProps } from '../../routing/meetings/types';
 import styles, { theme } from './AddMeetingScreen.styles';
@@ -72,17 +72,21 @@ export const AddMeetingScreen = ({
         setAvailableTimeEnd(selectedTime);
     };
 
-    const [coordinate, setCoordinate] = useState<Coordinate>(
-        meeting?.coordinate ??
-            client?.coordinate ?? { address: '', latitude: 0, longitude: 0 },
+    const [coordinate, setCoordinate] = useState(
+        meeting?.coordinate ?? client?.coordinate,
     );
 
     const onSubmit = useCallback(async () => {
         if (
             availableTimeStart === undefined ||
             availableTimeEnd === undefined ||
-            meetingDate === undefined
+            meetingDate === undefined ||
+            coordinate === undefined
         ) {
+            Toast.show({
+                type: 'error',
+                text2: 'Пожалуйста, заполните все данные о встрече',
+            });
             return;
         }
         if (client !== undefined) {
