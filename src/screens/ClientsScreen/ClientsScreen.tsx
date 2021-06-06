@@ -87,13 +87,17 @@ export const ClientsScreen = ({ navigation }: ClientsScreenProps) => {
             loadMoreDataThunk={getMoreClientsThunk}
             navigation={navigation.dangerouslyGetParent()}
             screenTitle={'Клиенты'}>
-            <FAB
-                key={'clientsScreen.FAB'}
-                style={styles.fab}
-                icon={'plus'}
-                color={'black'}
-                onPress={() => navigation.navigate(ClientsRoutes.AddClient, {})}
-            />
+            {hasUserRight(currentUser, Right.Admin) && (
+                <FAB
+                    key={'clientsScreen.FAB'}
+                    style={styles.fab}
+                    icon={'plus'}
+                    color={'black'}
+                    onPress={() =>
+                        navigation.navigate(ClientsRoutes.AddClient, {})
+                    }
+                />
+            )}
         </ListScreen>
     );
 };
