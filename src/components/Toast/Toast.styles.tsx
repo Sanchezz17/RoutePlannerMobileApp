@@ -9,6 +9,7 @@ export default StyleSheet.create({
         backgroundColor: palette.PrimaryFaint,
         borderLeftWidth: 0,
         borderRadius: 50,
+        elevation: 20,
     },
     contentContainerStyle: {
         paddingHorizontal: 15,

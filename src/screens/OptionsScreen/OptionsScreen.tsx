@@ -1,9 +1,9 @@
 import deepEqual from 'deep-equal';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LogBox, SafeAreaView, ScrollView, View } from 'react-native';
-import Toast from 'react-native-easy-toast';
 import { Button, Divider } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 import { SettingsCard } from '../../components/Cards/SettingsCard/SettingsCard';
 import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
@@ -39,8 +39,6 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     const user = route.params?.user ?? currentUser;
     const dispatch = useAppDispatch();
 
-    const toast = useRef<Toast>(null);
-
     const [coordinate, setCoordinate] = useState<Coordinate>(
         user?.coordinate ?? defaultCoordinate,
     );
@@ -67,7 +65,11 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                         },
                     }),
                 );
-                toast.current?.show('Данные сохранены', 1500);
+                Toast.show({
+                    type: 'success',
+                    text2: 'Данные сохранены',
+                    visibilityTime: 1500,
+                });
                 console.log(`user ${user.id} changed`);
                 console.log(`form data ${JSON.stringify(formData)}`);
                 console.log(`updated user ${JSON.stringify(updatedUser)}`);
@@ -101,7 +103,6 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                 contentContainerStyle={styles.container}>
                 <SettingsCard user={user} />
                 <Divider style={styles.divider} />
-                <Toast ref={toast} position={'center'} />
                 <View style={styles.form}>
                     <TextInput
                         label={'Email'}

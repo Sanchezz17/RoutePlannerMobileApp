@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Toast from 'react-native-easy-toast';
+import Toast from 'react-native-toast-message';
 
 import { RequestCard } from '../../components/Cards/RequestCard/RequestCard';
 import { ListScreen } from '../../containers/ListScreen/ListScreen';
@@ -41,19 +41,26 @@ export const RequestsScreen = ({ navigation }: RequestsScreenProps) => {
                             }),
                         );
                         dispatch(acceptRequest(userId));
-                        toast.current?.show('Заявка принята', 1500);
+                        Toast.show({
+                            type: 'info',
+                            text2: 'Заявка принята',
+                            visibilityTime: 1500,
+                        });
                     }}
                     onReject={() => {
                         dispatch(deleteUserThunk(user.id));
-                        toast.current?.show('Заявка отклонена', 1500);
+                        Toast.show({
+                            type: 'info',
+                            text2: 'Заявка отклонена',
+                            visibilityTime: 1500,
+                        });
                     }}
                 />
             )}
             cardKeyExtractor={(user: User) => `${user.id}${user.email}`}
             //@ts-ignore
             navigation={navigation}
-            screenTitle={'Заявки'}>
-            <Toast ref={toast} position={'center'} />
-        </ListScreen>
+            screenTitle={'Заявки'}
+        />
     );
 };
