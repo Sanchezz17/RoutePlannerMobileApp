@@ -38,8 +38,14 @@ export const selectManagerSchedule = (
     );
 
     for (let schedule of fetchedSchedules) {
-        const day = new Date(schedule.startTime).getDay();
+        let day = new Date(schedule.startTime).getDay();
+        if (day === 0) {
+            day = 7;
+        }
         result[day - 1] = schedule;
+        console.log(`day ${day}`);
+        console.log(`schedule ${JSON.stringify(schedule)}`);
     }
+    console.log(result);
     return result;
 };
