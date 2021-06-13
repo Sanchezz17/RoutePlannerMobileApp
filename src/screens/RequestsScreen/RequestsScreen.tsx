@@ -21,7 +21,6 @@ import { DrawerNavigationProps } from '../../routing/main/types';
 type RequestsScreenProps = DrawerNavigationProps<DrawerRoutes.Requests>;
 export const RequestsScreen = ({ navigation }: RequestsScreenProps) => {
     const dispatch = useAppDispatch();
-    const toast = useRef<Toast>(null);
 
     return (
         <ListScreen

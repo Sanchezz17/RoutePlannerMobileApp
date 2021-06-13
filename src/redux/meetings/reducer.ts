@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import createMap from '../../common/utils/createMap';
 import {
@@ -36,6 +37,14 @@ const meetingsSlice = createSlice({
             state.meetings = createMap(action.payload);
             state.loadingMeetings = false;
         },
+        [getMeetingsThunk.rejected.type]: (state: MeetingsState) => {
+            state.loadingMeetings = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке встреч',
+                visibilityTime: 1500,
+            });
+        },
         [getMoreMeetingsThunk.pending.type]: (state: MeetingsState) => {
             state.loadingMeetings = true;
         },
@@ -47,12 +56,27 @@ const meetingsSlice = createSlice({
             state.meetings = { ...state.meetings, ...extraMeetingsMap };
             state.loadingMeetings = false;
         },
+        [getMoreMeetingsThunk.rejected.type]: (state: MeetingsState) => {
+            state.loadingMeetings = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке встреч',
+                visibilityTime: 1500,
+            });
+        },
         [createMeetingThunk.fulfilled.type]: (
             state: MeetingsState,
             action: PayloadAction<Meeting>,
         ) => {
             const createdMeeting = action.payload;
             state.meetings[createdMeeting.id] = createdMeeting;
+        },
+        [createMeetingThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при создании встречи',
+                visibilityTime: 1500,
+            });
         },
         [updateMeetingThunk.fulfilled.type]: (
             state: MeetingsState,
@@ -61,6 +85,13 @@ const meetingsSlice = createSlice({
             const updatedMeeting = action.payload;
             state.meetings[updatedMeeting.id] = updatedMeeting;
         },
+        [updateMeetingThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при обновлении встречи',
+                visibilityTime: 1500,
+            });
+        },
         [updateMeetingEndTimeThunk.fulfilled.type]: (
             state: MeetingsState,
             action: PayloadAction<Meeting>,
@@ -68,12 +99,27 @@ const meetingsSlice = createSlice({
             const updatedMeeting = action.payload;
             state.meetings[updatedMeeting.id] = updatedMeeting;
         },
+        [updateMeetingEndTimeThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2:
+                    'Произошла ошибка при обновлении времени окончания встречи',
+                visibilityTime: 1500,
+            });
+        },
         [deleteMeetingThunk.fulfilled.type]: (
             state: MeetingsState,
             action: PayloadAction<number>,
         ) => {
             const meetingId = action.payload;
             delete state.meetings[meetingId];
+        },
+        [deleteMeetingThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при удалении встречи',
+                visibilityTime: 1500,
+            });
         },
     },
 });

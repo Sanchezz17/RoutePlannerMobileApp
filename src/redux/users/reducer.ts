@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import createMap from '../../common/utils/createMap';
 import {
@@ -33,6 +34,13 @@ const usersSlice = createSlice({
         ) => {
             state.currentUser = action.payload;
         },
+        [getCurrentUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке пользователя',
+                visibilityTime: 1500,
+            });
+        },
         [updateUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User>,
@@ -44,12 +52,26 @@ const usersSlice = createSlice({
                 state.users[user.id] = user;
             }
         },
+        [updateUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при обновлении пользователя',
+                visibilityTime: 1500,
+            });
+        },
         [deleteUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<number>,
         ) => {
             const userId = action.payload;
             delete state.users[userId];
+        },
+        [deleteUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при удалении пользователя',
+                visibilityTime: 1500,
+            });
         },
         [getManagersThunk.pending.type]: (state: UsersState) => {
             state.loadingManagers = true;
@@ -61,6 +83,14 @@ const usersSlice = createSlice({
             const managers = action.payload;
             state.users = createMap(managers);
             state.loadingManagers = false;
+        },
+        [getManagersThunk.rejected.type]: (state: UsersState) => {
+            state.loadingManagers = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке пользователей',
+                visibilityTime: 1500,
+            });
         },
         [getMoreManagersThunk.pending.type]: (state: UsersState) => {
             state.loadingManagers = true;
@@ -74,6 +104,14 @@ const usersSlice = createSlice({
             state.users = { ...state.users, ...extraManagersMap };
             state.loadingManagers = false;
         },
+        [getMoreManagersThunk.rejected.type]: (state: UsersState) => {
+            state.loadingManagers = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке пользователей',
+                visibilityTime: 1500,
+            });
+        },
         [addRightToUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<UserRight>,
@@ -86,6 +124,13 @@ const usersSlice = createSlice({
                     userRight.right,
                 ];
             }
+        },
+        [getMoreManagersThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при выдаче прав пользователю',
+                visibilityTime: 1500,
+            });
         },
     },
 });

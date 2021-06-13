@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import createMap from '../../common/utils/createMap';
 import { deleteUserThunk } from '../users/thunks';
@@ -31,6 +32,13 @@ const requestsSlice = createSlice({
     },
     extraReducers: {
         [deleteUserThunk.fulfilled.type]: deleteRequestByIdHandler,
+        [deleteUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при удалении пользователя',
+                visibilityTime: 1500,
+            });
+        },
         [getRequestsThunk.pending.type]: (state: RequestsState) => {
             state.loadingRequests = true;
         },
@@ -41,6 +49,14 @@ const requestsSlice = createSlice({
             const requests = action.payload;
             state.requests = createMap(requests);
             state.loadingRequests = false;
+        },
+        [getRequestsThunk.rejected.type]: (state: RequestsState) => {
+            state.loadingRequests = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке заявок',
+                visibilityTime: 1500,
+            });
         },
         [getMoreRequestsThunk.pending.type]: (state: RequestsState) => {
             state.loadingRequests = true;
@@ -53,6 +69,14 @@ const requestsSlice = createSlice({
             const extraRequestsMap = createMap(extraRequests);
             state.requests = { ...state.requests, ...extraRequestsMap };
             state.loadingRequests = false;
+        },
+        [getMoreRequestsThunk.rejected.type]: (state: RequestsState) => {
+            state.loadingRequests = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке заявок',
+                visibilityTime: 1500,
+            });
         },
     },
 });

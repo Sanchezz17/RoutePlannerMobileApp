@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import { GetCurrentRoutePayload, getCurrentRouteThunk } from './thunks';
 import { Route } from './types';
@@ -28,6 +29,13 @@ const routesSlice = createSlice({
             const { managerId, route } = action.payload;
             state.routes[managerId] = route;
             state.loadingRoute = false;
+        },
+        [getCurrentRouteThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке маршрута',
+                visibilityTime: 1500,
+            });
         },
     },
 });

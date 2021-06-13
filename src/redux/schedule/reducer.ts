@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 
 import createMap from '../../common/utils/createMap';
 import {
@@ -42,6 +43,16 @@ const scheduleSlice = createSlice({
             };
             state.loadingSchedule = false;
         },
+        [getManagerScheduleForWeekThunk.rejected.type]: (
+            state: ScheduleState,
+        ) => {
+            state.loadingSchedule = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке графика',
+                visibilityTime: 1500,
+            });
+        },
         [createManagerScheduleThunk.fulfilled.type]: (
             state: ScheduleState,
             action: PayloadAction<ManagerSchedule>,
@@ -54,6 +65,13 @@ const scheduleSlice = createSlice({
             state.schedule[managerId][
                 createdManagerSchedule.id
             ] = createdManagerSchedule;
+        },
+        [createManagerScheduleThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при создании смены',
+                visibilityTime: 1500,
+            });
         },
         [updateManagerScheduleThunk.fulfilled.type]: (
             state: ScheduleState,
@@ -68,6 +86,13 @@ const scheduleSlice = createSlice({
                 updatedManagerSchedule.id
             ] = updatedManagerSchedule;
         },
+        [updateManagerScheduleThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при обновлении смены',
+                visibilityTime: 1500,
+            });
+        },
         [deleteManagerScheduleThunk.fulfilled.type]: (
             state: ScheduleState,
             action: PayloadAction<DeleteManagerSchedulePayload>,
@@ -76,6 +101,13 @@ const scheduleSlice = createSlice({
             if (state.schedule[managerId]) {
                 delete state.schedule[managerId][id];
             }
+        },
+        [deleteManagerScheduleThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при удалении смены',
+                visibilityTime: 1500,
+            });
         },
     },
 });
