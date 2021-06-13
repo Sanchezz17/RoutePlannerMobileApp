@@ -3,7 +3,7 @@ import { Meeting } from '../meetings/types';
 export interface Route {
     id: number;
     managerScheduleId: number;
-    suitableMeetings: Meeting[];
+    meetings: Meeting[];
     distance: number;
     waitingTime: number;
     finishesAsPreferred: boolean;

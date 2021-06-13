@@ -28,6 +28,6 @@ export const getCurrentRouteMeetingsThunk = createAsyncThunk(
     'routes/getCurrentRouteMeetingsThunkStatus',
     async ({ managerId }: RouteSearchParameters): Promise<Meeting[]> => {
         const route = await routesApi.getCurrentRouteAsync(managerId);
-        return route.suitableMeetings;
+        return route.meetings;
     },
 );

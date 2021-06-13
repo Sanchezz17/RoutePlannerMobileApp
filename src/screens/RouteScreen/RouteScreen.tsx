@@ -83,7 +83,7 @@ export const RouteScreen = ({ route }: RouteScreenProps) => {
             }
             dataSelector={(rootState) =>
                 selectRoute(rootState, user.id)
-                    ?.suitableMeetings.slice()
+                    ?.meetings.slice()
                     .sort(
                         (first, second) =>
                             new Date(first.startTime).getTime() -
