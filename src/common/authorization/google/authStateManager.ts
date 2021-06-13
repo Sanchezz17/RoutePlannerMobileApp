@@ -2,6 +2,8 @@ import {
     GoogleSignin,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { TimedMutex } from 'tstl';
+
 import { Config } from './config';
 
 GoogleSignin.configure(Config);
@@ -33,21 +35,32 @@ export const signIn = async () => {
     }
 };
 
+export const trySignInSilently = async () => {
+    try {
+        await GoogleSignin.signInSilently();
+        return true;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+};
+
 export const signOut = async () => {
     try {
-        await GoogleSignin.revokeAccess();
+        const tokens = await getTokens();
+        await GoogleSignin.clearCachedAccessToken(tokens.accessToken);
         await GoogleSignin.signOut();
     } catch (error) {
         console.error(error);
     }
 };
 
+const mutex = new TimedMutex();
+
 export const getTokens = async () => {
+    await mutex.try_lock_for(3000);
     const tokens = await GoogleSignin.getTokens();
+    await mutex.unlock();
     console.log(tokens);
     return tokens;
-};
-
-export const clearCachedToken = async (accessToken: string) => {
-    await GoogleSignin.clearCachedAccessToken(accessToken);
 };

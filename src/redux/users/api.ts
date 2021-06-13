@@ -1,10 +1,11 @@
-import { authorizeFetch } from '../../common/utils/autorize-fetch';
 import { prefix } from '../../common/constants';
+import { authorizeFetch } from '../../common/utils/autorizeFetch';
 import { Coordinate, Right, User, UserRight } from './types';
 
 const usersApiPrefix = `${prefix}/users`;
 
 export interface UpdateUserDto {
+    name: string;
     mobilePhone: string;
     telegram: string;
     coordinate: Coordinate;
@@ -30,8 +31,14 @@ const deleteUserAsync = async (id: number): Promise<number> => {
     });
 };
 
-const getUsersWithoutRightsAsync = async (): Promise<User[]> => {
-    return await authorizeFetch(`${usersApiPrefix}/without-rights`);
+const getUsersAsync = async (
+    offset: number,
+    limit: number,
+    query: string,
+): Promise<User[]> => {
+    return await authorizeFetch(
+        `${usersApiPrefix}/with-rights?offset=${offset}&limit=${limit}&query=${query}`,
+    );
 };
 
 const addRightToUserAsync = async (
@@ -47,6 +54,6 @@ export const userAPI = {
     getCurrentUserAsync,
     updateUserAsync,
     deleteUserAsync,
-    getUsersWithoutRightsAsync,
     addRightToUserAsync,
+    getManagers: getUsersAsync,
 };

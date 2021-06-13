@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 export default StyleSheet.create({
-    view: {},
-    loadingText: {
-        textAlign: 'center',
-        margin: 15,
-        fontSize: 17,
+    container: {
+        flex: 1,
+        height,
     },
 });

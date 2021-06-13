@@ -6,34 +6,47 @@ import {
 } from '@react-navigation/drawer';
 import React from 'react';
 import { View } from 'react-native';
-import { UserCard } from '../../components/UserCard/UserCard';
-import styles from './DrawerContent.styles';
+
 import { signOut } from '../../common/authorization/google/authStateManager';
+import { UserCard } from '../../components/Cards/UserCard/UserCard';
+import { PaletteStorage } from '../../components/palette/PaletteStorage';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { removeUser } from '../../redux/users/reducer';
+import { logout } from '../../redux/users/reducer';
 import { selectCurrentUser } from '../../redux/users/selectors';
+import styles from './DrawerContent.styles';
+
+const palette = PaletteStorage.getPalette();
 
 export const DrawerContent = (props: DrawerContentComponentProps) => {
     const dispatch = useAppDispatch();
     const currentUser = useAppSelector(selectCurrentUser);
 
     return (
-        <DrawerContentScrollView {...props} style={styles.view}>
-            <View style={styles.userCard}>
-                <UserCard user={currentUser} />
-            </View>
-            <DrawerItemList {...props} />
-            <View>
+        <View style={styles.drawerElements}>
+            <DrawerContentScrollView
+                nestedScrollEnabled={true}
+                style={styles.drawerElements}
+                {...props}>
+                <View style={styles.userCard}>
+                    <UserCard user={currentUser} />
+                </View>
+                <DrawerItemList
+                    activeBackgroundColor={palette.PrimaryTransparent}
+                    activeTintColor={palette.Primary}
+                    inactiveTintColor={palette.SystemUI}
+                    {...props}
+                />
+            </DrawerContentScrollView>
+            <View style={styles.exitButton}>
                 <DrawerItem
+                    labelStyle={styles.exitButtonLabel}
                     label="Выйти"
                     onPress={async () => {
-                        if (signOut) {
-                            await signOut();
-                            dispatch(removeUser(currentUser.id));
-                        }
+                        await signOut();
+                        dispatch(logout());
                     }}
                 />
             </View>
-        </DrawerContentScrollView>
+        </View>
     );
 };

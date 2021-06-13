@@ -1,49 +1,63 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, UserRight } from './types';
+import Toast from 'react-native-toast-message';
+
+import createMap from '../../common/utils/createMap';
 import {
-    getCurrentUserThunk,
-    updateUserThunk,
-    deleteUserThunk,
-    getUsersWithoutRightsThunk,
     addRightToUserThunk,
+    deleteUserThunk,
+    getCurrentUserThunk,
+    getManagersThunk,
+    getMoreManagersThunk,
+    updateUserThunk,
 } from './thunks';
+import { User, UserRight } from './types';
 
 export interface UsersState {
-    currentUserId: number;
+    currentUser?: User;
     users: { [key: number]: User };
-    requests: { [key: number]: User };
+    loadingManagers: boolean;
 }
 
 const initialState: UsersState = {
-    currentUserId: 0,
     users: {},
-    requests: {},
+    loadingManagers: false,
 };
 
 const usersSlice = createSlice({
-    name: 'users',
+    name: 'usersSlice',
     initialState: initialState,
-    reducers: {
-        removeUser: (state: UsersState, action: PayloadAction<number>) => {
-            const userId = action.payload;
-            delete state.users[userId];
-        },
-    },
+    reducers: { logout: (_: UsersState) => {} },
     extraReducers: {
         [getCurrentUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User>,
         ) => {
-            const currentUser = action.payload;
-            state.currentUserId = currentUser.id;
-            state.users[currentUser.id] = currentUser;
+            state.currentUser = action.payload;
+        },
+        [getCurrentUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке пользователя',
+                visibilityTime: 1500,
+            });
         },
         [updateUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User>,
         ) => {
             const user = action.payload;
-            state.users[user.id] = user;
+            if (user.id === state.currentUser?.id) {
+                state.currentUser = user;
+            } else {
+                state.users[user.id] = user;
+            }
+        },
+        [updateUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при обновлении пользователя',
+                visibilityTime: 1500,
+            });
         },
         [deleteUserThunk.fulfilled.type]: (
             state: UsersState,
@@ -51,33 +65,58 @@ const usersSlice = createSlice({
         ) => {
             const userId = action.payload;
             delete state.users[userId];
-            delete state.requests[userId];
         },
-        [getUsersWithoutRightsThunk.fulfilled.type]: (
+        [deleteUserThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при удалении пользователя',
+                visibilityTime: 1500,
+            });
+        },
+        [getManagersThunk.pending.type]: (state: UsersState) => {
+            state.loadingManagers = true;
+        },
+        [getManagersThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<User[]>,
         ) => {
-            const usersWithoutRights = action.payload;
-            const requestsMap = usersWithoutRights.reduce(function (
-                map: { [key: number]: User },
-                obj,
-            ) {
-                map[obj.id] = obj;
-                return map;
-            },
-            {});
-            state.requests = {
-                ...state.requests,
-                ...requestsMap,
-            };
+            const managers = action.payload;
+            state.users = createMap(managers);
+            state.loadingManagers = false;
+        },
+        [getManagersThunk.rejected.type]: (state: UsersState) => {
+            state.loadingManagers = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке пользователей',
+                visibilityTime: 1500,
+            });
+        },
+        [getMoreManagersThunk.pending.type]: (state: UsersState) => {
+            state.loadingManagers = true;
+        },
+        [getMoreManagersThunk.fulfilled.type]: (
+            state: UsersState,
+            action: PayloadAction<User[]>,
+        ) => {
+            const extraManagers = action.payload;
+            const extraManagersMap = createMap(extraManagers);
+            state.users = { ...state.users, ...extraManagersMap };
+            state.loadingManagers = false;
+        },
+        [getMoreManagersThunk.rejected.type]: (state: UsersState) => {
+            state.loadingManagers = false;
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при загрузке пользователей',
+                visibilityTime: 1500,
+            });
         },
         [addRightToUserThunk.fulfilled.type]: (
             state: UsersState,
             action: PayloadAction<UserRight>,
         ) => {
             const userRight = action.payload;
-            console.log(userRight);
-            delete state.requests[userRight.userId];
 
             if (state.users[userRight.userId]) {
                 state.users[userRight.userId].rights = [
@@ -86,8 +125,15 @@ const usersSlice = createSlice({
                 ];
             }
         },
+        [getMoreManagersThunk.rejected.type]: () => {
+            Toast.show({
+                type: 'error',
+                text2: 'Произошла ошибка при выдаче прав пользователю',
+                visibilityTime: 1500,
+            });
+        },
     },
 });
 
-export const { removeUser } = usersSlice.actions;
+export const { logout } = usersSlice.actions;
 export default usersSlice.reducer;

@@ -1,42 +1,43 @@
-import {
-    Button,
-    SafeAreaView,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
-} from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Toast from 'react-native-easy-toast';
-import { useForm } from 'react-hook-form';
-import styles from './OptionsScreen.styles';
-import { UserCard } from '../../components/UserCard/UserCard';
-import { Coordinate, Right } from '../../redux/users/types';
-import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { updateUserThunk } from '../../redux/users/thunks';
 import deepEqual from 'deep-equal';
-import { selectCurrentUser } from '../../redux/users/selectors';
-import { DrawerRoutes } from '../../routing/routes';
-import { DrawerNavigationProps } from '../../routing/types';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { LogBox, SafeAreaView, ScrollView, View } from 'react-native';
+import { Button, Divider } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
+import { SettingsCard } from '../../components/Cards/SettingsCard/SettingsCard';
+import { GooglePlacesInput } from '../../components/GooglePlacesInput/GooglePlacesInput';
+import MailIcon from '../../components/icons/Inputs/Text/MailIcon';
+import NameIcon from '../../components/icons/Inputs/Text/NameIcon';
+import PhoneIcon from '../../components/icons/Inputs/Text/PhoneIcon';
+import TelegramIcon from '../../components/icons/Inputs/Text/TelegramIcon';
+import TextInput from '../../components/TextInput/TextInput';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { selectCurrentUser } from '../../redux/users/selectors';
+import { updateUserThunk } from '../../redux/users/thunks';
+import { Coordinate, defaultCoordinate } from '../../redux/users/types';
+import { DrawerRoutes } from '../../routing/main/routes';
+import { DrawerNavigationProps } from '../../routing/main/types';
+import { ManagersRoutes } from '../../routing/managers/routes';
+import { ManagersStackNavigationProps } from '../../routing/managers/types';
+import styles, { theme } from './OptionsScreen.styles';
+
+LogBox.ignoreLogs([
+    /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
+]);
+
+const NAME_FIELD = 'name';
 const MOBILE_PHONE_FIELD = 'mobilePhone';
 const TELEGRAM_FIELD = 'telegram';
 
-const defaultCoordinate: Coordinate = {
-    latitude: 56.8519,
-    longitude: 60.6122,
-    address: '',
-};
-
-type OptionsScreenProps = DrawerNavigationProps<DrawerRoutes.Options>;
+type OptionsScreenProps =
+    | DrawerNavigationProps<DrawerRoutes.Options>
+    | ManagersStackNavigationProps<ManagersRoutes.Options>;
 
 export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
     const user = route.params?.user ?? currentUser;
     const dispatch = useAppDispatch();
-
-    const toast = useRef<Toast>(null);
 
     const [coordinate, setCoordinate] = useState<Coordinate>(
         user?.coordinate ?? defaultCoordinate,
@@ -46,20 +47,9 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
 
     const onSubmit = useCallback(
         async (formData) => {
-            //console.log(`Types: ${JSON.stringify(users)}`);
-            //console.log(formData);
-            //console.log(coordinate);
-
-            // Пользователь может обновлять только себя, если он не админ
-            if (
-                !currentUser.rights.includes(Right.Admin) &&
-                currentUser.id !== user.id
-            ) {
-                return;
-            }
-
             if (
                 !deepEqual(coordinate, user.coordinate) ||
+                (formData.name && user.name !== formData.name) ||
                 (formData.telegram && user.telegram !== formData.telegram) ||
                 (formData.mobilePhone &&
                     user.mobilePhone !== formData.mobilePhone)
@@ -68,19 +58,24 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
                     updateUserThunk({
                         id: user.id,
                         updateUserDto: {
+                            name: formData.name,
                             mobilePhone: formData.mobilePhone,
                             telegram: formData.telegram,
                             coordinate: coordinate,
                         },
                     }),
                 );
-                toast.current?.show('Данные сохранены', 1500);
+                Toast.show({
+                    type: 'success',
+                    text2: 'Данные сохранены',
+                    visibilityTime: 1500,
+                });
                 console.log(`user ${user.id} changed`);
                 console.log(`form data ${JSON.stringify(formData)}`);
                 console.log(`updated user ${JSON.stringify(updatedUser)}`);
             }
         },
-        [currentUser, dispatch, coordinate, user],
+        [dispatch, coordinate, user],
     );
 
     const onChangeField = useCallback(
@@ -91,63 +86,75 @@ export const OptionsScreen = ({ route }: OptionsScreenProps) => {
     );
 
     useEffect(() => {
+        register(NAME_FIELD);
         register(MOBILE_PHONE_FIELD);
         register(TELEGRAM_FIELD);
-        if (user.mobilePhone) {
-            setValue(MOBILE_PHONE_FIELD, user.mobilePhone);
-        }
-        if (user.telegram) {
-            setValue(TELEGRAM_FIELD, user.telegram);
-        }
-    }, [register, setValue, user.mobilePhone, user.telegram]);
+        setValue(NAME_FIELD, user.name);
+        setValue(MOBILE_PHONE_FIELD, user.mobilePhone);
+        setValue(TELEGRAM_FIELD, user.telegram);
+        setCoordinate(user?.coordinate ?? defaultCoordinate);
+    }, [register, setValue, user]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.view}>
             <ScrollView
                 contentInsetAdjustmentBehavior="automatic"
-                keyboardShouldPersistTaps={'handled'}>
-                <View style={styles.view}>
-                    <UserCard user={user} />
-                    <Toast ref={toast} position={'center'} />
-                    <View style={styles.form}>
-                        <Text style={styles.fieldLabel}>Email</Text>
-                        <TextInput
-                            style={{ ...styles.input, ...styles.emailInput }}
-                            value={user.email}
-                            editable={false}
-                            onChangeText={() => undefined}
-                        />
-                        <Text style={styles.fieldLabel}>Телефон</Text>
-                        <TextInput
-                            style={styles.input}
-                            defaultValue={user.mobilePhone}
-                            autoCompleteType="tel"
-                            keyboardType="numeric"
-                            textContentType="telephoneNumber"
-                            maxLength={11}
-                            onChangeText={onChangeField(MOBILE_PHONE_FIELD)}
-                        />
-                        <Text style={styles.fieldLabel}>Telegram</Text>
-                        <TextInput
-                            style={styles.input}
-                            defaultValue={user.telegram}
-                            onChangeText={onChangeField(TELEGRAM_FIELD)}
-                        />
-                        <Text style={styles.fieldLabel}>Адрес</Text>
-                        <GooglePlacesInput
-                            address={coordinate.address}
-                            onChangeCoordinate={(newCoordinate) => {
-                                setCoordinate(newCoordinate);
-                            }}
-                        />
-                    </View>
-                    <View style={styles.saveButton}>
-                        <Button
-                            title="Сохранить"
-                            onPress={handleSubmit(onSubmit)}
-                        />
-                    </View>
+                keyboardShouldPersistTaps={'handled'}
+                contentContainerStyle={styles.container}>
+                <SettingsCard user={user} />
+                <Divider style={styles.divider} />
+                <View style={styles.form}>
+                    <TextInput
+                        label={'Email'}
+                        mode={'outlined'}
+                        defaultValue={user.email}
+                        active={false}
+                        leftIcon={<MailIcon focused={false} />}
+                    />
+                    <TextInput
+                        label={'Имя'}
+                        mode={'outlined'}
+                        autoCorrect={false}
+                        onChangeText={onChangeField(NAME_FIELD)}
+                        defaultValue={user.name}
+                        leftIcon={<NameIcon />}
+                    />
+                    <TextInput
+                        label={'Телефон'}
+                        mode={'outlined'}
+                        defaultValue={user.mobilePhone}
+                        autoCompleteType="tel"
+                        keyboardType="numeric"
+                        textContentType="telephoneNumber"
+                        maxLength={11}
+                        onChangeText={onChangeField(MOBILE_PHONE_FIELD)}
+                        leftIcon={<PhoneIcon />}
+                    />
+                    <TextInput
+                        label={'Telegram'}
+                        mode={'outlined'}
+                        autoCorrect={false}
+                        defaultValue={user.telegram}
+                        onChangeText={onChangeField(TELEGRAM_FIELD)}
+                        leftIcon={<TelegramIcon />}
+                    />
+                    <GooglePlacesInput
+                        address={coordinate.address}
+                        onChangeCoordinate={(newCoordinate) => {
+                            setCoordinate(newCoordinate);
+                        }}
+                        mode={'outlined'}
+                    />
                 </View>
+
+                <Button
+                    style={styles.fab}
+                    labelStyle={styles.saveButtonLabel}
+                    mode={'contained'}
+                    onPress={handleSubmit(onSubmit)}
+                    theme={theme}>
+                    Сохранить
+                </Button>
             </ScrollView>
         </SafeAreaView>
     );

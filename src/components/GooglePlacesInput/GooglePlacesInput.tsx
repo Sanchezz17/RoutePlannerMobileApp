@@ -1,7 +1,7 @@
-import { LogBox } from 'react-native';
+import { LogBox, StyleProp, ViewStyle } from 'react-native';
 
 LogBox.ignoreLogs([
-    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.',
+    /VirtualizedLists should never be nested inside plain ScrollViews with the same orientation.*/,
 ]);
 
 import React, { useEffect, useRef } from 'react';
@@ -9,25 +9,39 @@ import {
     GooglePlacesAutocomplete,
     GooglePlacesAutocompleteRef,
 } from 'react-native-google-places-autocomplete';
-import { Coordinate } from '../../redux/users/types';
+
 import { GoogleMapsApiKey } from '../../common/secrets';
+import TextInput from '../../components/TextInput/TextInput';
+import { Coordinate } from '../../redux/users/types';
+import LocationIcon from '../icons/Inputs/Pickers/LocationIcon';
+import AddressIcon from '../icons/Inputs/Text/AddressIcon';
 
 export interface GooglePlacesInputProps {
     address: string;
     onChangeCoordinate: (newCoordinate: Coordinate) => void;
+    mode?: 'flat' | 'outlined' | undefined;
+    style?: StyleProp<ViewStyle>;
+    label?: string;
+    showLeftIcon?: boolean;
+    showRightIcon?: boolean;
+    showUnderline?: boolean;
 }
 
 export const GooglePlacesInput = ({
     address,
     onChangeCoordinate,
+    mode,
+    style,
+    label,
+    showLeftIcon = true,
+    showRightIcon = false,
+    showUnderline = true,
 }: GooglePlacesInputProps) => {
     const ref = useRef<GooglePlacesAutocompleteRef>(null);
 
     useEffect(() => {
-        if (address) {
-            ref.current?.setAddressText(address);
-        }
-    }, [address]);
+        ref.current?.setAddressText(address);
+    }, [address, onChangeCoordinate]);
 
     return (
         <GooglePlacesAutocomplete
@@ -35,17 +49,13 @@ export const GooglePlacesInput = ({
             placeholder=""
             fetchDetails={true}
             onPress={(data, detail) => {
-                //console.log(data);
-                //console.log(detail);
                 const location = detail?.geometry?.location;
-                console.log(`Location: ${JSON.stringify(location)}`);
                 if (location) {
                     const newCoordinate: Coordinate = {
                         latitude: location.lat,
                         longitude: location.lng,
                         address: data.description,
                     };
-                    console.log(newCoordinate);
                     onChangeCoordinate(newCoordinate);
                     ref.current?.setAddressText(data.description);
                 }
@@ -55,11 +65,14 @@ export const GooglePlacesInput = ({
                 key: GoogleMapsApiKey,
                 language: 'ru',
             }}
-            styles={{
-                textInput: {
-                    borderColor: '#000000',
-                    borderWidth: 2,
-                },
+            textInputProps={{
+                InputComp: TextInput,
+                label: label ?? 'Адрес',
+                leftIcon: showLeftIcon ? <AddressIcon /> : '',
+                rightIcon: showRightIcon ? <LocationIcon /> : '',
+                mode: mode,
+                style: style,
+                showUnderline: showUnderline,
             }}
         />
     );
