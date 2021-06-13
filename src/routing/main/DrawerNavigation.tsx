@@ -8,6 +8,7 @@ import React from 'react';
 
 import ClientsIcon from '../../components/icons/Drawer/ClientsIcon';
 import ManagersIcon from '../../components/icons/Drawer/ManagersIcon';
+import MapIcon from '../../components/icons/Drawer/MapIcon';
 import MeetingsIcon from '../../components/icons/Drawer/MeetingsIcon';
 import RequestsIcon from '../../components/icons/Drawer/RequestsIcon';
 import RouteIcon from '../../components/icons/Drawer/RouteIcon';
@@ -61,6 +62,9 @@ const DrawerNavigation = () => {
                     component={HomeScreen}
                     options={{
                         title: 'Главная',
+                        drawerIcon: ({ focused }) => (
+                            <MapIcon focused={focused} />
+                        ),
                         headerShown: true,
                     }}
                 />
