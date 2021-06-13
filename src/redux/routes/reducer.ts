@@ -30,7 +30,8 @@ const routesSlice = createSlice({
             state.routes[managerId] = route;
             state.loadingRoute = false;
         },
-        [getCurrentRouteThunk.rejected.type]: () => {
+        [getCurrentRouteThunk.rejected.type]: (state: RoutesState) => {
+            state.loadingRoute = false;
             Toast.show({
                 type: 'error',
                 text2: 'Произошла ошибка при загрузке маршрута',
