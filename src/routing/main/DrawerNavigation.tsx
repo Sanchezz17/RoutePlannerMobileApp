@@ -7,6 +7,7 @@ import {
 import React from 'react';
 
 import ClientsIcon from '../../components/icons/Drawer/ClientsIcon';
+import InfoIcon from '../../components/icons/Drawer/InfoIcon';
 import ManagersIcon from '../../components/icons/Drawer/ManagersIcon';
 import MapIcon from '../../components/icons/Drawer/MapIcon';
 import MeetingsIcon from '../../components/icons/Drawer/MeetingsIcon';
@@ -18,7 +19,7 @@ import { DrawerContent } from '../../containers/DrawerContent/DrawerContent';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { hasUserRight, Right } from '../../redux/users/types';
-import { HomeScreen } from '../../screens/HomeScreen/HomeScreen';
+import { InfoScreen } from '../../screens/InfoScreen/InfoScreen';
 import { OptionsScreen } from '../../screens/OptionsScreen/OptionsScreen';
 import { RequestsScreen } from '../../screens/RequestsScreen/RequestsScreen';
 import { RouteScreen } from '../../screens/RouteScreen/RouteScreen';
@@ -55,19 +56,14 @@ const DrawerNavigation = () => {
     return (
         <NavigationContainer theme={DefaultTheme}>
             <Drawer.Navigator
-                initialRouteName="Home"
+                initialRouteName={
+                    currentUserIsAdmin
+                        ? DrawerRoutes.Managers
+                        : currentUserIsManager
+                        ? DrawerRoutes.Schedule
+                        : DrawerRoutes.Info
+                }
                 drawerContent={(props) => <DrawerContent {...props} />}>
-                <Drawer.Screen
-                    name={DrawerRoutes.Home}
-                    component={HomeScreen}
-                    options={{
-                        title: 'Главная',
-                        drawerIcon: ({ focused }) => (
-                            <MapIcon focused={focused} />
-                        ),
-                        headerShown: true,
-                    }}
-                />
                 {currentUserIsManager && (
                     <Drawer.Screen
                         name={DrawerRoutes.Schedule}
@@ -159,6 +155,17 @@ const DrawerNavigation = () => {
                         }}
                     />
                 )}
+                <Drawer.Screen
+                    name={DrawerRoutes.Info}
+                    component={InfoScreen}
+                    options={{
+                        title: 'О приложении',
+                        headerShown: true,
+                        drawerIcon: ({ focused }) => (
+                            <InfoIcon focused={focused} />
+                        ),
+                    }}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     );

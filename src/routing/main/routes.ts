@@ -1,7 +1,7 @@
 import { User } from '../../redux/users/types';
 
 export enum DrawerRoutes {
-    Home = 'Home',
+    Info = 'Info',
     Options = 'Options',
     Requests = 'Requests',
     Managers = 'Managers',
@@ -13,7 +13,7 @@ export enum DrawerRoutes {
 }
 
 export type RootDrawerParamList = {
-    [DrawerRoutes.Home]: undefined;
+    [DrawerRoutes.Info]: undefined;
     [DrawerRoutes.Options]: { user: User };
     [DrawerRoutes.Requests]: undefined;
     [DrawerRoutes.Managers]: undefined;

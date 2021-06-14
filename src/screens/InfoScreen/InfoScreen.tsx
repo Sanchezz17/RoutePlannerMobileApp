@@ -5,11 +5,11 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/users/selectors';
 import { DrawerRoutes } from '../../routing/main/routes';
 import { DrawerNavigationProps } from '../../routing/main/types';
-import styles from './HomeScreen.styles';
+import styles from './InfoScreen.styles';
 
-type HomeScreenProps = DrawerNavigationProps<DrawerRoutes.Home>;
+type InfoScreenProps = DrawerNavigationProps<DrawerRoutes.Info>;
 
-export const HomeScreen = ({ navigation }: HomeScreenProps) => {
+export const InfoScreen = ({ navigation }: InfoScreenProps) => {
     const currentUser = useAppSelector(selectCurrentUser);
 
     return (
