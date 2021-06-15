@@ -1,20 +1,40 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+import { PaletteStorage } from '../../components/palette/PaletteStorage';
+
+const palette = PaletteStorage.getPalette();
 export default StyleSheet.create({
+    background: {
+        backgroundColor: palette.Background,
+    },
     scrollView: {
-        backgroundColor: Colors.lighter,
+        height: '100%',
+        zIndex: 2,
+    },
+    logoIcon: {
+        position: 'absolute',
+        bottom: 40,
+        left: -100,
+        zIndex: 1,
     },
     sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
+        padding: 20,
+        marginBottom: 20,
+        paddingBottom: 100,
     },
-    sectionDescription: {
-        marginTop: 8,
-        marginBottom: 10,
-        fontSize: 18,
-        textAlign: 'center',
-        fontWeight: '400',
-        color: Colors.dark,
+    headerLine: {
+        marginTop: 20,
+        flexDirection: 'row',
+    },
+    header: {
+        fontSize: 20,
+    },
+    headerRole: {
+        fontWeight: '700',
+        fontSize: 21,
+    },
+    paragraph: {
+        marginTop: 20,
+        fontSize: 16,
     },
 });

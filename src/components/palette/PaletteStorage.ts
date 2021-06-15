@@ -6,6 +6,7 @@ interface IPalette {
     readonly PrimaryFaint: string;
     readonly Secondary: string;
     readonly SecondaryTransparent: string;
+    readonly SecondaryFaint: string;
     readonly SystemUI: string;
     readonly SystemUITransparent: string;
     readonly SystemUISecondary: string;
@@ -24,6 +25,7 @@ class LightPalette implements IPalette {
     readonly SystemUIStroke: string = '#E0E0E0';
     readonly Background: string = '#FFFFFF';
     readonly PrimaryFaint: string = '#DEC8FF';
+    readonly SecondaryFaint: string = '#EBE1F9';
 }
 
 class DarkPalette implements IPalette {
@@ -37,6 +39,7 @@ class DarkPalette implements IPalette {
     readonly SystemUIStroke: string = '#E0E0E0';
     readonly Background: string = '#FFFFFF';
     readonly PrimaryFaint: string = '#DEC8FF';
+    readonly SecondaryFaint: string = '#EBE1F9';
 }
 
 export class PaletteStorage {
