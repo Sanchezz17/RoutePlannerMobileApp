@@ -37,4 +37,8 @@ export default StyleSheet.create({
         marginTop: 20,
         fontSize: 16,
     },
+    alertIcon: {
+        alignSelf: 'center',
+        margin: 10,
+    },
 });
