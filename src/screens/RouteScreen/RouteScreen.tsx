@@ -91,8 +91,10 @@ export const RouteScreen = ({ route }: RouteScreenProps) => {
                     ) ?? []
             }
             loadingSelector={selectLoadingRoute}
-            loadDataThunk={getCurrentRouteThunk}
-            loadMoreDataThunk={getCurrentRouteThunk}
+            loadDataThunk={() => getCurrentRouteThunk({ managerId: user.id })}
+            loadMoreDataThunk={() =>
+                getCurrentRouteThunk({ managerId: user.id })
+            }
         />
     );
 };

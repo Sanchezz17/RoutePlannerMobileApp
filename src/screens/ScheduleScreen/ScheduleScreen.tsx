@@ -24,7 +24,12 @@ export const ScheduleScreen = ({ navigation, route }: ScheduleScreenProps) => {
 
     return (
         <ListScreen
-            loadDataThunk={getManagerScheduleForWeekThunk}
+            loadDataThunk={() =>
+                getManagerScheduleForWeekThunk({
+                    managerId: user.id,
+                    weekDate: date,
+                })
+            }
             dataSelector={(state) =>
                 selectManagerSchedule(state, user.id, date)
             }
