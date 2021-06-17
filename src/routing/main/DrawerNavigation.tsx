@@ -103,7 +103,7 @@ const DrawerNavigation = () => {
                         })}
                     />
                 )}
-                {(currentUserIsManager || currentUserIsAdmin) && (
+                {currentUserIsAdmin && (
                     <Drawer.Screen
                         name={DrawerRoutes.Clients}
                         component={ClientsNavigation}
